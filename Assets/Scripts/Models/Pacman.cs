@@ -5,6 +5,7 @@ using Enums;
 using Json;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Linq;
 
 namespace Models
 {
@@ -24,9 +25,10 @@ namespace Models
 
         public static void Update(GameData jsonGameData)
         {
-            Route = jsonGameData.pacman.route.ConvertAll(code => (MovementType)code);
-            Speed = jsonGameData.pacman.speed;
-            Magnet = jsonGameData.pacman.magnet;
+            CurrentPosition = new Vector2(jsonGameData.Pacman.Position[0], jsonGameData.Pacman.Position[1]);
+            Route = jsonGameData.Actions[0].ConvertAll(code => (MovementType)code);
+            Speed = jsonGameData.Pacman.Speed;
+            Magnet = jsonGameData.Pacman.Magnet;
         }
     }
 }

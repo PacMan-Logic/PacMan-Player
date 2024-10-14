@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using Enums;
 using Json;
 using UnityEngine;
-using UnityEngine.Assertions;
-
+using System.Linq;
 namespace Models
 {
     public class Ghost
@@ -25,17 +24,18 @@ namespace Models
         public static void Update(GameData jsonGameData)
         {
             Debug.Assert(AllGhosts.Count == 4, "ghosts update failed: not enough ghosts instantiated");
-            if (jsonGameData.round == 1)
+            if (jsonGameData.Round == 1)
             {
                 AllGhosts.Sort((g1, g2) => g1.GhostID.CompareTo(g2.GhostID));
             }
 
-            var ghostsData = jsonGameData.ghosts;
+            var ghostsData = jsonGameData.Ghost;
             foreach (GhostData ghostData in ghostsData)
             {
                 try
                 {
-                    AllGhosts[ghostData.id].Route = ghostData.route.ConvertAll(code => (MovementType)code);
+                    AllGhosts[ghostData.Id].CurrentPosition = new Vector2(ghostData.Position[0], ghostData.Position[1]);
+                    AllGhosts[ghostData.Id].Route = jsonGameData.Actions[ghostData.Id + 1].ConvertAll(code => (MovementType)code);
                 }
                 catch (Exception e)
                 {
