@@ -18,7 +18,8 @@ namespace Models
         {
             CurrentPosition = initialPosition;
             GhostID = ghostID;
-            AllGhosts.Add(this);
+            if(AllGhosts.Count < 4)
+                AllGhosts.Add(this);
         }
 
         public static void Update(GameData jsonGameData)

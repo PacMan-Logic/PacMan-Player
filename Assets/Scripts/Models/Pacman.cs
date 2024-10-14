@@ -25,6 +25,7 @@ namespace Models
 
         public static void Update(GameData jsonGameData)
         {
+            PlayerID = jsonGameData.Pacman.player;
             CurrentPosition = new Vector2(jsonGameData.Pacman.Position[0], jsonGameData.Pacman.Position[1]);
             Route = jsonGameData.Actions[0].ConvertAll(code => (MovementType)code);
             Speed = jsonGameData.Pacman.Speed;
