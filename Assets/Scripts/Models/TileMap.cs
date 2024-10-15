@@ -8,13 +8,13 @@ using UnityEngine.Assertions;
 
 namespace Models
 {
-    public static class TileMap
+    public class TileMap
     {
         public static int Length;
         public static int Width;
         public static List<Tile> TileList;
 
-        public static void Init(GameData jsonGameData)
+        public void Init(GameData jsonGameData)
         {
             var tileMapData = jsonGameData.Map;
             Debug.Assert(tileMapData != null, nameof(tileMapData) + " != null");
@@ -23,6 +23,9 @@ namespace Models
             Width = tileMapData.Width;
             TileList = tileMapData.TileList;
 
+            Tilemap_Manage tilemap_Manage = new Tilemap_Manage();
+            tilemap_Manage.load(tileMapData); //加载包中的信息到地图中
+            //这东西在一次地图中应该只刷新一次
         }
 
         // todo: 这个是全量更新，要是搞明白了增量更新的协议，就需要修改一下

@@ -19,7 +19,9 @@ public class Test01 : MonoBehaviour
         
         string jsonData = File.ReadAllText(jsonDataCollection[0]);
         GameData gameData = JsonConvert.DeserializeObject<GameData>(jsonData);
-        TileMap.Init(gameData);
+        Models.TileMap tileMap = new Models.TileMap();
+        tileMap.Init(gameData);
+        //试试能不能把地图加载出来
         //PrintTiles();
         
         Pacman.Update(gameData);
@@ -40,7 +42,7 @@ public class Test01 : MonoBehaviour
     //private void PrintTiles()
     //{
     //    Debug.Log("printing tiles");
-    //    var tileMap = TileMap.Map;
+    //    var tileMap = TileMap.TileList;
     //    string message = new String("");
     //    for (int i = 0; i < 10; i++)
     //    {
