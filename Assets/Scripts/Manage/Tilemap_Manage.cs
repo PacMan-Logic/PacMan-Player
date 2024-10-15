@@ -9,7 +9,7 @@ using UnityEditor;
 using JetBrains.Annotations;
 using static UnityEditor.Progress;
 
-public class Tilemap_Manage : MonoBehaviour
+public class Tilemap_Manage
 {
     private Tilemap tilemap;
     public void load_wall(MapData mapdata) {
