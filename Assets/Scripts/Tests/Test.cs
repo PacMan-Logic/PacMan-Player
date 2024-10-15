@@ -20,7 +20,7 @@ public class Test01 : MonoBehaviour
         string jsonData = File.ReadAllText(jsonDataCollection[0]);
         GameData gameData = JsonConvert.DeserializeObject<GameData>(jsonData);
         TileMap.Init(gameData);
-        PrintTiles();
+        //PrintTiles();
         
         Pacman.Update(gameData);
         var ghost0 = new Ghost(0, new Vector2(0, 0));
@@ -37,48 +37,48 @@ public class Test01 : MonoBehaviour
         
     }
 
-    private void PrintTiles()
-    {
-        Debug.Log("printing tiles");
-        var tileMap = TileMap.Map;
-        string message = new String("");
-        for (int i = 0; i < 10; i++)
-        {
-            for (int j = 0; j < 10; j++)
-            {
-                var tile = tileMap[i, j];
-                string msg = new string("");
-                switch (tile.Type)
-                {
-                    case TileType.Wall:
-                        msg = "墙";
-                        break;
-                    case TileType.Empty:
-                        msg = " ";
-                        break;
-                    case TileType.PacDot:
-                        msg = "O";
-                        break;
-                    case TileType.Acceleration:
-                        msg = "速";
-                        break;
-                    case TileType.Energizer:
-                        msg = "大";
-                        break;
-                    case TileType.Magnet:
-                        msg = "磁";
-                        break;
-                }
+    //private void PrintTiles()
+    //{
+    //    Debug.Log("printing tiles");
+    //    var tileMap = TileMap.Map;
+    //    string message = new String("");
+    //    for (int i = 0; i < 10; i++)
+    //    {
+    //        for (int j = 0; j < 10; j++)
+    //        {
+    //            var tile = tileMap[i, j];
+    //            string msg = new string("");
+    //            switch (tile.Type)
+    //            {
+    //                case TileType.Wall:
+    //                    msg = "墙";
+    //                    break;
+    //                case TileType.Empty:
+    //                    msg = " ";
+    //                    break;
+    //                case TileType.PacDot:
+    //                    msg = "O";
+    //                    break;
+    //                case TileType.Acceleration:
+    //                    msg = "速";
+    //                    break;
+    //                case TileType.Energizer:
+    //                    msg = "大";
+    //                    break;
+    //                case TileType.Magnet:
+    //                    msg = "磁";
+    //                    break;
+    //            }
 
-                message += msg;
-                message += "\t";
-            }
+    //            message += msg;
+    //            message += "\t";
+    //        }
 
-            message += "\n \n \n";
-        }
+    //        message += "\n \n \n";
+    //    }
 
-        Debug.Log(message);
-    }
+    //    Debug.Log(message);
+    //}
 
     private void PrintPacmanInfo()
     {

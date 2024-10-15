@@ -1,18 +1,26 @@
 ﻿using UnityEngine;
 using System;
+using Enums;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine.Serialization;
 
 namespace Json
 {
+    [Serializable]
+    public class Tile
+    {
+        public TileType Type = TileType.Empty;
+        public string TileName;
+        public int x, y;
+    }
 
     [Serializable]
     public class MapData
     {
         public int Length;
         public int Width;
-        public List<List<int>> Code;
+        public List<Tile> TileList;
     }
 
     [Serializable]
