@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Enums;
 using Json;
 using UnityEngine;
+using Constants;
 using System.Linq;
 namespace Models
 {
@@ -18,13 +19,13 @@ namespace Models
         {
             CurrentPosition = initialPosition;
             GhostID = ghostID;
-            if(AllGhosts.Count < 4)
+            if(AllGhosts.Count < Constants.Constants.GhostNumber)
                 AllGhosts.Add(this);
         }
 
         public static void Update(GameData jsonGameData)
         {
-            Debug.Assert(AllGhosts.Count == 4, "ghosts update failed: not enough ghosts instantiated");
+            Debug.Assert(AllGhosts.Count == Constants.Constants.GhostNumber, "ghosts update failed: not enough ghosts instantiated");
             if (jsonGameData.Round == 1)
             {
                 AllGhosts.Sort((g1, g2) => g1.GhostID.CompareTo(g2.GhostID));
