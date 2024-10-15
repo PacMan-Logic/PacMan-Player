@@ -24,23 +24,18 @@ namespace Models
             TileList = tileMapData.TileList;
 
             Tilemap_Manage tilemap_Manage = new Tilemap_Manage();
-            tilemap_Manage.load(tileMapData); //加载包中的信息到地图中
-            //这东西在一次地图中应该只刷新一次
+            tilemap_Manage.load_wall(tileMapData); //加载包中的信息到地图中   这东西在一次地图中应该只刷新一次
+            tilemap_Manage.load_props(tileMapData);
+            //建议把道具和任务分开加载
         }
+        public static void Update(GameData jsonGameData)
+        {
+            var tileMapData = jsonGameData.Map;
+            Debug.Assert(tileMapData != null, nameof(tileMapData) + " is null");
 
-        // todo: 这个是全量更新，要是搞明白了增量更新的协议，就需要修改一下
-        //public static void Update(GameData jsonGameData)
-        //{
-        //    var tileMapData = jsonGameData.Map;
-        //    Debug.Assert(tileMapData != null, nameof(tileMapData) + " is null");
-            
-        //    for (int i = 0; i < Length; i++)
-        //    {
-        //        for (int j = 0; j < Width; j++)
-        //        {
-        //            Map[i, j].Type = (TileType)tileMapData.Code[i][j];
-        //        }
-        //    }
-        //}
+            Tilemap_Manage tilemap_Manage = new Tilemap_Manage();
+            tilemap_Manage.load_props(tileMapData);
+        }
+        //暂定全量更新，如果要变量的话要修改逻辑
     }
 }

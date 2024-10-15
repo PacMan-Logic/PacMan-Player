@@ -21,7 +21,6 @@ public class Test01 : MonoBehaviour
         GameData gameData = JsonConvert.DeserializeObject<GameData>(jsonData);
         Models.TileMap tileMap = new Models.TileMap();
         tileMap.Init(gameData);
-        //试试能不能把地图加载出来
         //PrintTiles();
         
         Pacman.Update(gameData);
