@@ -16,6 +16,7 @@ namespace Models
         public static List<MovementType> Route = new List<MovementType>();
         public static int Speed = 1;
         public static bool Magnet = false;
+        public static event Action OnUpdated; 
 
         public static void Init (int playerID, Vector2 initialPosition)
         {
@@ -30,6 +31,7 @@ namespace Models
             Route = jsonGameData.Actions[0].ConvertAll(code => (MovementType)code);
             Speed = jsonGameData.Pacman.Speed;
             Magnet = jsonGameData.Pacman.Magnet;
+            OnUpdated?.Invoke();
         }
     }
 }

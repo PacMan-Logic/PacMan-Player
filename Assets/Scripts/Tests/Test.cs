@@ -29,6 +29,7 @@ public class Test01 : MonoBehaviour
         var ghost2 = new Ghost(2, new Vector2(0, 0));
         var ghost3 = new Ghost(3, new Vector2(0, 0));
         Ghost.Update(gameData);
+        Debug.Log("ghost count:"+Ghost.AllGhosts.Count);
         PrintPacmanInfo();
         PrintGhostsInfo();
     }

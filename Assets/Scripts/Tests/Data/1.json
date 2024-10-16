@@ -8,8 +8,8 @@
     "TileList": [
       {
         "Type": -1,
-        "x": 0,
-        "y": 0,
+        "x": 1,
+        "y": 1,
         "Tilename" : "Wall_02"
       }
     ]
@@ -30,22 +30,22 @@
   },
   "Ghost": [
     {
-      "Id": 1,
+      "Id": 0,
       "Player": 1,
       "Position": [2, 3]
     },
     {
-      "Id": 2,
+      "Id": 1,
       "Player": 1,
       "Position": [2, 4]
     },
     {
-      "Id": 3,
+      "Id": 2,
       "Player": 1,
       "Position": [3, 4]
     },
     {
-      "Id": 0,
+      "Id": 3,
       "Player": 1,
       "Position": [4, 4]
     }

@@ -14,6 +14,7 @@ namespace Models
         public Vector2 CurrentPosition;
         public int GhostID;
         public List<MovementType> Route = new List<MovementType>();
+        public static event Action OnUpdated; 
 
         public Ghost(int ghostID, Vector2 initialPosition)
         {
@@ -46,6 +47,7 @@ namespace Models
                 }
                 
             }
+            OnUpdated?.Invoke();
         }
     }
 }
