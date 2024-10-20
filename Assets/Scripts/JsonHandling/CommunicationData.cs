@@ -1,0 +1,66 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Json;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Unity.Mathematics;
+using UnityEngine;
+
+
+[Serializable]
+public class FrontendData
+{
+    public enum MsgType
+    {
+        init_player_player,
+        init_replay_player,
+        load_frame,
+        load_next_frame,
+        load_players,
+        play_speed,
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public MsgType message {get; set; }
+    public string payload {get; set; }
+    public string token {get; set; }
+    public int speed {get; set; }
+    public List<GameData> replay_data {get; set; }
+    public int index {get; set; }
+    public List<string> players {get; set; }
+}
+
+[Serializable]
+public class FrontendReplyData
+{
+    public enum MsgType
+    {
+        init_successfully,
+        initialize_result,
+        game_record,
+        error_marker,
+        loaded,
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public MsgType message {get; set; }
+    public int number_of_frames {get; set; }
+    public int height {get; set; }
+    public bool init_result {get; set; }
+    public string game_record {get; set; }
+    public string err_msg {get; set; }
+}
+
+public class JsonFile{
+    public List<GameData> Datas {get; set; }
+
+    public JsonFile()
+    {
+        Datas = new List<GameData>();
+    }
+
+    public void Add(GameData data){
+        Datas.Add(data);
+    }
+}
