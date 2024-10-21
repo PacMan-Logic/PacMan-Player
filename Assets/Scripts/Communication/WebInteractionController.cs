@@ -21,8 +21,6 @@ public class WebInteractionController : MonoBehaviour
         SendInitCompleteToFronted();
     }
 
-
-
     #region sendDataToFrontend
     private void SendToFrontend(FrontendReplyData reply)
     {

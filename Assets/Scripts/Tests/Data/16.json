@@ -1,0 +1,78 @@
+{
+    "IsMap": true,
+    "Round": 1,
+    "Player": 0,
+    "Map": {
+        "Length": 10,
+        "Width": 10,
+        "TileList": [
+            {
+                "Type": -1,
+                "x": 23,
+                "y": 23,
+                "Tilename": "Wall_02"
+            }
+        ]
+    },
+    "Actions": [
+        [
+            3
+        ],
+        [
+            2
+        ],
+        [
+            2
+        ],
+        [
+            1
+        ],
+        [
+            1
+        ]
+    ],
+    "Code": 0,
+    "Pacman": {
+        "Player": 0,
+        "Position": [
+            7,
+            8
+        ],
+        "Speed": 1,
+        "Magnet": false
+    },
+    "Ghost": [
+        {
+            "Id": 0,
+            "Player": 1,
+            "Position": [
+                24,
+                25
+            ]
+        },
+        {
+            "Id": 1,
+            "Player": 1,
+            "Position": [
+                24,
+                27
+            ]
+        },
+        {
+            "Id": 2,
+            "Player": 1,
+            "Position": [
+                25,
+                28
+            ]
+        },
+        {
+            "Id": 3,
+            "Player": 1,
+            "Position": [
+                26,
+                29
+            ]
+        }
+    ]
+}

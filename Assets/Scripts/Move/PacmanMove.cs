@@ -10,7 +10,7 @@ public class PacmanMove : MonoBehaviour
     private List<MovementType> moveInstructions; // 存储移动指令的列表
     public float moveDistance = 1f; // 每次移动的距离
 
-    private int currentInstructionIndex = 0; // 当前执行的指令索引
+    private int currentInnstructionIndex = 0; // 当前执行的指令索引
     private Vector3 targetPosition; // 目标位置
     private bool isMoving = false; // 是否正在移动到目标位置
 
@@ -30,9 +30,9 @@ public class PacmanMove : MonoBehaviour
         {
             MoveToTarget();
         }
-        else if (currentInstructionIndex < moveInstructions.Count - 1)
+        else if (currentInnstructionIndex < moveInstructions.Count - 1)
         {
-            currentInstructionIndex++;
+            currentInnstructionIndex++;
             UpdateTargetPosition();
         }
     }
@@ -40,9 +40,9 @@ public class PacmanMove : MonoBehaviour
     void UpdateTargetPosition()
     {
         Vector3 moveDirection = Vector3.zero;
-        if (moveInstructions != null && currentInstructionIndex < moveInstructions.Count)
+        if (moveInstructions != null && currentInnstructionIndex < moveInstructions.Count)
         {
-            switch (moveInstructions[currentInstructionIndex])
+            switch (moveInstructions[currentInnstructionIndex])
             {
                 case MovementType.Up:
                     moveDirection = Vector3.up;

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Json;
+using Newtonsoft.Json;
 using UnityEngine;
 
 public class ReplayController : MonoBehaviour
@@ -10,15 +12,13 @@ public class ReplayController : MonoBehaviour
 
     public List<string> PlayerName;
 
-
-    public void AddDataToReplay(GameData gameData){
+    public void AddDataToReplay(GameData gameData) {
         _replay.Add(gameData);
     }
 
     //回放文件解析完成，并向Pacman,Ghost,Tilemap发送第一帧GameData.
     public void ReplayFileInitialized()
     {
-
         if (_replay?.Datas == null || _replay.Datas.Count == 0)
         {
             Debug.Log("Replay Data Is Null.");
@@ -31,8 +31,8 @@ public class ReplayController : MonoBehaviour
         UpdateObjectInfo(initRoundData);
     }
 
-    public void LoadFrame(int frameIndex){
-        if(frameIndex >= _replay.Datas.Count || frameIndex < 0)
+    public void LoadFrame(int frameIndex) {
+        if (frameIndex >= _replay.Datas.Count || frameIndex < 0)
         {
             Debug.Log("Frame Number Out of Range.");
             return;
@@ -43,8 +43,8 @@ public class ReplayController : MonoBehaviour
         UpdateObjectInfo(tarRoundData);
     }
 
-    public void Load_next_frame(){
-        if(nowRound == _replay.Datas.Count - 1){
+    public void Load_next_frame() {
+        if (nowRound == _replay.Datas.Count - 1) {
             Debug.Log("Replay Reach the End.");
             return;
         }
@@ -60,7 +60,7 @@ public class ReplayController : MonoBehaviour
         Models.TileMap.Update(initRoundData);
     }
 
-    public void SetPlayerName(List<string> name){
+    public void SetPlayerName(List<string> name) {
         PlayerName = name;
     }
 }
