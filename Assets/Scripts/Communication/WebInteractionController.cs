@@ -95,7 +95,7 @@ public class WebInteractionController : MonoBehaviour
                     GetComponent<ReplayController>().SetPlayerName(msg.players);
                     break;
                 case FrontendData.MsgType.play_speed:
-                    /*TODO*/
+                    GetComponent<ReplayController>().SetReplaySpeed(msg.speed);
                     break;
                 default:
                     break;

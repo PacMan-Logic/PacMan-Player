@@ -3,32 +3,100 @@ using System.Collections.Generic;
 using System.IO;
 using Json;
 using Newtonsoft.Json;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ReplayController : MonoBehaviour
 {
     public int nowRound;
-    JsonFile _replay;
+    public JsonFile _replay = new JsonFile();
 
     public List<string> PlayerName;
 
-    public void AddDataToReplay(GameData gameData) {
-        _replay.Add(gameData);
+    public bool FrontendDataEnd = false;
+    public bool DataToMainControllerEnd = false;
+
+    void Start(){
+        //This is used to test locally.
+        OfflineFileInit();
     }
 
+    void FixedUpdate(){
+        if(nowRound >= _replay.Datas.Count - 1){
+            Debug.Log("End");
+            Time.timeScale = 0;
+        }
+
+        // LoadFrame(++nowRound + 1);  //Test LoadFrame.
+
+        if(nowRound > 15){
+            SetReplaySpeed(4);
+        }
+    }
+
+    #region offline test functions
+    private void OfflineFileInit(){
+        List<string> jsonDataCollection = new List<string>();
+        for(int i = 1;i <= 30;i++){
+            jsonDataCollection.Add("Assets/Scripts/Tests/Data/" + i + ".json");
+        }
+
+        for(int i = 0;i <jsonDataCollection.Count;i++){
+            string jsonData = File.ReadAllText(jsonDataCollection[i]);
+            var gameData = JsonConvert.DeserializeObject<GameData>(jsonData);
+            AddDataToReplay(gameData);
+        }
+        GetComponent<MainController>().tileMap.Init(_replay.Datas[0]);
+        ReplayFileInitialized();
+    }
+    
+    private void LoadOrderly(){
+        Load_next_frame();
+    }
+    
+    #endregion
+    
+    #region Frontend Function
+    public void AddDataToReplay(GameData gameData) {
+        if(_replay == null)Debug.Log("replay not init.");
+        _replay.Add(gameData);
+    }
+    #endregion
+    
+    #region function on MainController
+    public void SetReplayMode(){
+        GetComponent<MainController>().Mode = 0;
+    }
+    #endregion
+
+    #region function on Models
+    public void UpdateRoute(GameData gameData){
+        Models.Pacman.Update(gameData);
+        Models.Ghost.Update(gameData);
+        Models.TileMap.Update(gameData);
+    }
+
+    public void ClearRoute(){
+        Models.Ghost.ClearRoute();
+        Models.Pacman.ClearRoute();
+    }
+    #endregion
+
+    #region Frontend Instructions
     //回放文件解析完成，并向Pacman,Ghost,Tilemap发送第一帧GameData.
     public void ReplayFileInitialized()
     {
-        if (_replay?.Datas == null || _replay.Datas.Count == 0)
+        if (_replay == null || _replay.Datas.Count == 0)
         {
             Debug.Log("Replay Data Is Null.");
             return;
         }
 
-        var initRoundData = _replay.Datas[0];
-
         nowRound = 0;
-        UpdateObjectInfo(initRoundData);
+        
+        ModelUpdate(nowRound);
+        SetReplayMode();
+        //Init Ended.
     }
 
     public void LoadFrame(int frameIndex) {
@@ -40,7 +108,8 @@ public class ReplayController : MonoBehaviour
 
         var tarRoundData = _replay.Datas[frameIndex];
         nowRound = frameIndex;
-        UpdateObjectInfo(tarRoundData);
+        ClearRoute();
+        UpdateRoute(tarRoundData);
     }
 
     public void Load_next_frame() {
@@ -50,17 +119,23 @@ public class ReplayController : MonoBehaviour
         }
 
         nowRound++;
-        UpdateObjectInfo(_replay.Datas[nowRound]);
-    }
 
-    private static void UpdateObjectInfo(GameData initRoundData)
-    {
-        Models.Ghost.Update(initRoundData);
-        Models.Pacman.Update(initRoundData);
-        Models.TileMap.Update(initRoundData);
+        var gameData = _replay.Datas[nowRound];
+        UpdateRoute(gameData);
     }
 
     public void SetPlayerName(List<string> name) {
         PlayerName = name;
+    }
+
+    public void SetReplaySpeed(int speed){
+        GhostMove.speed = speed;
+        PacmanMove.speed = speed;
+    }
+    #endregion
+    public void ModelUpdate(int frame){
+        Models.Ghost.Update(_replay.Datas[frame]);
+        Models.Pacman.Update(_replay.Datas[frame]);
+        Models.TileMap.Update(_replay.Datas[frame]);
     }
 }
