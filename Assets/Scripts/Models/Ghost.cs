@@ -49,5 +49,24 @@ namespace Models
             }
             OnUpdated?.Invoke();
         }
+
+        public static void ClearRoute()
+        {
+            
+            foreach (Ghost ghost in AllGhosts)
+            {
+                try
+                {
+                    ghost.Route.Clear();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Make sure ghost id starts with 0.");
+                    throw;
+                }
+                
+            }
+            OnUpdated?.Invoke();
+        }
     }
 }

@@ -33,5 +33,8 @@ namespace Models
             Magnet = jsonGameData.Pacman.Magnet;
             OnUpdated?.Invoke();
         }
+        public static void ClearRoute(){
+            Route.Clear();
+        }
     }
 }
