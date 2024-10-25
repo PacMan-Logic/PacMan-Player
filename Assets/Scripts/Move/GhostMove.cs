@@ -8,7 +8,7 @@ using UnityEngine;
 public class GhostMove : MonoBehaviour
 {
     public int Id;
-    public float speed = 1f; // 幽灵移动的速度
+    public static float speed = 1f; // 幽灵移动的速度
     private List<MovementType> moveInstructions; // 存储移动指令的列表
     public float moveDistance = 1f; // 每次移动的距离
 

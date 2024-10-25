@@ -6,7 +6,7 @@ using Models;
 
 public class PacmanMove : MonoBehaviour
 {
-    public float speed = 1f; // 小球移动的速度
+    public static float speed = 1f; // 小球移动的速度
     private List<MovementType> moveInstructions; // 存储移动指令的列表
     public float moveDistance = 1f; // 每次移动的距离
 
