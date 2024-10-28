@@ -13,7 +13,7 @@ namespace Models
     {
         public static Vector2 CurrentPosition;
         public static int PlayerID;
-        public static List<MovementType> Route = new List<MovementType>();
+        public static List<List<int>> Routes;
         public static int Speed = 1;
         public static bool Magnet = false;
         public static event Action OnUpdated; 
@@ -26,15 +26,15 @@ namespace Models
 
         public static void Update(GameData jsonGameData)
         {
-            PlayerID = jsonGameData.Pacman.player;
-            CurrentPosition = new Vector2(jsonGameData.Pacman.Position[0], jsonGameData.Pacman.Position[1]);
-            Route = jsonGameData.Actions[0].ConvertAll(code => (MovementType)code);
-            Speed = jsonGameData.Pacman.Speed;
-            Magnet = jsonGameData.Pacman.Magnet;
+            PlayerID = jsonGameData.Player_id[0];
+            CurrentPosition = new Vector2(jsonGameData.pacman_step_block[0][0], jsonGameData.pacman_step_block[0][1]);
+            Routes = jsonGameData.pacman_step_block;
+            Speed = jsonGameData.pacman_step_block.ToArray().Length - 1;
+            Magnet = jsonGameData.skills[2] > 0;
             OnUpdated?.Invoke();
         }
         public static void ClearRoute(){
-            Route.Clear();
+            Routes.Clear();
         }
     }
 }

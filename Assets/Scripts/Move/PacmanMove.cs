@@ -7,18 +7,17 @@ using Models;
 public class PacmanMove : MonoBehaviour
 {
     public static float speed = 1f; // 小球移动的速度
-    private List<MovementType> moveInstructions; // 存储移动指令的列表
-    public float moveDistance = 1f; // 每次移动的距离
+    private List<List<int>> route;
 
-    private int currentInnstructionIndex = 0; // 当前执行的指令索引
+    private int currentInnstructionIndex = 1; // 当前执行的指令索引
     private Vector3 targetPosition; // 目标位置
     private bool isMoving = false; // 是否正在移动到目标位置
 
     void Start()
     {
-        if(Models.Pacman.Route != null && Models.Pacman.CurrentPosition != null){
+        if(Models.Pacman.Routes != null && Models.Pacman.CurrentPosition != null){
             transform.position = new Vector3(Models.Pacman.CurrentPosition.x + 0.5f, Models.Pacman.CurrentPosition.y + 0.5f, transform.position.z);
-            moveInstructions = Models.Pacman.Route;
+            route = Models.Pacman.Routes;
         }
         UpdateTargetPosition();
         Models.Pacman.OnUpdated += UpdateRoute; // 订阅 Pacman 的 OnUpdated 事件
@@ -30,7 +29,7 @@ public class PacmanMove : MonoBehaviour
         {
             MoveToTarget();
         }
-        else if (currentInnstructionIndex < moveInstructions.Count - 1)
+        else if (currentInnstructionIndex < route.Count - 1)
         {
             currentInnstructionIndex++;
             UpdateTargetPosition();
@@ -40,24 +39,9 @@ public class PacmanMove : MonoBehaviour
     void UpdateTargetPosition()
     {
         Vector3 moveDirection = Vector3.zero;
-        if (moveInstructions != null && currentInnstructionIndex < moveInstructions.Count)
+        if (route != null && currentInnstructionIndex < route.Count)
         {
-            switch (moveInstructions[currentInnstructionIndex])
-            {
-                case MovementType.Up:
-                    moveDirection = Vector3.up;
-                    break;
-                case MovementType.Down:
-                    moveDirection = Vector3.down;
-                    break;
-                case MovementType.Left:
-                    moveDirection = Vector3.left;
-                    break;
-                case MovementType.Right:
-                    moveDirection = Vector3.right;
-                    break;
-            }
-            targetPosition = transform.position + moveDirection * moveDistance;
+            targetPosition = new Vector3(route[currentInnstructionIndex][0] + 0.5f, route[currentInnstructionIndex][0] + 0.5f, 0);
             isMoving = true;
         }
     }
@@ -73,7 +57,7 @@ public class PacmanMove : MonoBehaviour
     
     void UpdateRoute(){
         transform.position = new Vector3(Models.Pacman.CurrentPosition.x + 0.5f, Models.Pacman.CurrentPosition.y + 0.5f, transform.position.z);
-        moveInstructions = Models.Pacman.Route;
+        route = Models.Pacman.Routes;
         UpdateTargetPosition();
     }
 }

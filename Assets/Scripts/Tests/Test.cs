@@ -66,14 +66,6 @@ public class Test01 : MonoBehaviour
         message += ($"Speed: {Pacman.Speed}\n");
         message += ($"Magnet Active: {Pacman.Magnet}\n");
 
-        // Print out the route (movement types)
-        message += ("Route: ");
-        foreach (var movement in Pacman.Route)
-        {
-            message += (movement);
-            message += " ";
-        }
-        Debug.Log(message);
     }
 
 
@@ -86,13 +78,6 @@ public class Test01 : MonoBehaviour
             message += $"Ghost ID: {ghost.GhostID}\n";
             message += $"Current Position: {ghost.CurrentPosition}\n";
             message += "Route: ";
-
-            foreach (var movement in ghost.Route)
-            {
-                message += movement + " ";
-            }
-
-            message += "\n";
         }
 
         Debug.Log(message);

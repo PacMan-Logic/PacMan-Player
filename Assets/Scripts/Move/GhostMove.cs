@@ -9,10 +9,9 @@ public class GhostMove : MonoBehaviour
 {
     public int Id;
     public static float speed = 1f; // 幽灵移动的速度
-    private List<MovementType> moveInstructions; // 存储移动指令的列表
-    public float moveDistance = 1f; // 每次移动的距离
+    private List<List<int>> route;
 
-    private int currentInstructionIndex = 0; // 当前执行的指令索引
+    private int currentInstructionIndex = 1; // 当前执行的指令索引
     private Vector3 targetPosition; // 目标位置
     private bool isMoving = false; // 是否正在移动到目标位置
 
@@ -20,7 +19,7 @@ public class GhostMove : MonoBehaviour
     {
         if(Models.Ghost.AllGhosts != null && Models.Ghost.AllGhosts.Count > Id) {
             transform.position = new Vector3(Models.Ghost.AllGhosts[Id].CurrentPosition.x + 0.5f, Models.Ghost.AllGhosts[Id].CurrentPosition.y + 0.5f, transform.position.z);
-            moveInstructions = Models.Ghost.AllGhosts[Id].Route;
+            route = Models.Ghost.AllGhosts[Id].routes;
         }
         UpdateTargetPosition();
         Models.Ghost.OnUpdated += UpdateRoute; // 订阅 Ghost 的 OnUpdated 事件
@@ -32,7 +31,7 @@ public class GhostMove : MonoBehaviour
         {
             MoveToTarget();
         }
-        else if (currentInstructionIndex < moveInstructions.Count - 1)
+        else if (currentInstructionIndex < route.Count - 1)
         {
             currentInstructionIndex++;
             UpdateTargetPosition();
@@ -42,24 +41,9 @@ public class GhostMove : MonoBehaviour
     void UpdateTargetPosition()
     {
         Vector3 moveDirection = Vector3.zero;
-        if (moveInstructions != null && currentInstructionIndex < moveInstructions.Count)
+        if (route != null && currentInstructionIndex < route.Count)
         {
-            switch (moveInstructions[currentInstructionIndex])
-            {
-                case MovementType.Up:
-                    moveDirection = Vector3.up;
-                    break;
-                case MovementType.Down:
-                    moveDirection = Vector3.down;
-                    break;
-                case MovementType.Left:
-                    moveDirection = Vector3.left;
-                    break;
-                case MovementType.Right:
-                    moveDirection = Vector3.right;
-                    break;
-            }
-            targetPosition = transform.position + moveDirection * moveDistance;
+            targetPosition = new Vector3(route[currentInstructionIndex][0] + 0.5f, route[currentInstructionIndex][1] + 0.5f, 0);
             isMoving = true;
         }
     }
@@ -75,7 +59,7 @@ public class GhostMove : MonoBehaviour
     
     void UpdateRoute(){
         transform.position = new Vector3(Models.Ghost.AllGhosts[Id].CurrentPosition.x + 0.5f, Models.Ghost.AllGhosts[Id].CurrentPosition.y + 0.5f, transform.position.z);
-        moveInstructions = Models.Ghost.AllGhosts[Id].Route;
+        route = Models.Ghost.AllGhosts[Id].routes;
         UpdateTargetPosition();
     }
 }

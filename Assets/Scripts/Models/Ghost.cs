@@ -13,7 +13,7 @@ namespace Models
 
         public Vector2 CurrentPosition;
         public int GhostID;
-        public List<MovementType> Route = new List<MovementType>();
+        public List<List<int>> routes;
         public static event Action OnUpdated; 
 
         public Ghost(int ghostID, Vector2 initialPosition)
@@ -32,20 +32,20 @@ namespace Models
                 AllGhosts.Sort((g1, g2) => g1.GhostID.CompareTo(g2.GhostID));
             }
 
-            var ghostsData = jsonGameData.Ghost;
-            foreach (GhostData ghostData in ghostsData)
+            int index = 0;
+            foreach (var route in jsonGameData.ghosts_step_block)
             {
                 try
                 {
-                    AllGhosts[ghostData.Id].CurrentPosition = new Vector2(ghostData.Position[0], ghostData.Position[1]);
-                    AllGhosts[ghostData.Id].Route = jsonGameData.Actions[ghostData.Id + 1].ConvertAll(code => (MovementType)code);
+                    AllGhosts[index].CurrentPosition = new Vector2(route[0][0], route[0][1]);
+                    AllGhosts[index].routes = route;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine("Make sure ghost id starts with 0.");
                     throw;
                 }
-                
+                index++;
             }
             OnUpdated?.Invoke();
         }
@@ -57,7 +57,7 @@ namespace Models
             {
                 try
                 {
-                    ghost.Route.Clear();
+                    ghost.routes.Clear();
                 }
                 catch (Exception e)
                 {
