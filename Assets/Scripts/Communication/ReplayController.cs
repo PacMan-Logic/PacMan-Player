@@ -19,6 +19,7 @@ public class ReplayController : MonoBehaviour
     void Start(){
         //This is used to test locally.
         OfflineFileInit();
+        Models.Point.Init(_replay.Datas[0]);
     }
 
     void FixedUpdate(){

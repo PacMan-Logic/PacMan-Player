@@ -4,7 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - point
+  - Pacmen
+  - Point
   layers:
   - Default
   - TransparentFX

@@ -103,19 +103,18 @@
         "Tilename": "Wall_00"
     },
     {
-        "Type": -1,
-        "x": 17,
-        "y": 16,
+        "Type": 1,
+        "x": 2,
+        "y": 2,
         "Tilename": "Wall_00"
     },
     {
-        "Type": -1,
-        "x": 18,
-        "y": 17,
-        "Tilename": "Wall_00"
+        "Type": 1,
+        "x": 1,
+        "y": 1,
+        "Tilename": "?"
     }
         ]
-
     },
     "Status_code": 0,
     "pacman_step_block" : [[0 , 1],[1 , 1]],
