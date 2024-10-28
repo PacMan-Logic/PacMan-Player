@@ -26,7 +26,7 @@ public class ReplayController : MonoBehaviour
         if(nowRound >= _replay.Datas.Count - 1){
             Debug.Log("End");
             Time.timeScale = 0;
-        }
+        }//暂停
 
         // LoadFrame(++nowRound + 1);  //Test LoadFrame.
 
@@ -37,15 +37,15 @@ public class ReplayController : MonoBehaviour
 
     #region offline test functions
     private void OfflineFileInit(){
-        List<string> jsonDataCollection = new List<string>();
-        for(int i = 1;i <= 30;i++){
-            jsonDataCollection.Add("Assets/Scripts/Tests/Data/" + i + ".json");
-        }
-
-        for(int i = 0;i <jsonDataCollection.Count;i++){
-            string jsonData = File.ReadAllText(jsonDataCollection[i]);
-            var gameData = JsonConvert.DeserializeObject<GameData>(jsonData);
-            AddDataToReplay(gameData);
+        using (StreamReader reader = new StreamReader(Constants.Constants.Record_Path))  //逐行读取
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                var gameData = JsonConvert.DeserializeObject<GameData>(line);
+                gameData.Map = Tilemap_Manage.convert(gameData.board);
+                AddDataToReplay(gameData);
+            }
         }
         GetComponent<MainController>().tileMap.Init(_replay.Datas[0]);
         ReplayFileInitialized();
@@ -72,9 +72,15 @@ public class ReplayController : MonoBehaviour
 
     #region function on Models
     public void UpdateRoute(GameData gameData){
-        Models.Pacman.Update(gameData);
-        Models.Ghost.Update(gameData);
-        Models.TileMap.Update(gameData);
+        if (gameData.Initalmap)
+        {
+            Models.TileMap.Update(gameData);
+        }
+        else
+        {
+            Models.Pacman.Update(gameData);
+            Models.Ghost.Update(gameData);
+        }
     }
 
     public void ClearRoute(){
@@ -136,7 +142,10 @@ public class ReplayController : MonoBehaviour
     #endregion
     public void ModelUpdate(int frame){
         Models.Ghost.Update(_replay.Datas[frame]);
-        Models.Pacman.Update(_replay.Datas[frame]);
-        Models.TileMap.Update(_replay.Datas[frame]);
+        if (!_replay.Datas[frame].Initalmap)
+        {
+            Models.Pacman.Update(_replay.Datas[frame]);
+            Models.TileMap.Update(_replay.Datas[frame]);
+        }
     }
 }

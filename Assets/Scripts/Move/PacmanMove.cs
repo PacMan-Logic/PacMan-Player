@@ -29,7 +29,7 @@ public class PacmanMove : MonoBehaviour
         {
             MoveToTarget();
         }
-        else if (currentInnstructionIndex < route.Count - 1)
+        else if (route != null &&  currentInnstructionIndex < route.Count - 1)
         {
             currentInnstructionIndex++;
             UpdateTargetPosition();

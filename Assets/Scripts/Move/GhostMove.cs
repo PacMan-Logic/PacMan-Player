@@ -31,7 +31,7 @@ public class GhostMove : MonoBehaviour
         {
             MoveToTarget();
         }
-        else if (currentInstructionIndex < route.Count - 1)
+        else if (route != null && currentInstructionIndex < route.Count - 1)
         {
             currentInstructionIndex++;
             UpdateTargetPosition();

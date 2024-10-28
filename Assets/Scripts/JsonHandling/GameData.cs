@@ -20,39 +20,24 @@ namespace Json
     {
         public int Length;
         public int Width;
-        public List<Tile> TileList;
+        public List<Tile> TileList = new List<Tile>();
     }
-
-    //[Serializable]
-    //public class PacmanData
-    //{
-    //    public int player;
-    //    public List<List<int>> routes;
-    //    public List<int> skills;
-    //}
-
-    //[Serializable]
-    //public class GhostData
-    //{
-    //    public int Player;
-    //    public int Id;
-    //    public List<List<int>> routes;
-    //}
 
     [Serializable]
     public class GameData
     {
-        public bool Initalmap;
-        public int Round;
-        public List<int> Player_id;
-        [CanBeNull] public MapData Map = null;
-        public int Status_code;
-        //public PacmanData Pacman; //注意magnet效果
-        public List<List<int>> pacman_step_block;
-        public List<List<List<int>>> ghosts_step_block;
-        public List<int> skills;
-        //public List<GhostData> Ghost;
-        public List<int> Score;
+        public bool Initalmap = false;
+        public int Round = 0;
+        public int Player_id = 0;
+        [CanBeNull] public MapData Map =new MapData();
+        public List<List<int>> board = new List<List<int>>();
+        public int Status_code = 0;
+        public List<List<int>> pacman_step_block = new List<List<int>>();
+        public List<List<List<int>>> ghosts_step_block = new List<List<List<int>>> ();
+        public List<int> skills = new List<int>();
+        public List<int> score = new List<int> ();
+        [CanBeNull]public string StopReason = null;
+        public int level = 0;
     }
 }
 

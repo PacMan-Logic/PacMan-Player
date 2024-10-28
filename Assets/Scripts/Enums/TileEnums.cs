@@ -9,8 +9,10 @@ namespace Enums
         Wall = -1,
         Empty = 0,
         PacDot = 1,
-        Energizer = 2,
+        Bonus = 2,
         Acceleration = 3,
         Magnet = 4,
+        Shield = 5,
+        Double = 6
     }
 }

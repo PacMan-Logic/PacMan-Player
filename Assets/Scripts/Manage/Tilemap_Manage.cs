@@ -8,6 +8,7 @@ using UnityEngine.Tilemaps;
 using UnityEditor;
 using JetBrains.Annotations;
 using static UnityEditor.Progress;
+using Unity.VisualScripting;
 
 public class Tilemap_Manage
 {
@@ -82,5 +83,81 @@ public class Tilemap_Manage
         gameobject = GameObject.Find("props");
         tilemap = gameobject.GetComponent<Tilemap>();
         tilemap.ClearAllTiles();
+    }
+
+    public static MapData convert(List<List<int>> board)
+    {
+        MapData mapdata = new MapData();
+        mapdata.Length = mapdata.Width = board.Count;
+        int tile_num = 0;
+        for (int i = 0; i < board.Count; i++)
+        {
+            for(int j = 0; j < board.Count; j++)
+            {
+                Json.Tile tile = new Json.Tile();
+                tile_num = board[i][j];
+                Debug.Log("Changed" + j + " " + i);
+                switch(tile_num)
+                {
+                    case 0:
+                        {
+                            tile.Type = Enums.TileType.Wall;
+                            tile.TileName = "Wall_00";
+                            tile.x = j; tile.y = i;
+                            mapdata.TileList.Add(tile);
+                            break;
+                        }
+                    case 2:
+                        {
+                            tile.Type = Enums.TileType.PacDot;
+                            tile.TileName = "PacDot";
+                            tile.x = j;tile.y = i;
+                            mapdata.TileList.Add(tile); 
+                            break;
+                        }
+                    case 3:
+                        {
+                            tile.Type = Enums.TileType.Bonus;
+                            tile.TileName = "Bouns";
+                            tile.x = j;tile.y = i;
+                            mapdata.TileList.Add(tile);
+                            break;
+                        }
+                    case 4:
+                        {
+                            tile.Type = Enums.TileType.Acceleration;
+                            tile.TileName = "Acceleration";
+                            tile.x = j;tile.y= i;
+                            mapdata.TileList.Add(tile);
+                            break;
+                        }
+                    case 5:
+                        {
+                            tile.Type = Enums.TileType.Magnet;
+                            tile.TileName = "Magnet";
+                            tile.x = j;tile.y= i;
+                            mapdata.TileList.Add(tile);
+                            break;
+                        }
+                    case 6:
+                        {
+                            tile.Type = Enums.TileType.Shield;
+                            tile.TileName = "Shield";
+                            tile.x = j;tile.y = i;
+                            mapdata.TileList.Add(tile);
+                            break;
+                        }
+                    case 7:
+                        {
+                            tile.Type = Enums.TileType.Double;
+                            tile.TileName = "Double";
+                            tile.x = j;tile.y = i;
+                            mapdata.TileList.Add(tile);
+                            break;
+                        }
+                }
+            }
+        }
+        return mapdata;
     }
 }
