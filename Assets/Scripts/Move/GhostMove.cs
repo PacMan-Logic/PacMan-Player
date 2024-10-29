@@ -19,7 +19,7 @@ public class GhostMove : MonoBehaviour
     {
         if(Models.Ghost.AllGhosts != null && Models.Ghost.AllGhosts.Count > Id) {
             transform.position = new Vector3(Models.Ghost.AllGhosts[Id].CurrentPosition.x + 0.5f, Models.Ghost.AllGhosts[Id].CurrentPosition.y + 0.5f, transform.position.z);
-            route = Models.Ghost.AllGhosts[Id].routes;
+            route = Models.Ghost.AllGhosts[Id].Route;
         }
         UpdateTargetPosition();
         Models.Ghost.OnUpdated += UpdateRoute; // 订阅 Ghost 的 OnUpdated 事件
@@ -59,7 +59,7 @@ public class GhostMove : MonoBehaviour
     
     void UpdateRoute(){
         transform.position = new Vector3(Models.Ghost.AllGhosts[Id].CurrentPosition.x + 0.5f, Models.Ghost.AllGhosts[Id].CurrentPosition.y + 0.5f, transform.position.z);
-        route = Models.Ghost.AllGhosts[Id].routes;
+        route = Models.Ghost.AllGhosts[Id].Route;
         UpdateTargetPosition();
     }
 }

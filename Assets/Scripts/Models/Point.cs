@@ -9,7 +9,7 @@ namespace Models
 {
     public class Point : MonoBehaviour{ 
         public static Vector2 InitPosition = Vector2.zero;
-        public static bool isRedended = false;
+        public static bool IsRendered = false;
 
         public static void Init(GameData gameData)
         {
@@ -19,7 +19,7 @@ namespace Models
                 if (tile.Type == Enums.TileType.PacDot)
                 {
                     InitPosition = new Vector2(tile.x + 0.5f, tile.y + 0.5f);
-                    isRedended = true;
+                    IsRendered = true;
                     PointMove.generate_point(InitPosition);
                 }
                 

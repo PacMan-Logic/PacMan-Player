@@ -13,7 +13,7 @@ namespace Models
 
         public Vector2 CurrentPosition;
         public int GhostID;
-        public List<List<int>> routes;
+        public List<List<int>> Route;
         public static event Action OnUpdated; 
 
         public Ghost(int ghostID, Vector2 initialPosition)
@@ -38,7 +38,7 @@ namespace Models
                 try
                 {
                     AllGhosts[index].CurrentPosition = new Vector2(route[0][0], route[0][1]);
-                    AllGhosts[index].routes = route;
+                    AllGhosts[index].Route = route;
                 }
                 catch (Exception e)
                 {
@@ -57,7 +57,7 @@ namespace Models
             {
                 try
                 {
-                    ghost.routes.Clear();
+                    ghost.Route.Clear();
                 }
                 catch (Exception e)
                 {
@@ -67,6 +67,34 @@ namespace Models
                 
             }
             OnUpdated?.Invoke();
+        }
+
+        public static string GetInfo()
+        {
+            string message = "";
+            foreach (var ghost in Ghost.AllGhosts)
+            {
+                message += $"Ghost ID: {ghost.GhostID}\n";
+                message += $"\tCurrent Position: {ghost.CurrentPosition}\n";
+                message += $"\tRoute: ";
+                if(ghost.Route != null)
+                {
+                    for (int i = 0; i < ghost.Route.Count; i++)
+                    {
+                        var position = ghost.Route[i];
+                        message += $"({position[0]}, {position[1]})";
+                        if (i < ghost.Route.Count - 1)
+                            message += $" -> ";
+                    }
+                }
+                else
+                {
+                    message += "NULL";
+                }
+                message += $"\n";
+            }
+
+            return message;
         }
     }
 }

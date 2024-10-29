@@ -53,14 +53,14 @@ public class FrontendReplyData
 }
 
 public class JsonFile{
-    public List<GameData> Datas {get; set; }
+    public List<GameData> Data {get; set; }
 
     public JsonFile()
     {
-        Datas = new List<GameData>();
+        Data = new List<GameData>();
     }
 
     public void Add(GameData data){
-        Datas.Add(data);
+        Data.Add(data);
     }
 }

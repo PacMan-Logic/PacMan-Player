@@ -38,11 +38,11 @@ public class Tilemap_Manage
                 tilemap.SetTile(new Vector3Int(tile.x, tile.y, 0), input_tile);
             }
         }
-        //ÔÚAsset/Resources/Tiles ÖÐÑ°ÕÒËùÐèTile
+        //ï¿½ï¿½Asset/Resources/Tiles ï¿½ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Tile
     }
 
-    //TODO £º ÔÝ¶¨ µÀ¾ß/·ÖÊý Ò²Ê¹ÓÃTileMapÐÎÊ½
-    public void load_props(MapData mapdata)  //Õâ¸öº¯Êý»áÔÚºó¶ËÃ¿´Î´«À´ÐÂµÄÐÅÏ¢Ê±Ê¹ÓÃ£¬°üÀ¨³õÊ¼»¯
+    //TODO ï¿½ï¿½ ï¿½Ý¶ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ Ò²Ê¹ï¿½ï¿½TileMapï¿½ï¿½Ê½
+    public void load_props(MapData mapdata)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½ï¿½Ã¿ï¿½Î´ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½Ï¢Ê±Ê¹ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
     {
         GameObject tilemapObject = GameObject.Find("props");
 
@@ -73,9 +73,9 @@ public class Tilemap_Manage
     public void update_props()
     {
 
-    }//Ô¤Áô×÷Îª±äÁ¿¸üÐÂµÄ½Ó¿Ú
+    }//Ô¤ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄ½Ó¿ï¿½
 
-    public void clear_map() //¿ÉÄÜÐèÒªµÄ Çå³ýËùÓÐ¶«Î÷ÒÔ½øÈëÏÂÒ»¹Ø
+    public void clear_map() //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
     {
         GameObject gameobject = GameObject.Find("wall");
         tilemap = gameobject.GetComponent<Tilemap>();
@@ -96,7 +96,7 @@ public class Tilemap_Manage
             {
                 Json.Tile tile = new Json.Tile();
                 tile_num = board[i][j];
-                Debug.Log("Changed" + j + " " + i);
+                    // Debug.Log("Changed" + j + " " + i);
                 switch(tile_num)
                 {
                     case 0:

@@ -13,7 +13,7 @@ namespace Models
     {
         public static Vector2 CurrentPosition;
         public static int PlayerID;
-        public static List<List<int>> Routes;
+        public static List<List<int>> Route;
         public static int Speed = 1;
         public static bool Magnet = false;
         public static event Action OnUpdated; 
@@ -28,13 +28,39 @@ namespace Models
         {
             PlayerID = jsonGameData.Player_id;
             CurrentPosition = new Vector2(jsonGameData.pacman_step_block[0][0], jsonGameData.pacman_step_block[0][1]);
-            Routes = jsonGameData.pacman_step_block;
+            Route = jsonGameData.pacman_step_block;
             Speed = jsonGameData.pacman_step_block.ToArray().Length - 1;
             Magnet = jsonGameData.skills[2] > 0;
             OnUpdated?.Invoke();
         }
         public static void ClearRoute(){
-            Routes.Clear();
+            Route.Clear();
+        }
+
+        public static string GetInfo()
+        {
+            string message = "";
+            message += ($"Pacman Info: Player ID: {Pacman.PlayerID}\n");
+            message += ($"\tCurrent Position: {Pacman.CurrentPosition}\n");
+            message += $"\tRoute: ";
+            if(Pacman.Route != null)
+            {
+                for (int i = 0; i < Pacman.Route.Count; i++)
+                {
+                    var position = Pacman.Route[i];
+                    message += $"({position[0]}, {position[1]})";
+                    if (i < Pacman.Route.Count - 1)
+                        message += $" -> ";
+                }
+            }
+            else
+            {
+                message += "NULL";
+            }
+            message += $"\n";
+            message += ($"\tSpeed: {Pacman.Speed}\n");
+            message += ($"\tMagnet Active: {Pacman.Magnet}\n");
+            return message;
         }
     }
 }

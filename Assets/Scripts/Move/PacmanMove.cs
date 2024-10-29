@@ -15,9 +15,9 @@ public class PacmanMove : MonoBehaviour
 
     void Start()
     {
-        if(Models.Pacman.Routes != null && Models.Pacman.CurrentPosition != null){
+        if(Models.Pacman.Route != null && Models.Pacman.CurrentPosition != null){
             transform.position = new Vector3(Models.Pacman.CurrentPosition.x + 0.5f, Models.Pacman.CurrentPosition.y + 0.5f, transform.position.z);
-            route = Models.Pacman.Routes;
+            route = Models.Pacman.Route;
         }
         UpdateTargetPosition();
         Models.Pacman.OnUpdated += UpdateRoute; // 订阅 Pacman 的 OnUpdated 事件
@@ -57,7 +57,7 @@ public class PacmanMove : MonoBehaviour
     
     void UpdateRoute(){
         transform.position = new Vector3(Models.Pacman.CurrentPosition.x + 0.5f, Models.Pacman.CurrentPosition.y + 0.5f, transform.position.z);
-        route = Models.Pacman.Routes;
+        route = Models.Pacman.Route;
         UpdateTargetPosition();
     }
 }

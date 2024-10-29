@@ -25,13 +25,11 @@ public class MainController : MonoBehaviour
         //Waiting for Communcation Controller Start.
         while(Mode == -1);
 
-        
         if(Mode == 0){
             Debug.Log("Replay Mode.");
         }
-        Debug.Log("ghost count:" + Ghost.AllGhosts.Count);
-        PrintGhostsInfo();
-        PrintPacmanInfo();
+        Debug.Log(Pacman.GetInfo());
+        Debug.Log(Ghost.GetInfo());
     }
 
     // Update is called once per frame
@@ -40,31 +38,6 @@ public class MainController : MonoBehaviour
         if(Mode == 0){
 
         }
-    }
-
-
-    private void PrintPacmanInfo()
-    {
-        string message = new string("Pacman Info:\n");
-        message += ($"Player ID: {Pacman.PlayerID}\n");
-        message += ($"Current Position: {Pacman.CurrentPosition}\n");
-        message += ($"Speed: {Pacman.Speed}\n");
-        message += ($"Magnet Active: {Pacman.Magnet}\n");
-    }
-
-
-    private void PrintGhostsInfo()
-    {
-        string message = new string("Ghosts Info:\n");
-
-        foreach (var ghost in Ghost.AllGhosts)
-        {
-            message += $"Ghost ID: {ghost.GhostID}\n";
-            message += $"Current Position: {ghost.CurrentPosition}\n";
-            message += "Route: ";
-        }
-
-        Debug.Log(message);
     }
 
 }
