@@ -20,13 +20,15 @@ public class ReplayController : MonoBehaviour
     public bool FrontendDataEnd = false;
     public bool DataToMainControllerEnd = false;
 
+
+    #region test function
     void Start(){
         //This is used to test locally.
         onNewFrameLoaded += LoadOrderly;
         OfflineFileInit();
         Debug.Log($"Replay Controller init success. Replay consists {_replay.Data.Count} frames.");
         Models.Point.Init(_replay.Data[0]);
-        if (onNewFrameLoaded != null)
+        if(onNewFrameLoaded != null)
             onNewFrameLoaded.Invoke();
     }
 
@@ -44,6 +46,8 @@ public class ReplayController : MonoBehaviour
         if (debugAutoUpdate && onNewFrameLoaded != null)
             onNewFrameLoaded.Invoke();
     }
+
+    #endregion
 
     public static void stepFrame()
     {
