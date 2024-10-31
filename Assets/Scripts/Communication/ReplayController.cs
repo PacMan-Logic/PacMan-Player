@@ -26,8 +26,6 @@ public class ReplayController : MonoBehaviour
         OfflineFileInit();
         Debug.Log($"Replay Controller init success. Replay consists {_replay.Data.Count} frames.");
         Models.Point.Init(_replay.Data[0]);
-        if (onNewFrameLoaded != null)
-            onNewFrameLoaded.Invoke();
     }
 
     void FixedUpdate(){
@@ -114,16 +112,16 @@ public class ReplayController : MonoBehaviour
     //回放文件解析完成，并向Pacman,Ghost,Tilemap发送第一帧GameData.
     public void ReplayFileInitialized()
     {
-        if (_replay == null || _replay.Data.Count == 0)
-        {
-            Debug.Log("Replay Data Is Null.");
-            return;
-        }
-
-        nowRound = 0;
-        
-        ModelUpdate(nowRound);
-        SetReplayMode();
+        // if (_replay == null || _replay.Data.Count == 0)
+        // {
+        //     Debug.Log("Replay Data Is Null.");
+        //     return;
+        // }
+        //
+        // nowRound = 0;
+        //
+        // ModelUpdate(nowRound);
+        // SetReplayMode();
         //Init Ended.
     }
 
