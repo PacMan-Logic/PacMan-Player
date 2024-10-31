@@ -28,6 +28,7 @@ namespace UI.Debug_Overlay
             rectTransform.anchorMax = new Vector2(0, 1);
             rectTransform.pivot = new Vector2(0, 1); // Set pivot to top-left
             rectTransform.anchoredPosition = new Vector2(0, 0);
+            
         }
 
         void SpawnButtons()

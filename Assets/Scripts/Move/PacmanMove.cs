@@ -41,7 +41,7 @@ public class PacmanMove : MonoBehaviour
         Vector3 moveDirection = Vector3.zero;
         if (route != null && currentInnstructionIndex < route.Count)
         {
-            targetPosition = new Vector3(route[currentInnstructionIndex][0] + 0.5f, route[currentInnstructionIndex][0] + 0.5f, 0);
+            targetPosition = new Vector3(route[currentInnstructionIndex][0] + 0.5f, route[currentInnstructionIndex][1] + 0.5f, 0);
             isMoving = true;
         }
     }

@@ -12,13 +12,19 @@ public class GhostMove : MonoBehaviour
     private List<List<int>> route;
 
     private int currentInstructionIndex = 1; // 当前执行的指令索引
-    private Vector3 targetPosition; // 目标位置
+    public Vector3 targetPosition; // 目标位置
     private bool isMoving = false; // 是否正在移动到目标位置
+
+    private Vector3 GetRenderingPosition(Vector3 logicalPosition)
+    {
+        return (new Vector3(0.5f, 0.5f, 0) + logicalPosition);
+    }
 
     void Start()
     {
-        if(Models.Ghost.AllGhosts != null && Models.Ghost.AllGhosts.Count > Id) {
-            transform.position = new Vector3(Models.Ghost.AllGhosts[Id].CurrentPosition.x + 0.5f, Models.Ghost.AllGhosts[Id].CurrentPosition.y + 0.5f, transform.position.z);
+        if(Models.Ghost.AllGhosts != null && Models.Ghost.AllGhosts.Count > Id)
+        {
+            transform.position = GetRenderingPosition(Models.Ghost.AllGhosts[Id].CurrentPosition);
             route = Models.Ghost.AllGhosts[Id].Route;
         }
         UpdateTargetPosition();
@@ -40,11 +46,18 @@ public class GhostMove : MonoBehaviour
 
     void UpdateTargetPosition()
     {
-        Vector3 moveDirection = Vector3.zero;
         if (route != null && currentInstructionIndex < route.Count)
         {
-            targetPosition = new Vector3(route[currentInstructionIndex][0] + 0.5f, route[currentInstructionIndex][1] + 0.5f, 0);
-            isMoving = true;
+            if (route[currentInstructionIndex][0] < 0) // hit a wall
+            {
+                isMoving = false;
+            }
+            else
+            {
+                targetPosition = GetRenderingPosition(new Vector3(route[currentInstructionIndex][0],
+                    route[currentInstructionIndex][1], 0));
+                isMoving = true;
+            }
         }
     }
 
@@ -57,8 +70,9 @@ public class GhostMove : MonoBehaviour
         }
     }
     
-    void UpdateRoute(){
-        transform.position = new Vector3(Models.Ghost.AllGhosts[Id].CurrentPosition.x + 0.5f, Models.Ghost.AllGhosts[Id].CurrentPosition.y + 0.5f, transform.position.z);
+    void UpdateRoute()
+    {
+        transform.position = GetRenderingPosition(Models.Ghost.AllGhosts[Id].CurrentPosition);
         route = Models.Ghost.AllGhosts[Id].Route;
         UpdateTargetPosition();
     }
