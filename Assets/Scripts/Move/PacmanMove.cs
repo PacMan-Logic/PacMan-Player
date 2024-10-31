@@ -13,6 +13,11 @@ public class PacmanMove : MonoBehaviour
     private Vector3 targetPosition; // 目标位置
     private bool isMoving = false; // 是否正在移动到目标位置
 
+    private Vector3 GetRenderingPosition(Vector3 logicalPosition)
+    {
+        return (new Vector3(0.5f, 0.5f, 0) + logicalPosition);
+    }
+
     void Start()
     {
         if(Models.Pacman.Route != null && Models.Pacman.CurrentPosition != null){
@@ -23,7 +28,7 @@ public class PacmanMove : MonoBehaviour
         Models.Pacman.OnUpdated += UpdateRoute; // 订阅 Pacman 的 OnUpdated 事件
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (isMoving)
         {
@@ -48,7 +53,7 @@ public class PacmanMove : MonoBehaviour
 
     void MoveToTarget()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.fixedDeltaTime);
         if (Vector3.Distance(transform.position, targetPosition) < 0.001f)
         {
             isMoving = false;
@@ -56,8 +61,19 @@ public class PacmanMove : MonoBehaviour
     }
     
     void UpdateRoute(){
-        transform.position = new Vector3(Models.Pacman.CurrentPosition.x + 0.5f, Models.Pacman.CurrentPosition.y + 0.5f, transform.position.z);
-        route = Models.Pacman.Route;
-        UpdateTargetPosition();
+        transform.position = GetRenderingPosition(Models.Pacman.CurrentPosition);
+        if (route != null && currentInnstructionIndex < route.Count)
+        {
+            if (route[currentInnstructionIndex][0] < 0) // hit a wall
+            {
+                isMoving = false;
+            }
+            else
+            {
+                targetPosition = GetRenderingPosition(new Vector3(route[currentInnstructionIndex][0],
+                    route[currentInnstructionIndex][1], 0));
+                isMoving = true;
+            }
+        }
     }
 }

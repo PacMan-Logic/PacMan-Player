@@ -31,7 +31,7 @@ public class GhostMove : MonoBehaviour
         Models.Ghost.OnUpdated += UpdateRoute; // 订阅 Ghost 的 OnUpdated 事件
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (isMoving)
         {
@@ -63,7 +63,7 @@ public class GhostMove : MonoBehaviour
 
     void MoveToTarget()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.fixedDeltaTime);
         if (Vector3.Distance(transform.position, targetPosition) < 0.001f)
         {
             isMoving = false;
