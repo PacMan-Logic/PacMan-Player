@@ -25,7 +25,7 @@ public class GhostMove : MonoBehaviour
         Models.Ghost.OnUpdated += UpdateRoute; // 订阅 Ghost 的 OnUpdated 事件
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (isMoving)
         {
