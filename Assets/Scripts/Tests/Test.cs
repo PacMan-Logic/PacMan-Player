@@ -30,8 +30,8 @@ public class Test01 : MonoBehaviour
             gamedatas.Add(gameData);
         }
 
-        Models.TileMap tileMap = new Models.TileMap();
-        tileMap.Init(gamedatas[0]);
+        //Models.TileMap tileMap = new Models.TileMap();
+        //tileMap.Init(gamedatas[0]);
         //PrintTiles();
 
         Pacman.Update(gamedatas[0]);

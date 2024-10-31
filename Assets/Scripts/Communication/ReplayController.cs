@@ -62,7 +62,6 @@ public class ReplayController : MonoBehaviour
                 AddDataToReplay(gameData);
             }
         }
-        GetComponent<MainController>().tileMap.Init(_replay.Data[0]);
         
         if (_replay == null || _replay.Data.Count == 0)
         {
@@ -165,7 +164,6 @@ public class ReplayController : MonoBehaviour
     public void ModelUpdate(int frame){
         Models.Pacman.Update(_replay.Data[frame]);
         Models.Ghost.Update(_replay.Data[frame]);
-        Models.Pacman.Update(_replay.Data[frame]);
         if (_replay.Data[frame].Initalmap)
         {
             Models.TileMap.Update(_replay.Data[frame]);
@@ -176,7 +174,7 @@ public class ReplayController : MonoBehaviour
     {
         Models.Pacman.Init(_replay.Data[frame]);
         Models.Ghost.Init(_replay.Data[frame]);
-        // Models.TileMap.Init(_replay.Data[frame]);
+        Models.TileMap.Init(_replay.Data[frame]);
         Models.Point.Init(_replay.Data[frame]);
     }
 }
