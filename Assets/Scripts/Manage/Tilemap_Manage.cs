@@ -38,11 +38,9 @@ public class Tilemap_Manage
                 tilemap.SetTile(new Vector3Int(tile.x, tile.y, 0), input_tile);
             }
         }
-        //��Asset/Resources/Tiles ��Ѱ������Tile
     }
 
-    //TODO �� �ݶ� ����/���� Ҳʹ��TileMap��ʽ
-    public void load_props(MapData mapdata)  //����������ں��ÿ�δ����µ���Ϣʱʹ�ã�������ʼ��
+    public void load_props(MapData mapdata)
     {
         GameObject tilemapObject = GameObject.Find("props");
 
@@ -73,9 +71,9 @@ public class Tilemap_Manage
     public void update_props()
     {
 
-    }//Ԥ����Ϊ�������µĽӿ�
+    }
 
-    public void clear_map() //������Ҫ�� ������ж����Խ�����һ��
+    public void clear_map()
     {
         GameObject gameobject = GameObject.Find("wall");
         tilemap = gameobject.GetComponent<Tilemap>();

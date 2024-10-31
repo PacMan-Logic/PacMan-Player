@@ -226,7 +226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6823493449220913065, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
       propertyPath: m_Name
-      value: Ghost1
+      value: Ghost0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -512,7 +512,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6823493449220913065, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
       propertyPath: m_Name
-      value: Ghost4
+      value: Ghost3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -728,7 +728,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 56.682465
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -754,7 +754,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1833, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -813,7 +813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6823493449220913065, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
       propertyPath: m_Name
-      value: Ghost2
+      value: Ghost1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -887,7 +887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6823493449220913065, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
       propertyPath: m_Name
-      value: Ghost3
+      value: Ghost2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

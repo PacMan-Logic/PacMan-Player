@@ -155,10 +155,10 @@ public class ReplayController : MonoBehaviour
     }
     #endregion
     public void ModelUpdate(int frame){
+        Models.Pacman.Update(_replay.Data[frame]);
         Models.Ghost.Update(_replay.Data[frame]);
-        if (!_replay.Data[frame].Initalmap)
+        if (_replay.Data[frame].Initalmap)
         {
-            Models.Pacman.Update(_replay.Data[frame]);
             Models.TileMap.Update(_replay.Data[frame]);
         }
     }

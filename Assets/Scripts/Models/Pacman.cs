@@ -31,6 +31,7 @@ namespace Models
             Route = jsonGameData.pacman_step_block;
             Speed = jsonGameData.pacman_step_block.ToArray().Length - 1;
             Magnet = jsonGameData.skills[2] > 0;
+            CurrentPosition = new Vector2(jsonGameData.pacman_coord[0], jsonGameData.pacman_coord[1]);
             OnUpdated?.Invoke();
         }
         public static void ClearRoute(){
