@@ -63,7 +63,15 @@ public class ReplayController : MonoBehaviour
             }
         }
         GetComponent<MainController>().tileMap.Init(_replay.Data[0]);
-        ReplayFileInitialized();
+        
+        if (_replay == null || _replay.Data.Count == 0)
+        {
+            Debug.Log("Replay Data Is Null.");
+            return;
+        }
+        nowRound = 0;
+        ModelsInit(nowRound);
+        SetReplayMode();
     }
     
     private void LoadOrderly(){
@@ -156,10 +164,18 @@ public class ReplayController : MonoBehaviour
     #endregion
     public void ModelUpdate(int frame){
         Models.Ghost.Update(_replay.Data[frame]);
-        if (!_replay.Data[frame].Initalmap)
+        Models.Pacman.Update(_replay.Data[frame]);
+        if (_replay.Data[frame].Initalmap)
         {
-            Models.Pacman.Update(_replay.Data[frame]);
             Models.TileMap.Update(_replay.Data[frame]);
         }
+    }
+
+    public void ModelsInit(int frame)
+    {
+        Models.Pacman.Init(_replay.Data[frame]);
+        Models.Ghost.Init(_replay.Data[frame]);
+        // Models.TileMap.Init(_replay.Data[frame]);
+        Models.Point.Init(_replay.Data[frame]);
     }
 }

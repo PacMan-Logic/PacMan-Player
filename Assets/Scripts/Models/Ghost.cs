@@ -24,6 +24,16 @@ namespace Models
                 AllGhosts.Add(this);
         }
 
+        public static void Init (GameData jsonGameData)
+        {
+            for (int i = 0; i < AllGhosts.Count; i++)
+            {
+                var ghost = AllGhosts[i];
+                ghost.CurrentPosition = new Vector2(jsonGameData.ghosts_coord[i][0], jsonGameData.ghosts_coord[i][1]);
+                ghost.GhostID = i;
+            }
+        }
+        
         public static void Update(GameData jsonGameData)
         {
             Debug.Assert(AllGhosts.Count == Constants.Constants.GhostNumber, "ghosts update failed: not enough ghosts instantiated");
