@@ -18,6 +18,9 @@ public class WebInteractionController : MonoBehaviour
 
     public void Update()
     {
+        // 这个函数被调用代表所有的 Awake() Start() 都启用了
+        // 也即初始化已经完成
+        // 本地调用直接打开会报错
         if(_loaded)return;
         _loaded = true;
         SendInitCompleteToFronted();
@@ -101,11 +104,13 @@ public class WebInteractionController : MonoBehaviour
     }
 
     #region sendDataToFrontend
+    // 向网页发送回复信息
     private void SendToFrontend(FrontendReplyData reply)
     {
         string information = JsonConvert.SerializeObject(reply);
         Send_frontend(information);
     }
+    //向网页报错
     private void SendErrorToFrontend(string message)
     {
         SendToFrontend(
@@ -116,6 +121,7 @@ public class WebInteractionController : MonoBehaviour
             }
         );
     }
+    // 告知网页总帧数
     private void SendFrameCountToFrontend(int count){
         SendToFrontend(
             new FrontendReplyData()
@@ -127,6 +133,7 @@ public class WebInteractionController : MonoBehaviour
         );
     }
     private void SendInitCompleteToFronted(){
+        // 告知前端网页unity已经初始化完成，接收队列中的信息
         SendToFrontend(
             new FrontendReplyData()
             {
@@ -135,6 +142,8 @@ public class WebInteractionController : MonoBehaviour
         );
     }
     #endregion
+    // 提供给前端网页使用
+    // 接收网页信息
     public void HandleMessage(string buffer){
         FrontendData msg;
         try
@@ -189,7 +198,13 @@ public class WebInteractionController : MonoBehaviour
             Debug.Log(e.Message);
         }
     }
-
+    /*
+     * 这个函数是前端网页调用的，通过output.jslib与player.html协同实现通信
+     * 逻辑为：unity调用Getoperation函数
+     *       -> output.jslib中实现该函数，调用window.SendOperation
+     *       -> player.html中实现window.SendOperation，调用Main Controller组件中的HandleOperation
+     *       -> 到达该函数
+     */
     public void HandleOperation(string Operation){
         var gameData = JsonConvert.DeserializeObject<GameData>(Operation);
         GetComponent<ReplayController>().AddDataToReplay(gameData);
