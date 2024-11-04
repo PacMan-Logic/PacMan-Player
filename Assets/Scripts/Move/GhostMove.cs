@@ -68,8 +68,6 @@ public class GhostMove : MonoBehaviour
     void MoveToTarget()
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-        Debug.Log(Vector3.Dot(transform.position - targetPosition, prevposition - targetPosition));
-        Debug.Log(transform.position.x+" "+transform.position.y+"    " +targetPosition.x+" "+targetPosition.y+"     "+ Time.deltaTime);
         if (Vector3.Distance(transform.position, targetPosition) < 0.001f || Vector3.Dot(transform.position - targetPosition, prevposition - targetPosition) < 0)
         {
             transform.position = targetPosition;
