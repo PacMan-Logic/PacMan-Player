@@ -31,7 +31,6 @@ public class ReplayController : MonoBehaviour
     void FixedUpdate(){
         if(nowRound >= _replay.Data.Count - 1){
             Debug.Log("End");
-            Time.timeScale = 0;
         }//暂停
 
         // LoadFrame(++nowRound + 1);  //Test LoadFrame.

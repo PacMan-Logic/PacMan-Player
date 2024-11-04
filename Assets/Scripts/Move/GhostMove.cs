@@ -15,6 +15,8 @@ public class GhostMove : MonoBehaviour
     public Vector3 targetPosition; // 目标位置
     private bool isMoving = false; // 是否正在移动到目标位置
 
+    private Vector3 prevposition;
+
     private Vector3 GetRenderingPosition(Vector3 logicalPosition)
     {
         return (new Vector3(0.5f, 0.5f, 0) + logicalPosition);
@@ -29,6 +31,7 @@ public class GhostMove : MonoBehaviour
         }
         UpdateTargetPosition();
         Models.Ghost.OnUpdated += UpdateRoute; // 订阅 Ghost 的 OnUpdated 事件
+        prevposition = transform.position;
     }
 
     void Update()
@@ -56,6 +59,7 @@ public class GhostMove : MonoBehaviour
             {
                 targetPosition = GetRenderingPosition(new Vector3(route[currentInstructionIndex][0],
                     route[currentInstructionIndex][1], 0));
+                prevposition = transform.position;
                 isMoving = true;
             }
         }
@@ -63,9 +67,12 @@ public class GhostMove : MonoBehaviour
 
     void MoveToTarget()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.fixedDeltaTime);
-        if (Vector3.Distance(transform.position, targetPosition) < 0.001f)
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        Debug.Log(Vector3.Dot(transform.position - targetPosition, prevposition - targetPosition));
+        Debug.Log(transform.position.x+" "+transform.position.y+"    " +targetPosition.x+" "+targetPosition.y+"     "+ Time.deltaTime);
+        if (Vector3.Distance(transform.position, targetPosition) < 0.001f || Vector3.Dot(transform.position - targetPosition, prevposition - targetPosition) < 0)
         {
+            transform.position = targetPosition;
             isMoving = false;
         }
     }
