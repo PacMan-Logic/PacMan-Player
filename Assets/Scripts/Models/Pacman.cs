@@ -18,10 +18,10 @@ namespace Models
         public static bool Magnet = false;
         public static event Action OnUpdated; 
 
-        public static void Init (int playerID, Vector2 initialPosition)
+        public static void Init (GameData jsonGameData)
         {
-            CurrentPosition = initialPosition;
-            PlayerID = playerID;
+            CurrentPosition = new Vector2(jsonGameData.pacman_coord[0], jsonGameData.pacman_coord[1]);
+            PlayerID = jsonGameData.Player_id;
         }
 
         public static void Update(GameData jsonGameData)
@@ -31,6 +31,7 @@ namespace Models
             Route = jsonGameData.pacman_step_block;
             Speed = jsonGameData.pacman_step_block.ToArray().Length - 1;
             Magnet = jsonGameData.skills[2] > 0;
+            CurrentPosition = new Vector2(jsonGameData.pacman_coord[0], jsonGameData.pacman_coord[1]);
             OnUpdated?.Invoke();
         }
         public static void ClearRoute(){

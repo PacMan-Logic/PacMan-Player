@@ -33,7 +33,7 @@ public class PointMove : MonoBehaviour
 
     public static void generate_point(Vector2 position)
     {
-        GameObject prefab = Resources.Load<GameObject>("Prefab/Point");
+        GameObject prefab = Resources.Load<GameObject>("Prefabs/Point");
         GameObject point =  Instantiate(prefab, new Vector3(Models.Point.InitPosition.x, Models.Point.InitPosition.y, 0), Quaternion.identity);
         point.tag = "Point";
         point.name = "Point";

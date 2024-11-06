@@ -14,7 +14,7 @@ namespace Models
         public static int Width;
         public static List<Tile> TileList;
 
-        public void Init(GameData jsonGameData)
+        public static void Init(GameData jsonGameData)
         {
             var tileMapData = jsonGameData.Map;
             Debug.Assert(tileMapData != null, nameof(tileMapData) + " != null");
