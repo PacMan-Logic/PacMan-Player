@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Enums;
 using UnityEngine;
 using Models;
+using UnityEditor.Experimental.GraphView;
 
 public class PacmanMove : MonoBehaviour
 {
@@ -72,6 +73,7 @@ public class PacmanMove : MonoBehaviour
     }
 
     void UpdateRoute(){
+        currentInstructionIndex = 1;
         transform.position = GetRenderingPosition(Models.Pacman.CurrentPosition);
         route = Models.Pacman.Route;
         UpdateTargetPosition();

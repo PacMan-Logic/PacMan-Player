@@ -16,7 +16,7 @@ namespace Models
         public static List<List<int>> Route;
         public static int Speed = 1;
         public static bool Magnet = false;
-        public static event Action OnUpdated; 
+        public static event Action OnUpdated;
 
         public static void Init (GameData jsonGameData)
         {

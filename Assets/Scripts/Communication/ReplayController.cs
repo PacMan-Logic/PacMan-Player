@@ -39,9 +39,7 @@ public class ReplayController : MonoBehaviour
         }//暂停
 
         // LoadFrame(++nowRound + 1);  //Test LoadFrame.
-        if(nowRound > 15){
-            SetReplaySpeed(4);
-        }
+        SetReplaySpeed(_replay.Data[nowRound - 1].level);
         
         if (debugAutoUpdate && onNewFrameLoaded != null)
             onNewFrameLoaded.Invoke();
