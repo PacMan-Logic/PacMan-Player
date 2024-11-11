@@ -22,6 +22,12 @@ namespace Models
                     IsRendered = true;
                     PointMove.generate_point(InitPosition);
                 }
+                else
+                {
+                    InitPosition = new Vector2(tile.x + 0.5f, tile.y + 0.5f);
+                    IsRendered = true;
+                    PointMove.generate_props(InitPosition, tile.Type);
+                }
                 
             }
         }

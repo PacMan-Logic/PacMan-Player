@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Pacmen
   - Point
+  - Shield
+  - Acceleration
+  - Bonus
+  - Double
+  - Magnet
   layers:
   - Default
   - TransparentFX
