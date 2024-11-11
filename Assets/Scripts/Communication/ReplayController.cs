@@ -66,7 +66,7 @@ public class ReplayController : MonoBehaviour
                 AddDataToReplay(gameData);
             }
         }
-        GetComponent<MainController>().tileMap.Init(_replay.Data[0]);
+        Models.TileMap.Init(_replay.Data[0]);
         ReplayFileInitialized();
     }
     

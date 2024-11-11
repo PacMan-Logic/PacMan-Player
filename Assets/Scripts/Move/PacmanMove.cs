@@ -49,7 +49,8 @@ public class PacmanMove : MonoBehaviour
         Vector3 moveDirection = Vector3.zero;
         if (route != null && currentInstructionIndex < route.Count)
         {
-            if(route[currentInstructionIndex][0] < 0){
+            if (route[currentInstructionIndex][0] < 0)
+            {
                 isMoving = false;
                 return;
             }
@@ -62,13 +63,13 @@ public class PacmanMove : MonoBehaviour
     void MoveToTarget()
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, targetPosition) < 0.001f || Vector3.Dot(transform.position - targetPosition,  prevposition - targetPosition) < 0)
+        if (Vector3.Distance(transform.position, targetPosition) < 0.001f || Vector3.Dot(transform.position - targetPosition, prevposition - targetPosition) < 0)
         {
             transform.position = targetPosition;
             isMoving = false;
         }
     }
-    
+
     void UpdateRoute(){
         transform.position = GetRenderingPosition(Models.Pacman.CurrentPosition);
         route = Models.Pacman.Route;

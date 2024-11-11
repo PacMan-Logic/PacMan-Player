@@ -27,11 +27,19 @@ namespace Models
         public static void Update(GameData jsonGameData)
         {
             PlayerID = jsonGameData.Player_id;
-            CurrentPosition = new Vector2(jsonGameData.pacman_step_block[0][0], jsonGameData.pacman_step_block[0][1]);
             Route = jsonGameData.pacman_step_block;
             Speed = jsonGameData.pacman_step_block.ToArray().Length - 1;
-            Magnet = jsonGameData.skills[2] > 0;
-            CurrentPosition = new Vector2(jsonGameData.pacman_coord[0], jsonGameData.pacman_coord[1]);
+            if (jsonGameData.skills != null && jsonGameData.skills.Count != 0)
+            {
+                Magnet = jsonGameData.skills[2] > 0;
+            }
+            if(jsonGameData.pacman_step_block.Count == 0) {
+                CurrentPosition = new Vector2(jsonGameData.pacman_coord[0], jsonGameData.pacman_coord[1]);
+            }
+            else
+            {
+                CurrentPosition = new Vector2(jsonGameData.pacman_step_block[0][0], jsonGameData.pacman_step_block[0][1]);
+            }
             OnUpdated?.Invoke();
         }
         public static void ClearRoute(){

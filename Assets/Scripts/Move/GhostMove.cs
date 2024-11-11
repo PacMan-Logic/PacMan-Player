@@ -54,11 +54,11 @@ public class GhostMove : MonoBehaviour
             if (route[currentInstructionIndex][0] < 0) // hit a wall
             {
                 isMoving = false;
+                return;
             }
             else
             {
-                targetPosition = GetRenderingPosition(new Vector3(route[currentInstructionIndex][0],
-                    route[currentInstructionIndex][1], 0));
+                targetPosition = GetRenderingPosition(new Vector3(route[currentInstructionIndex][0],route[currentInstructionIndex][1], 0));
                 prevposition = transform.position;
                 isMoving = true;
             }
