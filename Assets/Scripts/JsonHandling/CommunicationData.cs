@@ -64,3 +64,27 @@ public class JsonFile{
         Data.Add(data);
     }
 }
+
+    public class Info
+    {
+        public string request { get; set; }
+        public string token { get; set; }
+        public string content { get; set; }
+    }
+
+    public class HistoryInfo
+    {
+        public string request { get; set; }
+        public List<string> content { get; set; }
+    }
+
+    public class WatchInfo
+    {
+        public string request { get; set; }
+    }
+
+    public class JudgerData
+    {
+        public string request { get; set; }
+        public string content { get; set; }
+    }

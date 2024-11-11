@@ -20,17 +20,22 @@ public class ReplayController : MonoBehaviour
     public bool FrontendDataEnd = false;
     public bool DataToMainControllerEnd = false;
 
+
+    #region test function
     void Start(){
         //This is used to test locally.
         onNewFrameLoaded += LoadOrderly;
         OfflineFileInit();
         Debug.Log($"Replay Controller init success. Replay consists {_replay.Data.Count} frames.");
         Models.Point.Init(_replay.Data[0]);
+        if(onNewFrameLoaded != null)
+            onNewFrameLoaded.Invoke();
     }
 
     void FixedUpdate(){
         if(nowRound >= _replay.Data.Count - 1){
             Debug.Log("End");
+            Time.timeScale = 0;
         }//暂停
 
         // LoadFrame(++nowRound + 1);  //Test LoadFrame.
@@ -41,6 +46,8 @@ public class ReplayController : MonoBehaviour
         if (debugAutoUpdate && onNewFrameLoaded != null)
             onNewFrameLoaded.Invoke();
     }
+
+    #endregion
 
     public static void stepFrame()
     {
@@ -59,15 +66,8 @@ public class ReplayController : MonoBehaviour
                 AddDataToReplay(gameData);
             }
         }
-        
-        if (_replay == null || _replay.Data.Count == 0)
-        {
-            Debug.Log("Replay Data Is Null.");
-            return;
-        }
-        nowRound = 0;
-        ModelsInit(nowRound);
-        SetReplayMode();
+        GetComponent<MainController>().tileMap.Init(_replay.Data[0]);
+        ReplayFileInitialized();
     }
     
     private void LoadOrderly(){
@@ -111,16 +111,16 @@ public class ReplayController : MonoBehaviour
     //回放文件解析完成，并向Pacman,Ghost,Tilemap发送第一帧GameData.
     public void ReplayFileInitialized()
     {
-        // if (_replay == null || _replay.Data.Count == 0)
-        // {
-        //     Debug.Log("Replay Data Is Null.");
-        //     return;
-        // }
-        //
-        // nowRound = 0;
-        //
-        // ModelUpdate(nowRound);
-        // SetReplayMode();
+        if (_replay == null || _replay.Data.Count == 0)
+        {
+            Debug.Log("Replay Data Is Null.");
+            return;
+        }
+
+        nowRound = 0;
+        
+        ModelUpdate(nowRound);
+        SetReplayMode();
         //Init Ended.
     }
 
@@ -159,19 +159,11 @@ public class ReplayController : MonoBehaviour
     }
     #endregion
     public void ModelUpdate(int frame){
-        Models.Pacman.Update(_replay.Data[frame]);
         Models.Ghost.Update(_replay.Data[frame]);
-        if (_replay.Data[frame].Initalmap)
+        if (!_replay.Data[frame].Initalmap)
         {
+            Models.Pacman.Update(_replay.Data[frame]);
             Models.TileMap.Update(_replay.Data[frame]);
         }
-    }
-
-    public void ModelsInit(int frame)
-    {
-        Models.Pacman.Init(_replay.Data[frame]);
-        Models.Ghost.Init(_replay.Data[frame]);
-        Models.TileMap.Init(_replay.Data[frame]);
-        Models.Point.Init(_replay.Data[frame]);
     }
 }
