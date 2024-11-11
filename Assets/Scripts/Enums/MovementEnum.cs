@@ -3,8 +3,8 @@
     public enum MovementType
     {
         Up = 0,
-        Down = 1,
-        Left = 2,
+        Left = 1,
+        Down = 2,
         Right = 3,
     }
 }
