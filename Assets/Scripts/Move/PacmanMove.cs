@@ -23,7 +23,7 @@ public class PacmanMove : MonoBehaviour
     void Start()
     {
         if(Models.Pacman.Route != null && Models.Pacman.CurrentPosition != null){
-            transform.position = new Vector3(Models.Pacman.CurrentPosition.x + 0.5f, Models.Pacman.CurrentPosition.y + 0.5f, transform.position.z);
+            transform.position = new Vector3(Models.Pacman.CurrentPosition.y + 0.5f, Models.Pacman.CurrentPosition.x + 0.5f, transform.position.z);
             route = Models.Pacman.Route;
         }
         UpdateTargetPosition();
@@ -54,7 +54,7 @@ public class PacmanMove : MonoBehaviour
                 isMoving = false;
                 return;
             }
-            targetPosition = new Vector3(route[currentInstructionIndex][0] + 0.5f, route[currentInstructionIndex][1] + 0.5f, 0);
+            targetPosition = new Vector3(route[currentInstructionIndex][1] + 0.5f, route[currentInstructionIndex][0] + 0.5f, 0);
             prevposition = transform.position;
             isMoving = true;
         }
@@ -63,6 +63,7 @@ public class PacmanMove : MonoBehaviour
     void MoveToTarget()
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        Debug.Log("Speed : " + speed);
         if (Vector3.Distance(transform.position, targetPosition) < 0.001f || Vector3.Dot(transform.position - targetPosition, prevposition - targetPosition) < 0)
         {
             transform.position = targetPosition;

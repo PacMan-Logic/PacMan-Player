@@ -29,7 +29,7 @@ namespace Models
             for (int i = 0; i < AllGhosts.Count; i++)
             {
                 var ghost = AllGhosts[i];
-                ghost.CurrentPosition = new Vector2(jsonGameData.ghosts_coord[i][0], jsonGameData.ghosts_coord[i][1]);
+                ghost.CurrentPosition = new Vector2(jsonGameData.ghosts_coord[i][1], jsonGameData.ghosts_coord[i][0]);
                 ghost.GhostID = i;
             }
         }
@@ -47,7 +47,7 @@ namespace Models
             {
                 try
                 {
-                    AllGhosts[index].CurrentPosition = new Vector2(route[0][0], route[0][1]);
+                    AllGhosts[index].CurrentPosition = new Vector2(route[0][1], route[0][0]);
                     AllGhosts[index].Route = route;
                 }
                 catch (Exception e)

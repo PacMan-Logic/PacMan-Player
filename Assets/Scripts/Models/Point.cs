@@ -13,6 +13,7 @@ namespace Models
 
         public static void Init(GameData gameData)
         {
+            clear_props();
             var map = gameData.Map;
             foreach (var tile in map.TileList)
             {
@@ -31,10 +32,17 @@ namespace Models
                 
             }
         }
-        public static void Clear()
+        public static void clear_props()
         {
-            GameObject[] Points = GameObject.FindGameObjectsWithTag("Point");
-            if (Points != null && Points.Length > 0)
+            List<GameObject> Points = new List<GameObject>();
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Point"));
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Shield"));
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Double"));
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Bonus"));
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Acceleration"));
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Magnet"));
+
+            if (Points != null && Points.Count > 0)
             {
                 foreach (var point in Points)
                 {

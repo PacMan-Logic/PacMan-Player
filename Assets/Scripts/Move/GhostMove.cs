@@ -58,7 +58,7 @@ public class GhostMove : MonoBehaviour
             }
             else
             {
-                targetPosition = GetRenderingPosition(new Vector3(route[currentInstructionIndex][0],route[currentInstructionIndex][1], 0));
+                targetPosition = GetRenderingPosition(new Vector3(route[currentInstructionIndex][1],route[currentInstructionIndex][0], 0));
                 prevposition = transform.position;
                 isMoving = true;
             }

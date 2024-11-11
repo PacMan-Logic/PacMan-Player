@@ -91,9 +91,11 @@ public class ReplayController : MonoBehaviour
 
     #region function on Models
     public void UpdateRoute(GameData gameData){
-        if (gameData.Initalmap)
+        if (gameData.status == 1)
         {
             Models.TileMap.Update(gameData);
+            Models.Point.Init(gameData);
+            Debug.Log("Map Updated");
         }
         else
         {
@@ -160,10 +162,11 @@ public class ReplayController : MonoBehaviour
     #endregion
     public void ModelUpdate(int frame){
         Models.Ghost.Update(_replay.Data[frame]);
-        if (!_replay.Data[frame].Initalmap)
+        Models.Pacman.Update(_replay.Data[frame]);
+        if (_replay.Data[frame].status == 1)
         {
-            Models.Pacman.Update(_replay.Data[frame]);
             Models.TileMap.Update(_replay.Data[frame]);
+            Models.Point.Init(_replay.Data[frame]);
         }
     }
 }

@@ -40,45 +40,9 @@ public class Tilemap_Manage
         }
     }
 
-    public void load_props(MapData mapdata)
-    {
-        GameObject tilemapObject = GameObject.Find("props");
-
-        if (tilemapObject == null)
-        {
-            Debug.LogError("tilemapobject is no exist");
-            return;
-        }
-
-        tilemap = tilemapObject.GetComponent<Tilemap>();
-
-        if (mapdata.TileList == null)
-        {
-            Debug.Log("Tilemap is Empty.");
-            return;
-        }
-
-        foreach (Json.Tile tile in mapdata.TileList)
-        {
-            if (tile.Type != Enums.TileType.Wall)
-            {
-                TileBase input_tile = Resources.Load<TileBase>("Sprits/" + tile.TileName);
-                tilemap.SetTile(new Vector3Int(tile.x, tile.y, 0), input_tile);
-            }
-        }
-    }
-
-    public void update_props()
-    {
-
-    }
-
     public void clear_map()
     {
         GameObject gameobject = GameObject.Find("wall");
-        tilemap = gameobject.GetComponent<Tilemap>();
-        tilemap.ClearAllTiles();
-        gameobject = GameObject.Find("props");
         tilemap = gameobject.GetComponent<Tilemap>();
         tilemap.ClearAllTiles();
     }
@@ -88,7 +52,7 @@ public class Tilemap_Manage
         MapData mapdata = new MapData();
         mapdata.Length = mapdata.Width = board.Count;
         int tile_num = 0;
-        for (int i = 0; i < board.Count; i++)
+        for (int i = 0; i < board.Count ; i++)
         {
             for(int j = 0; j < board.Count; j++)
             {

@@ -5,26 +5,33 @@ using UnityEngine;
 
 public class PointMove : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    public float detectionInterval = 0.01f; // 自定义检测间隔
+    private float detectionTimer = 0f;
 
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
+    void Update()
     {
-        if (other.tag == "Pacmen")
+        detectionTimer += Time.deltaTime;
+        if (detectionTimer >= detectionInterval)
         {
-            //暂且只写了消失，但是可能要加Animator
-            Debug.Log("Eat a Point.");
-            gameObject.SetActive(false);
+            detectionTimer = 0f;
+            PerformCollisionCheck();
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    void PerformCollisionCheck()
     {
-        
+        float detectionRadius = 0.5f;
+        Vector2 currentPosition = transform.position;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(currentPosition, detectionRadius);
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Pacmen"))
+            {
+                Debug.Log("Eat a Point.");
+                gameObject.SetActive(false);
+                break;
+            }
+        }
     }
 
     public static void generate_point(Vector2 position)

@@ -31,7 +31,7 @@ namespace Json
         public int Player_id = 0;
         [CanBeNull] public MapData Map =new MapData();
         public List<List<int>> board = new List<List<int>>();
-        public int Status_code = 0;
+        public int status = 0;
         public List<List<int>> pacman_step_block = new List<List<int>>();
         public List<List<List<int>>> ghosts_step_block = new List<List<List<int>>> ();
         public List<int> skills = new List<int>();
