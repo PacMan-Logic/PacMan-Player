@@ -1,12 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Unity.VisualScripting;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class PointMove : MonoBehaviour
 {
     public float detectionInterval = 0.01f; // 自定义检测间隔
     private float detectionTimer = 0f;
+    private GameObject pacmen = null;
+
+    void Start()
+    {
+        pacmen = GameObject.FindWithTag("Pacmen");
+    }
 
     void Update()
     {
@@ -15,6 +23,13 @@ public class PointMove : MonoBehaviour
         {
             detectionTimer = 0f;
             PerformCollisionCheck();
+            if (Models.Pacman.Magnet)
+            {
+                if (Magnetcheck())
+                {
+                    MagnetMove();
+                }
+            }
         }
     }
 
@@ -32,6 +47,21 @@ public class PointMove : MonoBehaviour
                 break;
             }
         }
+    }
+
+    bool Magnetcheck()
+    {
+        float detectionRadius = Constants.Constants.MagnetRadius;
+        Vector2 currentPosition = transform.position;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(currentPosition, detectionRadius);
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Pacmen"))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void generate_point(Vector2 position)
@@ -152,5 +182,11 @@ public class PointMove : MonoBehaviour
                     break;
                 }
         }
+    }
+
+    void MagnetMove()
+    {
+        Vector3 target = pacmen.transform.position;
+        transform.position = Vector3.MoveTowards(transform.position, target, 7f * Time.deltaTime);
     }
 }

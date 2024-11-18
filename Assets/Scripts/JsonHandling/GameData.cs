@@ -34,7 +34,7 @@ namespace Json
         public int status = 0;
         public List<List<int>> pacman_step_block = new List<List<int>>();
         public List<List<List<int>>> ghosts_step_block = new List<List<List<int>>> ();
-        public List<int> skills = new List<int>();
+        public List<int> pacman_skills = new List<int>();
         public List<int> score = new List<int> ();
         public List<int> pacman_coord = new List<int> ();
         public List<List<int>> ghosts_coord = new List<List<int>> ();
