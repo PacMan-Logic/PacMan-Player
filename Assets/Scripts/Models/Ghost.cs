@@ -14,6 +14,7 @@ namespace Models
         public Vector2 CurrentPosition;
         public int GhostID;
         public List<List<int>> Route;
+        public int Speed = 1;
         public static event Action OnUpdated; 
 
         public Ghost(int ghostID, Vector2 initialPosition)
@@ -49,6 +50,7 @@ namespace Models
                 {
                     AllGhosts[index].CurrentPosition = new Vector2(route[0][1], route[0][0]);
                     AllGhosts[index].Route = route;
+                    AllGhosts[index].Speed = jsonGameData.ghosts_step_block[index].Count - 1;
                 }
                 catch (Exception e)
                 {

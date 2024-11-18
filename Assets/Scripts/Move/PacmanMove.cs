@@ -8,6 +8,8 @@ using UnityEditor.Experimental.GraphView;
 public class PacmanMove : MonoBehaviour
 {
     public static float speed = 1f; // 小球移动的速度
+
+    public static int level = 1; // 小球当前所在的关卡
     private List<List<int>> route;
 
     private int currentInstructionIndex = 1; // 当前执行的指令索引
@@ -26,6 +28,7 @@ public class PacmanMove : MonoBehaviour
         if(Models.Pacman.Route != null && Models.Pacman.CurrentPosition != null){
             transform.position = new Vector3(Models.Pacman.CurrentPosition.y + 0.5f, Models.Pacman.CurrentPosition.x + 0.5f, transform.position.z);
             route = Models.Pacman.Route;
+            speed = level * Models.Pacman.Speed;
         }
         UpdateTargetPosition();
         Models.Pacman.OnUpdated += UpdateRoute; // 订阅 Pacman 的 OnUpdated 事件
@@ -76,6 +79,7 @@ public class PacmanMove : MonoBehaviour
         currentInstructionIndex = 1;
         transform.position = GetRenderingPosition(Models.Pacman.CurrentPosition);
         route = Models.Pacman.Route;
+        speed = level * Models.Pacman.Speed;
         UpdateTargetPosition();
     }
 }
