@@ -1213,7 +1213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1045026d7827a252bb0d4b6b7d1b8184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nowRound: 0
+  nowRound: 1
   debugAutoUpdate: 0
   PlayerName: []
   FrontendDataEnd: 0
