@@ -84,3 +84,6 @@ json/
 
 # Resouces
 /[Aa]ssets/Resources/Sprites
+Assets/Resources/Tiles/*.asset
+Assets/Resources/Tiles/*.asset.meta
+

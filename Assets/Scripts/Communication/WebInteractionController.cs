@@ -79,6 +79,24 @@ public class WebInteractionController : MonoBehaviour
             SendErrorToFrontend(e.Message);
         }
     }
+
+    // 向后端发送 action
+    // 游戏UI逻辑需要使用
+    public void SendAction(Operation??? action)
+    {
+        string sendAction = action.ToString();
+        sendAction += '\n';
+        var sendMessage = new Info{
+            request = "action",
+            token = tokenB64,
+            content = sendAction
+        };
+        var jsonMessage = JsonConvert.SerializeObject(sendMessage);
+        //Debug.Log($"Send message {jsonMessage}");
+        Write(jsonMessage);
+    }
+
+
     #endregion
     public void ReceiveWebSocketMessage(string information)
     {
