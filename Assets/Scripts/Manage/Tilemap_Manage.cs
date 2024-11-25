@@ -5,9 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEditor;
 using JetBrains.Annotations;
-using static UnityEditor.Progress;
 using Unity.VisualScripting;
 
 public class Tilemap_Manage
