@@ -23,10 +23,13 @@ public class FrontendData
 
     [JsonConverter(typeof(StringEnumConverter))]
     public MsgType message {get; set; }
-    public string payload {get; set; }
     public string token {get; set; }
+
+    public string payload { get; set; }
     public int speed {get; set; }
-    public List<GameData> replay_data {get; set; }
+    public string replay_data {get; set; }
+
+    public string play_speed { get; set; }
     public int index {get; set; }
     public List<string> players {get; set; }
 }

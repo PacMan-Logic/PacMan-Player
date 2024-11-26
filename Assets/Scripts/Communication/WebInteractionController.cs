@@ -167,10 +167,12 @@ public class WebInteractionController : MonoBehaviour
                     break;
                 case FrontendData.MsgType.init_replay_player:      //This message is to initialize replay mode instead of start replay.
                     GetComponent<ModeController>().SwitchReplayMode();
-                    int frameCount = Convert.ToInt32(msg.payload);
+                    GetComponent<ReplayController>().MsgToReplay(msg.replay_data);
+                    int frameCount = msg.replay_data.Split(new string[] { Environment.NewLine }, StringSplitOptions.None).Length;
                     for(int i = 0;i < frameCount;i++){
                         Getoperation(i);
                     }
+                    GetComponent<ReplayController>().MsgToReplay(msg.replay_data);
                     GetComponent<ReplayController>().ReplayFileInitialized();
                     SendFrameCountToFrontend(frameCount - 1);
                     break;
