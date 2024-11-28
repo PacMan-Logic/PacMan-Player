@@ -67,6 +67,20 @@ public class ReplayController : MonoBehaviour
         Models.TileMap.Init(_replay.Data[0]);
         ReplayFileInitialized();
     }
+
+    public void MsgToReplay(string payload)
+    {
+        using (StringReader reader = new StringReader(payload))  //逐行读取
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                var gameData = JsonConvert.DeserializeObject<GameData>(line);
+                gameData.Map = Tilemap_Manage.convert(gameData.board);
+                AddDataToReplay(gameData);
+            }
+        }
+    }
     
     private void LoadOrderly(){
         Load_next_frame();
@@ -170,5 +184,14 @@ public class ReplayController : MonoBehaviour
             Models.TileMap.Update(_replay.Data[frame]);
             Models.Point.Init(_replay.Data[frame]);
         }
+    }
+
+    public void HandleMessage(string message)   //Handle init message from Web
+    {
+        Debug.Log("Received message: " + message);
+        var data = JsonConvert.DeserializeObject<FrontendData>(message);
+        Debug.Log($"Message type: {data.message}, content: {data.replay_data}");
+        var gamedata  = JsonConvert.DeserializeObject<GameData>(data.replay_data);
+        AddDataToReplay(gamedata);
     }
 }
