@@ -23,6 +23,7 @@ public class WebInteractionController : MonoBehaviour
         // 本地调用直接打开会报错
         if(_loaded)return;
         _loaded = true;
+        Debug.Log("Succcess load");
         SendInitCompleteToFronted();
     }
 
@@ -134,6 +135,7 @@ public class WebInteractionController : MonoBehaviour
     }
     private void SendInitCompleteToFronted(){
         // 告知前端网页unity已经初始化完成，接收队列中的信息
+        Debug.Log("Has loaded");
         SendToFrontend(
             new FrontendReplyData()
             {
@@ -211,9 +213,6 @@ public class WebInteractionController : MonoBehaviour
         var gameData = JsonConvert.DeserializeObject<GameData>(Operation);
         GetComponent<ReplayController>().AddDataToReplay(gameData);
     }
-
-
-
 
 
     #region jsFunc 
