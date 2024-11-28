@@ -148,7 +148,10 @@ public class ReplayController : MonoBehaviour
         var tarRoundData = _replay.Data[frameIndex];
         nowRound = frameIndex;
         ClearRoute();
-        UpdateRoute(tarRoundData);
+        Models.TileMap.Update(tarRoundData);
+        Models.Point.Init(tarRoundData);
+        Models.Pacman.Update(tarRoundData);
+        Models.Ghost.Update(tarRoundData);
     }
 
     public void Load_next_frame() {
@@ -167,9 +170,10 @@ public class ReplayController : MonoBehaviour
         PlayerName = name;
     }
 
-    public void SetReplaySpeed(int speed){
-        GhostMove.speed = speed;
-        PacmanMove.speed = speed;
+    public void SetReplaySpeed(int level){
+        GhostMove.level = level;
+        PacmanMove.level = level;
+        Time.fixedDeltaTime = 1f / level;
     }
     #endregion
     public void ModelUpdate(int frame){
