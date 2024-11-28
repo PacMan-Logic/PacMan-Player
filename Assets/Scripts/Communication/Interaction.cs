@@ -8,33 +8,77 @@ using UnityEngine.EventSystems;
 public class Interaction : MonoBehaviour
 {
     private MovementType action = MovementType.Right;
-
+    private float timer = 0;
+    public bool needOP???;
     // Update is called once per frame
+
     private void Update()
+
     {
-        if (Input.GetMouseButtonDown(0))
+        if (needOP)
         {
-            if (IsPointerOverUI())
-            {
-                return;
+            timer += Time.deltaTime;
+            if (timer >= timer???) {
+                needOP = false;
+                timer = 0;
             }
-            float screenHeight = Screen.height / 4;
-            float screenWidth = Screen.width / 2;
-            Vector3 MousePosition = Input.mousePosition;
-            if(MousePosition.y > 3 * screenHeight)
+            //监听主键盘'='
+            if (Input.GetKeyDown(KeyCode.Equals))
             {
-                Debug.Log("up");
-            }else if(MousePosition.y < screenHeight)
+                OnKeyPressed(0);
+                action[i] = 0
+            }
+            //监听鼠标小键盘'='
+            if (Input.GetKeyDown(KeyCode.KeypadEquals))
             {
-                Debug.Log("down");
-            }else if(MousePosition.x < screenWidth)
+                OnKeyPressed(0);
+            }
+            //监听↑
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                Debug.Log("left");
-            }else if(MousePosition.x >  screenWidth)
+                OnKeyPressed(1);
+                //OnUpArrowKeyPressed();
+            }
+            //监听←
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                Debug.Log("right");
+                OnKeyPressed(2);
+            }
+            //监听↓
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                OnKeyPressed(3);
+                //OnDownArrowKeyPressed();
+            }
+            //监听→
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                OnKeyPressed(4);
             }
         }
+        // if (Input.GetMouseButtonDown(0))
+        // {
+        //     if (IsPointerOverUI())
+        //     {
+        //         return;
+        //     }
+        //     float screenHeight = Screen.height / 4;
+        //     float screenWidth = Screen.width / 2;
+        //     Vector3 MousePosition = Input.mousePosition;
+        //     if(MousePosition.y > 3 * screenHeight)
+        //     {
+        //         Debug.Log("up");
+        //     }else if(MousePosition.y < screenHeight)
+        //     {
+        //         Debug.Log("down");
+        //     }else if(MousePosition.x < screenWidth)
+        //     {
+        //         Debug.Log("left");
+        //     }else if(MousePosition.x >  screenWidth)
+        //     {
+        //         Debug.Log("right");
+        //     }
+        // }
     }
 
     public void FixedUpdate()
@@ -50,5 +94,9 @@ public class Interaction : MonoBehaviour
     private bool IsPointerOverUI()
     {
         return EventSystem.current.IsPointerOverGameObject();
+    }
+    public void OnKeyPressed(int action_code)
+    {
+        GetComponentInParent<WebInteractionController>.SendAction(???);
     }
 }
