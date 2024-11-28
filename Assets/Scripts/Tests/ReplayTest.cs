@@ -23,13 +23,13 @@ public class MainController : MonoBehaviour
     void Start()
     {   
         //Waiting for Communcation Controller Start.
-        while(Mode == -1);
+        //while(Mode == -1);
 
-        if(Mode == 0){
-            Debug.Log("Replay Mode.");
-        }
-        Debug.Log(Pacman.GetInfo());
-        Debug.Log(Ghost.GetInfo());
+        //if(Mode == 0){
+        //    Debug.Log("Replay Mode.");
+        //}
+        //Debug.Log(Pacman.GetInfo());
+        //Debug.Log(Ghost.GetInfo());
     }
 
     // Update is called once per frame

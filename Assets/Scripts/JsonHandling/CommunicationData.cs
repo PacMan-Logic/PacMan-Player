@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Json;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -25,8 +26,11 @@ public class FrontendData
     public MsgType message {get; set; }
     public string token {get; set; }
 
-    public string payload { get; set; }
+
+    public int payload { get; set; }
     public int speed {get; set; }
+
+    [CanBeNull]
     public string replay_data {get; set; }
 
     public string play_speed { get; set; }

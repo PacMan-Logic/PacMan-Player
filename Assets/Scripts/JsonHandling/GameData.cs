@@ -40,5 +40,6 @@ namespace Json
         public List<List<int>> ghosts_coord = new List<List<int>> ();
         [CanBeNull]public string StopReason = null;
         public int level = 0;
+        public List<int> events = new List<int> ();
     }
 }

@@ -65,7 +65,10 @@ public class PacmanMove : MonoBehaviour
 
     void MoveToTarget()
     {
+        Debug.Log("In MoveToTarget: transform = " +transform.position.ToString() +"target = " +targetPosition.ToString());
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        Debug.Log(Time.deltaTime);
+        Debug.Log("Time.timeScale: " + Time.timeScale);
         Debug.Log("Speed : " + speed);
         if (Vector3.Distance(transform.position, targetPosition) < 0.001f || Vector3.Dot(transform.position - targetPosition, prevposition - targetPosition) < 0)
         {
@@ -75,6 +78,7 @@ public class PacmanMove : MonoBehaviour
     }
 
     void UpdateRoute(){
+        Debug.Log("UpdateRoute Invoked");
         currentInstructionIndex = 1;
         transform.position = GetRenderingPosition(Models.Pacman.CurrentPosition);
         route = Models.Pacman.Route;

@@ -561,9 +561,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 877360170317364068, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1584400677}
-    - targetCorrespondingSourceObject: {fileID: 877360170317364068, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1584400678}
   m_SourcePrefab: {fileID: 100100000, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
 --- !u!4 &1584400674 stripped
 Transform:
@@ -605,33 +602,6 @@ CircleCollider2D:
   m_Offset: {x: -0.00000017881393, y: -0.0000011324883}
   serializedVersion: 2
   m_Radius: 0.49999997
---- !u!50 &1584400678
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1386277617}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!1 &1660079864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,6 +1172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gamedatas: []
   Mode: 0
+  tileMap: {fileID: 0}
 --- !u!114 &2089201231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1219,6 +1190,8 @@ MonoBehaviour:
   PlayerName: []
   FrontendDataEnd: 0
   DataToMainControllerEnd: 0
+  isInited: 0
+  is_init: 0
 --- !u!114 &2089201232
 MonoBehaviour:
   m_ObjectHideFlags: 0

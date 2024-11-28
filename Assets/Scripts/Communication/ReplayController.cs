@@ -19,23 +19,24 @@ public class ReplayController : MonoBehaviour
 
     public bool FrontendDataEnd = false;
     public bool DataToMainControllerEnd = false;
+    public bool isInited = false;
+    public bool is_init = false;
 
 
     #region test function
     void Start(){
         //This is used to test locally.
         onNewFrameLoaded += LoadOrderly;
-        OfflineFileInit();
-        Debug.Log($"Replay Controller init success. Replay consists {_replay.Data.Count} frames.");
-        Models.Point.Init(_replay.Data[0]);
-        if(onNewFrameLoaded != null)
+        //OfflineFileInit();
+        //Debug.Log($"Replay Controller init success. Replay consists {_replay.Data.Count} frames.");
+        //Models.Point.Init(_replay.Data[0]);
+        if (onNewFrameLoaded != null)
             onNewFrameLoaded.Invoke();
     }
 
     void FixedUpdate(){
         if(nowRound >= _replay.Data.Count - 1){
             Debug.Log("End");
-            Time.timeScale = 0;
         }//暂停
 
         // LoadFrame(++nowRound + 1);  //Test LoadFrame.
@@ -52,21 +53,21 @@ public class ReplayController : MonoBehaviour
         onNewFrameLoaded.Invoke();
     }
 
-    #region offline test functions
-    private void OfflineFileInit(){
-        using (StreamReader reader = new StreamReader(Constants.Constants.Record_Path))  //逐行读取
-        {
-            string line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                var gameData = JsonConvert.DeserializeObject<GameData>(line);
-                gameData.Map = Tilemap_Manage.convert(gameData.board);
-                AddDataToReplay(gameData);
-            }
-        }
-        Models.TileMap.Init(_replay.Data[0]);
-        ReplayFileInitialized();
-    }
+    //#region offline test functions
+    //private void OfflineFileInit(){
+    //    using (StreamReader reader = new StreamReader(Constants.Constants.Record_Path))  //逐行读取
+    //    {
+    //        string line;
+    //        while ((line = reader.ReadLine()) != null)
+    //        {
+    //            var gameData = JsonConvert.DeserializeObject<GameData>(line);
+    //            gameData.Map = Tilemap_Manage.convert(gameData.board);
+    //            AddDataToReplay(gameData);
+    //        }
+    //    }
+    //    Models.TileMap.Init(_replay.Data[0]);
+    //    ReplayFileInitialized();
+    //}
 
     public void MsgToReplay(string payload)
     {
@@ -85,8 +86,6 @@ public class ReplayController : MonoBehaviour
     private void LoadOrderly(){
         Load_next_frame();
     }
-    
-    #endregion
     
     #region Frontend Function
     public void AddDataToReplay(GameData gameData) {
@@ -131,9 +130,14 @@ public class ReplayController : MonoBehaviour
             return;
         }
 
-        nowRound = 0;
-        
+        nowRound = 1;
+        Debug.Log("Model Updated");
+        Debug.Log(_replay.Data.Count);
+        Debug.Log(_replay.Data[1].board[0][0]);
+        Debug.Log(_replay.Data[1].Map.Length);
         ModelUpdate(nowRound);
+        Models.TileMap.Update(_replay.Data[1]);
+        Models.Point.Init(_replay.Data[1]);
         SetReplayMode();
         //Init Ended.
     }
@@ -179,10 +183,16 @@ public class ReplayController : MonoBehaviour
     public void ModelUpdate(int frame){
         Models.Ghost.Update(_replay.Data[frame]);
         Models.Pacman.Update(_replay.Data[frame]);
-        if (_replay.Data[frame].status == 1)
+        if (is_init)
         {
             Models.TileMap.Update(_replay.Data[frame]);
             Models.Point.Init(_replay.Data[frame]);
+            is_init = false;
+        }
+        foreach (var e in _replay.Data[frame].events)
+        {
+            if(e == 2)
+                is_init = true;
         }
     }
 

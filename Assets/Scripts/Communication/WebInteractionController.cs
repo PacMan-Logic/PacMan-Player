@@ -168,13 +168,16 @@ public class WebInteractionController : MonoBehaviour
 
                     break;
                 case FrontendData.MsgType.init_replay_player:      //This message is to initialize replay mode instead of start replay.
+                    Debug.Log(22222222222);
                     GetComponent<ModeController>().SwitchReplayMode();
-                    GetComponent<ReplayController>().MsgToReplay(msg.replay_data);
-                    int frameCount = msg.replay_data.Split(new string[] { Environment.NewLine }, StringSplitOptions.None).Length;
+                    //GetComponent<ReplayController>().MsgToReplay(msg.replay_data);
+                    int frameCount = msg.payload;
+                    Debug.Log(frameCount);
                     for(int i = 0;i < frameCount;i++){
                         Getoperation(i);
+                        Debug.Log(1111111);
                     }
-                    GetComponent<ReplayController>().MsgToReplay(msg.replay_data);
+                    //GetComponent<ReplayController>().MsgToReplay(msg.replay_data);
                     GetComponent<ReplayController>().ReplayFileInitialized();
                     SendFrameCountToFrontend(frameCount - 1);
                     break;
@@ -209,10 +212,14 @@ public class WebInteractionController : MonoBehaviour
      *       -> player.html中实现window.SendOperation，调用Main Controller组件中的HandleOperation
      *       -> 到达该函数
      */
-    public void HandleOperation(string Operation){
+    public void HandleOperation(string Operation)
+    {
         var gameData = JsonConvert.DeserializeObject<GameData>(Operation);
+        gameData.Map = Tilemap_Manage.convert(gameData.board);
         GetComponent<ReplayController>().AddDataToReplay(gameData);
+        Debug.Log(Operation);
     }
+
 
 
     #region jsFunc 

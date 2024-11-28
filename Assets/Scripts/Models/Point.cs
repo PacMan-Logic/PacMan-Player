@@ -14,6 +14,7 @@ namespace Models
         {
             clear_props();
             var map = gameData.Map;
+            Debug.Log(map);
             foreach (var tile in map.TileList)
             {
                 if (tile.Type == Enums.TileType.PacDot)
