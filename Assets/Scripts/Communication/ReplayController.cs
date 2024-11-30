@@ -150,6 +150,7 @@ public class ReplayController : MonoBehaviour
             Debug.Log("Frame Number Out of Range.");
             return;
         }
+        if(frameIndex == 0){frameIndex = 1;}
 
         var tarRoundData = _replay.Data[frameIndex];
         nowRound = frameIndex;
@@ -204,8 +205,16 @@ public class ReplayController : MonoBehaviour
                 Debug.Log("initialmapdata");
                 _replay.Data[i].board = _replay.Data[i-1].board;
                 for(int j = 0;j<_replay.Data[i-1].pacman_step_block.Count;j++){
-                    if(_replay.Data[i-1].pacman_step_block[j][0] >= 0){
-                        _replay.Data[i].board[_replay.Data[i-1].pacman_step_block[j][0]][_replay.Data[i-1].pacman_step_block[j][1]] = 1;
+                    int x = _replay.Data[i-1].pacman_step_block[j][0];
+                    int y = _replay.Data[i-1].pacman_step_block[j][1];
+                    if(x >= 0){
+                        _replay.Data[i].board[x][y] = 1;
+                        if(_replay.Data[i-1].pacman_skills[2] > 0){ //magnet
+                            if(_replay.Data[i].board[x-1][y] > 1) _replay.Data[i].board[x-1][y] = 1;
+                            if(_replay.Data[i].board[x+1][y] > 1) _replay.Data[i].board[x+1][y] = 1;
+                            if(_replay.Data[i].board[x][y-1] > 1) _replay.Data[i].board[x][y-1] = 1;
+                            if(_replay.Data[i].board[x][y+1] > 1) _replay.Data[i].board[x][y+1] = 1;
+                        }
                     }
                 }
                 _replay.Data[i].Map = Tilemap_Manage.convert(_replay.Data[i].board);
