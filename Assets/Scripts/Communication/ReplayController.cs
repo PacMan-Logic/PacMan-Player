@@ -40,7 +40,7 @@ public class ReplayController : MonoBehaviour
         }//暂停
 
         // LoadFrame(++nowRound + 1);  //Test LoadFrame.
-        SetReplaySpeed(_replay.Data[nowRound - 1].level);
+        //SetReplaySpeed(_replay.Data[nowRound - 1].level);
         
         if (debugAutoUpdate && onNewFrameLoaded != null)
             onNewFrameLoaded.Invoke();
@@ -201,7 +201,9 @@ public class ReplayController : MonoBehaviour
         Debug.Log("Received message: " + message);
         var data = JsonConvert.DeserializeObject<FrontendData>(message);
         Debug.Log($"Message type: {data.message}, content: {data.replay_data}");
-        var gamedata  = JsonConvert.DeserializeObject<GameData>(data.replay_data);
-        AddDataToReplay(gamedata);
+        if(data.replay_data!=null){
+            var gamedata  = JsonConvert.DeserializeObject<GameData>(data.replay_data);
+            AddDataToReplay(gamedata);
+        }
     }
 }
