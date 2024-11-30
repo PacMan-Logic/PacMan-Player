@@ -130,6 +130,8 @@ public class ReplayController : MonoBehaviour
             return;
         }
 
+        initialmapdata(); //初始化地图数据
+
         nowRound = 1;
         Debug.Log("Model Updated");
         Debug.Log(_replay.Data.Count);
@@ -193,6 +195,22 @@ public class ReplayController : MonoBehaviour
         {
             if(e == 2)
                 is_init = true;
+        }
+    }
+
+    public void initialmapdata(){
+        for(int i = 2 ; i < _replay.Data.Count;i++){
+            if(_replay.Data[i].board.Count == 0){
+                Debug.Log("initialmapdata");
+                _replay.Data[i].board = _replay.Data[i-1].board;
+                for(int j = 0;j<_replay.Data[i-1].pacman_step_block.Count;j++){
+                    if(_replay.Data[i-1].pacman_step_block[j][0] >= 0){
+                        _replay.Data[i].board[_replay.Data[i-1].pacman_step_block[j][0]][_replay.Data[i-1].pacman_step_block[j][1]] = 1;
+                    }
+                }
+                _replay.Data[i].Map = Tilemap_Manage.convert(_replay.Data[i].board);
+                Debug.Log(_replay.Data[i].board);
+            }
         }
     }
 
