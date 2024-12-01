@@ -17,10 +17,12 @@ public class ModeController : MonoBehaviour
 
     public void SwitchReplayMode(){
         _mode = Mode.Replay;
+        GameObject.Find("Main Controller").GetComponent<ReplayController>().enabled=true;
     }
 
     public void SwitchInteractMode(){
         _mode = Mode.Interact;
+        GameObject.Find("Main Controller").GetComponent<ReplayController>().enabled=false;
     }
 
     public static bool IsReplayMode(){
