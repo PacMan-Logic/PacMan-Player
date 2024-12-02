@@ -128,11 +128,15 @@ public class WebInteractionController : MonoBehaviour
                     {
                         Debug.Log("is0");
                         InteractController.SetRole(0);
+                        GameObject.Find("Main Controller").GetComponent<KeyboardInteraction>().enabled=true;
+                        GameObject.Find("Main Controller").GetComponent<KeyboardInteraction>().pausekeyboard(0f); //刷新
                     }
                     else if (judgerData.content == "1\n")
                     {
                         Debug.Log("is1");
                         InteractController.SetRole(1);
+                        GameObject.Find("Main Controller").GetComponent<KeyboardInteraction>().enabled=true;
+                        GameObject.Find("Main Controller").GetComponent<KeyboardInteraction>().pausekeyboard(0f);
                     }
                     else
                     {
@@ -145,17 +149,18 @@ public class WebInteractionController : MonoBehaviour
                 {
                     if (!InteractController.get_finish_message)//根据和逻辑组的约定，这次的信息是"player {i} send info",并不需要实际处理
                     {
+                        Debug.Log("get_other_info");
                         InteractController.get_finish_message = true;
                         InteractController.other_finish = true;
                     }
                     else
                     {
+                        Debug.Log("get_game_data");
                         var jsonData = JsonConvert.DeserializeObject<GameData>(judgerData.content);
                         jsonData.Map = Tilemap_Manage.convert(jsonData.board);
                         InteractController.Interact(jsonData);
                         InteractController.get_finish_message = false;
                         InteractController.other_finish = false;
-                        enablekeyboardafter1s();
                     }
                 }
             }
@@ -171,14 +176,6 @@ public class WebInteractionController : MonoBehaviour
             Debug.Log(e.Message);
             SendErrorToFrontend(e.Message);
         }
-    }
-
-    public void enablekeyboard(){
-        GameObject.Find("Main Controller").GetComponent<KeyboardInteraction>().enabled=true;
-    }
-
-    public void enablekeyboardafter1s(){
-        Invoke("enablekeyboard", 1f);
     }
 
     #region sendDataToFrontend

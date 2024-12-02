@@ -28,7 +28,6 @@ namespace Models
         {
             PlayerID = jsonGameData.Player_id;
             Route = jsonGameData.pacman_step_block;
-            Speed = jsonGameData.pacman_step_block.Count - 1;
             if (jsonGameData.pacman_skills != null && jsonGameData.pacman_skills.Count != 0)
             {
                 Magnet = jsonGameData.pacman_skills[2] > 0;
@@ -38,6 +37,7 @@ namespace Models
             }
             else
             {
+                Speed = jsonGameData.pacman_step_block.Count - 1;
                 CurrentPosition = new Vector2(jsonGameData.pacman_step_block[0][1], jsonGameData.pacman_step_block[0][0]);
             }
             OnUpdated?.Invoke();

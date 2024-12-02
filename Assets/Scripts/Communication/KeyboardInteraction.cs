@@ -20,25 +20,27 @@ public class KeyboardInteraction : MonoBehaviour
     private int targetnum = 0;  //目标操作个数
     private int index = 0;  //当前操作对象,对象为幽灵
     private List<MovementType> action = new List<MovementType>();
-    private bool hasstarted = false;
+
+    private bool isactive = false;
 
     void Start(){
-        if(hasstarted) return;
-        hasstarted = true;
+        Debug.Log("KeyboardInteraction Start");
+        if(!InteractController.setRole) return;
         if(InteractController.role == 0){
             obj.Add(GameObject.FindWithTag("Pacmen"));
             targetnum = 1;
         }else{
             for(int i = 0; i < 3; i++){
                 string name = "Ghost" + i;
-                obj.Add(GameObject.Find(name));
+                obj.Add(GameObject.FindWithTag(name));
             }
             targetnum = 3;
         }
         for(int i = 0; i < targetnum; i++){
             action.Add(MovementType.Zero);
-            GameObject cloneobj = ChangeColorToRed(Instantiate(obj[i], obj[i].transform.position, obj[i].transform.rotation));
+            GameObject cloneobj = ChangeColorToRed(Instantiate(GameObject.FindWithTag("Ghost0"), obj[i].transform.position, obj[i].transform.rotation));
             cloneobj.GetComponent<Renderer>().enabled = false;
+            cloneobj.GetComponent<GhostMove>().enabled = false;
             clone.Add(cloneobj);
             // 创建LineRenderer并添加到clone对象上
             LineRenderer lineRenderer = cloneobj.AddComponent<LineRenderer>();
@@ -54,6 +56,7 @@ public class KeyboardInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!isactive) return;
         if(InteractController.role == 0){
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)){
                 action[0] = MovementType.Up;
@@ -86,6 +89,7 @@ public class KeyboardInteraction : MonoBehaviour
         }else{
             ChangeColorToGreen(obj[index]);
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)){
+                Debug.Log("Up");
                 action[index] = MovementType.Up;
                 direction = new UnityEngine.Vector3(0, 1, 0);
                 clone[index].transform.position = obj[index].transform.position+direction*Models.Ghost.AllGhosts[index].Speed;
@@ -93,6 +97,7 @@ public class KeyboardInteraction : MonoBehaviour
                 clone[index].GetComponent<LineRenderer>().enabled = true;
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)){
+                Debug.Log("Down");
                 action[index] = MovementType.Down;
                 direction = new UnityEngine.Vector3(0, -1, 0);
                 clone[index].transform.position = obj[index].transform.position+direction*Models.Ghost.AllGhosts[index].Speed;
@@ -100,6 +105,7 @@ public class KeyboardInteraction : MonoBehaviour
                 clone[index].GetComponent<LineRenderer>().enabled = true;
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)){
+                Debug.Log("Left");
                 action[index] = MovementType.Left;
                 direction = new UnityEngine.Vector3(-1, 0, 0);
                 clone[index].transform.position = obj[index].transform.position+direction*Models.Ghost.AllGhosts[index].Speed;
@@ -107,20 +113,24 @@ public class KeyboardInteraction : MonoBehaviour
                 clone[index].GetComponent<LineRenderer>().enabled = true;
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)){
+                Debug.Log("Right");
                 action[index] = MovementType.Right;
                 direction = new UnityEngine.Vector3(1, 0, 0);
                 clone[index].transform.position = obj[index].transform.position+direction*Models.Ghost.AllGhosts[index].Speed;
                 clone[index].GetComponent<Renderer>().enabled = true;
                 clone[index].GetComponent<LineRenderer>().enabled = true;
             }else if(Input.GetKeyDown(KeyCode.Alpha1)){
+                Debug.Log("alpha1");
                 ChangeColorToOrange(obj[index]);
                 index = 0;
                 ChangeColorToGreen(obj[index]);
             }else if(Input.GetKeyDown(KeyCode.Alpha2)){
+                Debug.Log("alpha2");
                 ChangeColorToOrange(obj[index]);
                 index = 1;
                 ChangeColorToGreen(obj[index]);
             }else if(Input.GetKeyDown(KeyCode.Alpha3)){
+                Debug.Log("alpha3");
                 ChangeColorToOrange(obj[index]);
                 index = 2;
                 ChangeColorToGreen(obj[index]);
@@ -136,22 +146,29 @@ public class KeyboardInteraction : MonoBehaviour
         // 检查Enter键是否被按下（在PC上通常是回车键）
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
+            Debug.Log("Enter key pressed");
             for(int i = 0; i < targetnum; i++){
                 if(action[i] == MovementType.Zero){
                     return;
                 }
             }
             if(InteractController.role == 0 || InteractController.other_finish){
+                Debug.Log("发送");
                 GameObject.Find("Main Controller").GetComponent<WebInteractionController>().SendAction(new Operation(ConvertEnumListToIntList(action)));
-                GameObject.Find("Main Controller").GetComponent<KeyboardInteraction>().enabled=false;
+                pausekeyboard(1.0f);
             }else{
                 Debug.Log("等待对方完成");
             }
         }
     }
 
-    private void OnDisable()
-    {
+    public void awakekeyboard(){
+        isactive = true;
+        Start();
+    }
+
+    public void pausekeyboard(float time){
+        isactive = false;
         for(int i = 0; i < targetnum; i++){
             Destroy(clone[i]);
             if(InteractController.role == 1) ChangeColorToOrange(obj[i]);
@@ -159,11 +176,7 @@ public class KeyboardInteraction : MonoBehaviour
         clone = new List<GameObject>();
         obj = new List<GameObject>();
         action = new List<MovementType>();
-    }
-
-    private void OnEnable()
-    {
-        Start();
+        Invoke("awakekeyboard", time);
     }
 
     private GameObject ChangeColorToRed(GameObject clone)

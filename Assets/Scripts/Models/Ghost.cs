@@ -48,40 +48,18 @@ namespace Models
             
             for(int i = 0; i < AllGhosts.Count; i++)
             {
-                if(jsonGameData.ghosts_step_block.Count > 0){
-                    AllGhosts[i].Route = jsonGameData.ghosts_step_block[i];
-                    AllGhosts[i].Speed = jsonGameData.ghosts_step_block[i].Count - 1;
-                }else{
-                    AllGhosts[i].Route = null;
-                }
                 if (jsonGameData.ghosts_step_block.Count == 0)
                 {
                     AllGhosts[i].CurrentPosition = new Vector2(jsonGameData.ghosts_coord[i][1], jsonGameData.ghosts_coord[i][0]);
+                    AllGhosts[i].Route = null;
                 }
                 else
                 {
+                    AllGhosts[i].Route = jsonGameData.ghosts_step_block[i];
+                    AllGhosts[i].Speed = jsonGameData.ghosts_step_block[i].Count - 1;
                     AllGhosts[i].CurrentPosition = new Vector2(jsonGameData.ghosts_step_block[i][0][1], jsonGameData.ghosts_step_block[i][0][0]);
                 }
             }
-            // foreach (var route in jsonGameData.ghosts_step_block)
-            // {
-            //     try
-            //     {
-            //         AllGhosts[index].CurrentPosition = new Vector2(route[0][1], route[0][0]);
-            //         AllGhosts[index].Route = route;
-            //         AllGhosts[index].Speed = jsonGameData.ghosts_step_block[index].Count - 1;
-            //     }
-            //     catch (Exception e)
-            //     {
-            //         Console.WriteLine("Make sure ghost id starts with 0.");
-            //         Console.WriteLine(jsonGameData.ghosts_step_block.Count + "  Count");
-            //         Console.WriteLine(1);
-            //         Console.WriteLine(e.ToString());
-            //         Console.WriteLine(index);
-            //         throw;
-            //     }
-            //     index++;
-            // }
             OnUpdated?.Invoke();
         }
 
