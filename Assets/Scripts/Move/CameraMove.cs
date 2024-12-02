@@ -20,6 +20,10 @@ public class WebGLMouseControl : MonoBehaviour
     {
         HandleZoom();
         HandleDrag();
+        if (!Application.isFocused) // 检查窗口是否失去焦点
+        {
+            targetCamera.Render(); // 强制渲染
+        }
     }
 
     private void HandleZoom()
@@ -57,7 +61,17 @@ public class WebGLMouseControl : MonoBehaviour
 
             Vector3 move = new Vector3(difference.x * dragSpeed, difference.y * dragSpeed, 0);
             targetCamera.transform.Translate(move, Space.World);
+            ForceRepaint();
         }
+    }
+    void ForceRepaint()
+    {
+        // 强制重新渲染相机
+        targetCamera.enabled = false;
+        targetCamera.enabled = true;
+
+        // 或手动触发一帧
+        GL.Flush(); // 强制刷新 OpenGL 缓存
     }
 
 }
