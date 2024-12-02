@@ -184,6 +184,7 @@ public class WebInteractionController : MonoBehaviour
                 case FrontendData.MsgType.load_frame:
                     Debug.Log("Load frame " + msg.index);
                     GetComponent<ReplayController>().LoadFrame(msg.index);
+                    GetComponent<ReplayController>().Reload_this_frame();
                     break;
                 case FrontendData.MsgType.load_next_frame:
                     Debug.Log("Load the next frame.");

@@ -172,6 +172,11 @@ public class ReplayController : MonoBehaviour
         var gameData = _replay.Data[nowRound];
         UpdateRoute(gameData);
     }
+    
+    public void Reload_this_frame() {
+        var gameData = _replay.Data[nowRound];
+        UpdateRoute(gameData);
+    }
 
     public void SetPlayerName(List<string> name) {
         PlayerName = name;
