@@ -65,11 +65,7 @@ public class PacmanMove : MonoBehaviour
 
     void MoveToTarget()
     {
-        Debug.Log("In MoveToTarget: transform = " +transform.position.ToString() +"target = " +targetPosition.ToString());
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-        Debug.Log(Time.deltaTime);
-        Debug.Log("Time.timeScale: " + Time.timeScale);
-        Debug.Log("Speed : " + speed+" level: "+level);
         if (Vector3.Distance(transform.position, targetPosition) < 0.001f || Vector3.Dot(transform.position - targetPosition, prevposition - targetPosition) < 0)
         {
             transform.position = targetPosition;

@@ -42,9 +42,6 @@ namespace Models
             }
             OnUpdated?.Invoke();
         }
-        public static void ClearRoute(){
-            Route.Clear();
-        }
 
         public static string GetInfo()
         {

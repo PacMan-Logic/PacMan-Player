@@ -22,6 +22,8 @@ public class ReplayController : MonoBehaviour
     public bool isInited = false;
     public bool is_init = false;
 
+    public int map_width;
+
 
     #region test function
     void Start(){
@@ -38,9 +40,6 @@ public class ReplayController : MonoBehaviour
         if(nowRound >= _replay.Data.Count - 1){
             Debug.Log("End");
         }//暂停
-
-        // LoadFrame(++nowRound + 1);  //Test LoadFrame.
-        //SetReplaySpeed(_replay.Data[nowRound - 1].level);
         
         if (debugAutoUpdate && onNewFrameLoaded != null)
             onNewFrameLoaded.Invoke();
@@ -100,26 +99,6 @@ public class ReplayController : MonoBehaviour
     }
     #endregion
 
-    #region function on Models
-    public void UpdateRoute(GameData gameData){
-        if (gameData.status == 1)
-        {
-            Models.TileMap.Update(gameData);
-            Models.Point.Init(gameData);
-            Debug.Log("Map Updated");
-        }
-        else
-        {
-            Models.Pacman.Update(gameData);
-            Models.Ghost.Update(gameData);
-        }
-    }
-    public void ClearRoute(){
-        Models.Ghost.ClearRoute();
-        Models.Pacman.ClearRoute();
-    }
-    #endregion
-
     #region Frontend Instructions
     //回放文件解析完成，并向Pacman,Ghost,Tilemap发送第一帧GameData.
     public void ReplayFileInitialized()
@@ -154,12 +133,13 @@ public class ReplayController : MonoBehaviour
 
         var tarRoundData = _replay.Data[frameIndex];
         nowRound = frameIndex;
-        ClearRoute();
-        Debug.Log("Load Next Frame Successfully");
+        Debug.Log("Load Frame Successfully");
         Models.TileMap.Update(tarRoundData);
         Models.Point.Init(tarRoundData);
         Models.Pacman.Update(tarRoundData);
         Models.Ghost.Update(tarRoundData);
+        GetComponent<ReplayDebuggingUI>().UpdateTexts();
+        Debug.Log("Load Ghosts Successfully");
     }
 
     public void Load_next_frame() {
@@ -172,11 +152,6 @@ public class ReplayController : MonoBehaviour
 
         var gameData = _replay.Data[nowRound];
         ModelUpdate(nowRound);
-    }
-    
-    public void Reload_this_frame() {
-        var gameData = _replay.Data[nowRound];
-        UpdateRoute(gameData);
     }
 
     public void SetPlayerName(List<string> name) {
@@ -226,17 +201,6 @@ public class ReplayController : MonoBehaviour
                 _replay.Data[i].Map = Tilemap_Manage.convert(_replay.Data[i].board);
                 Debug.Log(_replay.Data[i].board);
             }
-        }
-    }
-
-    public void HandleMessage(string message)   //Handle init message from Web
-    {
-        Debug.Log("Received message: " + message);
-        var data = JsonConvert.DeserializeObject<FrontendData>(message);
-        Debug.Log($"Message type: {data.message}, content: {data.replay_data}");
-        if(data.replay_data!=null){
-            var gamedata  = JsonConvert.DeserializeObject<GameData>(data.replay_data);
-            AddDataToReplay(gamedata);
         }
     }
 }

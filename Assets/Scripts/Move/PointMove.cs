@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PointMove : MonoBehaviour
 {
-    public float detectionInterval = 0.01f; // 自定义检测间隔
+    public float detectionInterval = 0.001f; // 自定义检测间隔
     private float detectionTimer = 0f;
     private GameObject pacmen = null;
     private bool is_magneted;

@@ -75,7 +75,7 @@ namespace UI.Debug_Overlay
             
         }
 
-        void UpdateTexts()
+        public void UpdateTexts()
         {
             var textComponent = text.GetComponent<Text>();
             textComponent.text = $"Play Mode: Replay\nRound: {replayController.nowRound}\n";

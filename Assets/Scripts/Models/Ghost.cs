@@ -5,6 +5,8 @@ using Json;
 using UnityEngine;
 using Constants;
 using System.Linq;
+using System.Reflection;
+
 namespace Models
 {
     public class Ghost
@@ -55,28 +57,13 @@ namespace Models
                 catch (Exception e)
                 {
                     Console.WriteLine("Make sure ghost id starts with 0.");
+                    Console.WriteLine(jsonGameData.ghosts_step_block.Count + "  Count");
+                    Console.WriteLine(1);
+                    Console.WriteLine(e.ToString());
+                    Console.WriteLine(index);
                     throw;
                 }
                 index++;
-            }
-            OnUpdated?.Invoke();
-        }
-
-        public static void ClearRoute()
-        {
-            
-            foreach (Ghost ghost in AllGhosts)
-            {
-                try
-                {
-                    ghost.Route.Clear();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Make sure ghost id starts with 0.");
-                    throw;
-                }
-                
             }
             OnUpdated?.Invoke();
         }
