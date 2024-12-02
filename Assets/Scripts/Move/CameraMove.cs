@@ -9,11 +9,13 @@ public class WebGLMouseControl : MonoBehaviour
     public float dragSpeed = 25f; // 拖动速度
 
     private Vector3 dragOrigin; // 记录拖动的起始点
+    private int last_map_width = 0;
 
     private void Start()
     {
         targetCamera = GetComponent<Camera>();
         dragSpeed = 25f;
+        last_map_width = 0;
     }
 
     void Update()

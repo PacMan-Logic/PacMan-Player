@@ -22,7 +22,7 @@ public class ReplayController : MonoBehaviour
     public bool isInited = false;
     public bool is_init = false;
 
-    public int map_width;
+    public int map_width = 40;
 
 
     #region test function
@@ -153,6 +153,7 @@ public class ReplayController : MonoBehaviour
         nowRound = frameIndex;
         Debug.Log("Load Frame Successfully");
         Models.TileMap.Update(tarRoundData);
+        map_width = _replay.Data[frameIndex].board.Count;
         Models.Point.Init(tarRoundData);
         Models.Pacman.Update(tarRoundData);
         Models.Ghost.Update(tarRoundData);
@@ -169,6 +170,7 @@ public class ReplayController : MonoBehaviour
         nowRound++;
 
         var gameData = _replay.Data[nowRound];
+        map_width = gameData.board.Count;
         ModelUpdate(nowRound);
     }
 
