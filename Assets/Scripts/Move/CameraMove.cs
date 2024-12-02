@@ -44,20 +44,20 @@ public class WebGLMouseControl : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            // 记录鼠标按下时的起始位置
             dragOrigin = Input.mousePosition;
+            // 在鼠标按下时重新设置焦点
+            UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(gameObject);
             return;
         }
 
         if (Input.GetMouseButton(0))
         {
-            // 计算鼠标拖动的偏移量
             Vector3 difference = targetCamera.ScreenToViewportPoint(dragOrigin - Input.mousePosition);
             dragOrigin = Input.mousePosition;
 
-            // 根据偏移量移动相机
             Vector3 move = new Vector3(difference.x * dragSpeed, difference.y * dragSpeed, 0);
             targetCamera.transform.Translate(move, Space.World);
         }
     }
+
 }
