@@ -99,6 +99,24 @@ public class ReplayController : MonoBehaviour
     }
     #endregion
 
+    #region function on Models
+    public void UpdateRoute(GameData gameData)
+    {
+        if (gameData.status == 1)
+        {
+            Models.TileMap.Update(gameData);
+            Models.Point.Init(gameData);
+            Debug.Log("Map Updated");
+        }
+        else
+        {
+            Models.Pacman.Update(gameData);
+            Models.Ghost.Update(gameData);
+        }
+    }
+    #endregion
+
+
     #region Frontend Instructions
     //回放文件解析完成，并向Pacman,Ghost,Tilemap发送第一帧GameData.
     public void ReplayFileInitialized()
@@ -138,7 +156,7 @@ public class ReplayController : MonoBehaviour
         Models.Point.Init(tarRoundData);
         Models.Pacman.Update(tarRoundData);
         Models.Ghost.Update(tarRoundData);
-        GetComponent<ReplayDebuggingUI>().UpdateTexts();
+        //GetComponent<ReplayDebuggingUI>().UpdateTexts();
         Debug.Log("Load Ghosts Successfully");
     }
 
@@ -203,4 +221,16 @@ public class ReplayController : MonoBehaviour
             }
         }
     }
+    public void HandleMessage(string message)   //Handle init message from Web
+    {
+        Debug.Log("Received message: " + message);
+        var data = JsonConvert.DeserializeObject<FrontendData>(message);
+        Debug.Log($"Message type: {data.message}, content: {data.replay_data}");
+        if (data.replay_data != null)
+        {
+            var gamedata = JsonConvert.DeserializeObject<GameData>(data.replay_data);
+            AddDataToReplay(gamedata);
+        }
+    }
+
 }
