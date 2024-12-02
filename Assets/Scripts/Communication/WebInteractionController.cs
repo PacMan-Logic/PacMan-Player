@@ -9,6 +9,8 @@ using Json;
 using Newtonsoft.Json;
 using UnityEngine;
 
+
+
 public class WebInteractionController : MonoBehaviour
 {
     #region members
@@ -21,25 +23,29 @@ public class WebInteractionController : MonoBehaviour
         // 这个函数被调用代表所有的 Awake() Start() 都启用了
         // 也即初始化已经完成
         // 本地调用直接打开会报错
-        if(_loaded)return;
+        if (_loaded) return;
         _loaded = true;
         SendInitCompleteToFronted();
     }
 
     #region online mode function
-    public void ConnectToJudger(string token){
-        if(Connect(token)){
+    public void ConnectToJudger(string token)
+    {
+        if (Connect(token))
+        {
             Debug.Log("Connect to Judger");
             ReplyConnectionSucceed(token);
         }
     }
 
-    private bool Connect(string token){
-        try{
+    private bool Connect(string token)
+    {
+        try
+        {
             var bytes = Convert.FromBase64String(token);
             var uri = Encoding.UTF8.GetString(bytes);
             Debug.Log(uri);
-            
+
 
             /*
             TODO:
@@ -49,32 +55,38 @@ public class WebInteractionController : MonoBehaviour
             Connect_ws("wss://" + uri);
             return true;
         }
-        catch( Exception e){
+        catch (Exception e)
+        {
             Debug.Log(e);
             SendErrorToFrontend(e.Message);
             return false;
         }
     }
 
-    private void ReplyConnectionSucceed(string token){
-            var info = new Info{
-                request = "connect",
-                token = token,
-                content = null
+    private void ReplyConnectionSucceed(string token)
+    {
+        var info = new Info
+        {
+            request = "connect",
+            token = token,
+            content = null
         };
 
         tokenB64 = token;
-        JsonSerializerSettings settings = new() {NullValueHandling = NullValueHandling.Ignore };
+        JsonSerializerSettings settings = new() { NullValueHandling = NullValueHandling.Ignore };
         var jsonString = JsonConvert.SerializeObject(info, settings);
         Debug.Log(jsonString);
         Write(jsonString);
     }
 
-    private void Write(string information){
-        try{
+    private void Write(string information)
+    {
+        try
+        {
             Send_ws(information);
         }
-        catch (Exception e){
+        catch (Exception e)
+        {
             Debug.Log("$Failed to send message: {e.Message}");
             SendErrorToFrontend(e.Message);
         }
@@ -86,7 +98,8 @@ public class WebInteractionController : MonoBehaviour
     {
         string sendAction = action.ToString();
         sendAction += '\n';
-        var sendMessage = new Info{
+        var sendMessage = new Info
+        {
             request = "action",
             token = tokenB64,
             content = sendAction
@@ -105,8 +118,36 @@ public class WebInteractionController : MonoBehaviour
             var judgerData = JsonConvert.DeserializeObject<JudgerData>(information);
             if (judgerData.request == "action")
             {
-                var jsonData = JsonConvert.DeserializeObject<GameData>(judgerData.content);
-                GetComponent<InteractController>().Interact(jsonData);
+                if (not_setRole == false)//读取第一条逻辑发来的0或1
+                {
+                    if (judgerData.content == "0")
+                    {
+                        setRole(0);
+                    }
+                    else if (judgerData.content == "1")
+                    {
+                        setRole(1);
+                    }
+                    else
+                    {
+                        Debug.Log(judgerData.content)
+                        SendErrorToFrontend(judgerData.content);
+                    }
+                }
+                else
+                {
+                    if (!get_finish_message)//根据和逻辑组的约定，这次的信息是"player {i} send info",并不需要实际处理
+                    {
+                        get_finish_message = true;
+                        other_finish = true;
+                    }
+                    else
+                    {
+                        var jsonData = JsonConvert.DeserializeObject<GameData>(judgerData.content);
+                        GetComponent<InteractController>().Interact(jsonData);
+                        get_finish_message = false;
+                    }
+                }
             }
             else
             {
@@ -140,7 +181,8 @@ public class WebInteractionController : MonoBehaviour
         );
     }
     // 告知网页总帧数
-    private void SendFrameCountToFrontend(int count){
+    private void SendFrameCountToFrontend(int count)
+    {
         SendToFrontend(
             new FrontendReplyData()
             {
@@ -150,7 +192,8 @@ public class WebInteractionController : MonoBehaviour
             }
         );
     }
-    private void SendInitCompleteToFronted(){
+    private void SendInitCompleteToFronted()
+    {
         // 告知前端网页unity已经初始化完成，接收队列中的信息
         SendToFrontend(
             new FrontendReplyData()
@@ -162,7 +205,8 @@ public class WebInteractionController : MonoBehaviour
     #endregion
     // 提供给前端网页使用
     // 接收网页信息
-    public void HandleMessage(string buffer){
+    public void HandleMessage(string buffer)
+    {
         FrontendData msg;
         try
         {
@@ -186,7 +230,8 @@ public class WebInteractionController : MonoBehaviour
                 case FrontendData.MsgType.init_replay_player:      //This message is to initialize replay mode instead of start replay.
                     GetComponent<ModeController>().SwitchReplayMode();
                     int frameCount = Convert.ToInt32(msg.payload);
-                    for(int i = 0;i < frameCount;i++){
+                    for (int i = 0; i < frameCount; i++)
+                    {
                         Getoperation(i);
                     }
                     GetComponent<ReplayController>().ReplayFileInitialized();
@@ -223,7 +268,8 @@ public class WebInteractionController : MonoBehaviour
      *       -> player.html中实现window.SendOperation，调用Main Controller组件中的HandleOperation
      *       -> 到达该函数
      */
-    public void HandleOperation(string Operation){
+    public void HandleOperation(string Operation)
+    {
         var gameData = JsonConvert.DeserializeObject<GameData>(Operation);
         GetComponent<ReplayController>().AddDataToReplay(gameData);
     }
