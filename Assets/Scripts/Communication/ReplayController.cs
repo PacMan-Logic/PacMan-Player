@@ -200,7 +200,7 @@ public class ReplayController : MonoBehaviour
         }
         foreach (var e in _replay.Data[frame].events)
         {
-            if(e == 2)
+            if(e == 2 || e == 3)
                 is_init = true;
         }
     }
