@@ -155,6 +155,7 @@ public class ReplayController : MonoBehaviour
         var tarRoundData = _replay.Data[frameIndex];
         nowRound = frameIndex;
         ClearRoute();
+        Debug.Log("Load Next Frame Successfully");
         Models.TileMap.Update(tarRoundData);
         Models.Point.Init(tarRoundData);
         Models.Pacman.Update(tarRoundData);

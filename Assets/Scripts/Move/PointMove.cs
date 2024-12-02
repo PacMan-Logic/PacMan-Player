@@ -9,6 +9,7 @@ public class PointMove : MonoBehaviour
     public float detectionInterval = 0.01f; // 自定义检测间隔
     private float detectionTimer = 0f;
     private GameObject pacmen = null;
+    private bool is_magneted;
 
     void Start()
     {
@@ -26,8 +27,12 @@ public class PointMove : MonoBehaviour
             {
                 if (Magnetcheck())
                 {
-                    MagnetMove();
+                    is_magneted = true;
                 }
+            }
+            if (is_magneted)
+            {
+                MagnetMove();
             }
         }
     }
