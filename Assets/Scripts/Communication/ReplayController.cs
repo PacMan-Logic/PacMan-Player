@@ -170,7 +170,7 @@ public class ReplayController : MonoBehaviour
         nowRound++;
 
         var gameData = _replay.Data[nowRound];
-        UpdateRoute(gameData);
+        ModelUpdate(nowRound);
     }
 
     public void SetPlayerName(List<string> name) {
