@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class WebGLMouseControl : MonoBehaviour
@@ -10,12 +11,16 @@ public class WebGLMouseControl : MonoBehaviour
 
     private Vector3 dragOrigin; // 记录拖动的起始点
     private int last_map_width = 0;
+    ReplayController replayController;
 
     private void Start()
     {
-        targetCamera = GetComponent<Camera>();
+        targetCamera = Camera.main;
         dragSpeed = 25f;
         last_map_width = 0;
+        replayController = GetComponent<ReplayController>();
+        targetCamera.transform.position = new Vector3(20, 20, -10);
+        targetCamera.orthographicSize = 21; //初始化
     }
 
     void Update()
@@ -26,6 +31,7 @@ public class WebGLMouseControl : MonoBehaviour
         {
             targetCamera.Render(); // 强制渲染
         }
+        camera_follow();
     }
 
     private void HandleZoom()
@@ -74,6 +80,28 @@ public class WebGLMouseControl : MonoBehaviour
 
         // 或手动触发一帧
         GL.Flush(); // 强制刷新 OpenGL 缓存
+    }
+
+    private void camera_follow()
+    {
+        if (replayController.map_width != last_map_width && replayController.map_width == 38)
+        {
+            targetCamera.transform.position = new Vector3(20, 20, -10);
+            last_map_width = replayController.map_width;
+            targetCamera.orthographicSize = 21;
+        }else if (replayController.map_width != last_map_width && replayController.map_width == 29)
+        {
+            targetCamera.transform.position = new Vector3(15, 15, -10);
+            last_map_width = replayController.map_width;
+            targetCamera.orthographicSize = 16;
+        }
+        else if (replayController.map_width != last_map_width && replayController.map_width == 20)
+        {
+            targetCamera.transform.position = new Vector3(10, 10, -10);
+            last_map_width = replayController.map_width;
+            targetCamera.orthographicSize = 11;
+        }
+
     }
 
 }

@@ -644,7 +644,6 @@ GameObject:
   - component: {fileID: 1721945614}
   - component: {fileID: 1721945613}
   - component: {fileID: 1721945612}
-  - component: {fileID: 1721945615}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -695,7 +694,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 31.645145
+  orthographic size: 30
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -726,23 +725,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1721945615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1721945611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90299793bf7367e4495bd778fdb03974, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetCamera: {fileID: 1721945613}
-  zoomSpeed: 10
-  minZoom: 5
-  maxZoom: 50
-  dragSpeed: 25
 --- !u!1001 &1978167431
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1150,6 +1132,7 @@ GameObject:
   - component: {fileID: 2089201232}
   - component: {fileID: 2089201233}
   - component: {fileID: 2089201234}
+  - component: {fileID: 2089201235}
   m_Layer: 0
   m_Name: Main Controller
   m_TagString: Untagged
@@ -1210,6 +1193,7 @@ MonoBehaviour:
   DataToMainControllerEnd: 0
   isInited: 0
   is_init: 0
+  map_width: 0
 --- !u!114 &2089201232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1252,6 +1236,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tokenB64: 
+--- !u!114 &2089201235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089201227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90299793bf7367e4495bd778fdb03974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCamera: {fileID: 0}
+  zoomSpeed: 10
+  minZoom: 5
+  maxZoom: 50
+  dragSpeed: 25
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
