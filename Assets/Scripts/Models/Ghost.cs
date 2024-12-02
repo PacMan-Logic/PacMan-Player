@@ -45,26 +45,43 @@ namespace Models
                 AllGhosts.Sort((g1, g2) => g1.GhostID.CompareTo(g2.GhostID));
             }
 
-            int index = 0;
-            foreach (var route in jsonGameData.ghosts_step_block)
+            
+            for(int i = 0; i < AllGhosts.Count; i++)
             {
-                try
-                {
-                    AllGhosts[index].CurrentPosition = new Vector2(route[0][1], route[0][0]);
-                    AllGhosts[index].Route = route;
-                    AllGhosts[index].Speed = jsonGameData.ghosts_step_block[index].Count - 1;
+                if(jsonGameData.ghosts_step_block.Count > 0){
+                    AllGhosts[i].Route = jsonGameData.ghosts_step_block[i];
+                    AllGhosts[i].Speed = jsonGameData.ghosts_step_block[i].Count - 1;
+                }else{
+                    AllGhosts[i].Route = null;
                 }
-                catch (Exception e)
+                if (jsonGameData.ghosts_step_block.Count == 0)
                 {
-                    Console.WriteLine("Make sure ghost id starts with 0.");
-                    Console.WriteLine(jsonGameData.ghosts_step_block.Count + "  Count");
-                    Console.WriteLine(1);
-                    Console.WriteLine(e.ToString());
-                    Console.WriteLine(index);
-                    throw;
+                    AllGhosts[i].CurrentPosition = new Vector2(jsonGameData.ghosts_coord[i][1], jsonGameData.ghosts_coord[i][0]);
                 }
-                index++;
+                else
+                {
+                    AllGhosts[i].CurrentPosition = new Vector2(jsonGameData.ghosts_step_block[i][0][1], jsonGameData.ghosts_step_block[i][0][0]);
+                }
             }
+            // foreach (var route in jsonGameData.ghosts_step_block)
+            // {
+            //     try
+            //     {
+            //         AllGhosts[index].CurrentPosition = new Vector2(route[0][1], route[0][0]);
+            //         AllGhosts[index].Route = route;
+            //         AllGhosts[index].Speed = jsonGameData.ghosts_step_block[index].Count - 1;
+            //     }
+            //     catch (Exception e)
+            //     {
+            //         Console.WriteLine("Make sure ghost id starts with 0.");
+            //         Console.WriteLine(jsonGameData.ghosts_step_block.Count + "  Count");
+            //         Console.WriteLine(1);
+            //         Console.WriteLine(e.ToString());
+            //         Console.WriteLine(index);
+            //         throw;
+            //     }
+            //     index++;
+            // }
             OnUpdated?.Invoke();
         }
 

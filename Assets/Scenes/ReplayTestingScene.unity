@@ -178,11 +178,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3466418123174830831, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.64000005
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 3466418123174830831, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.64000005
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 3466418123174830831, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -738,6 +738,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3466418123174830831, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3466418123174830831, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3466418123174830831, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.2181873
       objectReference: {fileID: 0}
@@ -805,11 +813,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3466418123174830831, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.64000005
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 3466418123174830831, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.64000005
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 3466418123174830831, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1133,6 +1141,8 @@ GameObject:
   - component: {fileID: 2089201233}
   - component: {fileID: 2089201234}
   - component: {fileID: 2089201235}
+  - component: {fileID: 2089201237}
+  - component: {fileID: 2089201236}
   m_Layer: 0
   m_Name: Main Controller
   m_TagString: Untagged
@@ -1253,6 +1263,30 @@ MonoBehaviour:
   minZoom: 5
   maxZoom: 50
   dragSpeed: 25
+--- !u!114 &2089201236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089201227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e938b5b1322492706924e2d1db3f1f57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2089201237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089201227}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9301dcd8b6add145a81d601759fb701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

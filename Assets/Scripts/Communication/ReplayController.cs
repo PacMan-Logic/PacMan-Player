@@ -203,6 +203,7 @@ public class ReplayController : MonoBehaviour
         }
     }
 
+
     public void initialmapdata(){
         for(int i = 2 ; i < _replay.Data.Count;i++){
             if(_replay.Data[i].board.Count == 0){
@@ -230,5 +231,18 @@ public class ReplayController : MonoBehaviour
             }
         }
     }
+
+    public void HandleMessage(string message)   //Handle init message from Web
+    {
+        Debug.Log("Received message: " + message);
+        var data = JsonConvert.DeserializeObject<FrontendData>(message);
+        Debug.Log($"Message type: {data.message}, content: {data.replay_data}");
+        if (data.replay_data != null)
+        {
+            var gamedata = JsonConvert.DeserializeObject<GameData>(data.replay_data);
+            AddDataToReplay(gamedata);
+        }
+    }
+
 
 }

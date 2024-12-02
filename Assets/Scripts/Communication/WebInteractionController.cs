@@ -114,23 +114,29 @@ public class WebInteractionController : MonoBehaviour
     #endregion
     public void ReceiveWebSocketMessage(string information)
     {
+        Debug.Log("5555555555555");
         try
         {
+            Debug.Log("666666666666");
             var judgerData = JsonConvert.DeserializeObject<JudgerData>(information);
             if (judgerData.request == "action")
             {
-                if (InteractController.not_setRole == false)//读取第一条逻辑发来的0或1
+                Debug.Log("content:"+judgerData.content + "length:"+judgerData.content.Length);
+                if (InteractController.setRole == false)//读取第一条逻辑发来的0或1
                 {
-                    if (judgerData.content == "0")
+                    if (judgerData.content == "0\n")
                     {
+                        Debug.Log("is0");
                         InteractController.SetRole(0);
                     }
-                    else if (judgerData.content == "1")
+                    else if (judgerData.content == "1\n")
                     {
+                        Debug.Log("is1");
                         InteractController.SetRole(1);
                     }
                     else
                     {
+                        Debug.Log("Error: JudgerData.content is not 0 or 1");
                         Debug.Log(judgerData.content);
                         SendErrorToFrontend(judgerData.content);
                     }
@@ -145,8 +151,11 @@ public class WebInteractionController : MonoBehaviour
                     else
                     {
                         var jsonData = JsonConvert.DeserializeObject<GameData>(judgerData.content);
+                        jsonData.Map = Tilemap_Manage.convert(jsonData.board);
                         InteractController.Interact(jsonData);
                         InteractController.get_finish_message = false;
+                        InteractController.other_finish = false;
+                        enablekeyboardafter1s();
                     }
                 }
             }
@@ -158,9 +167,18 @@ public class WebInteractionController : MonoBehaviour
         }
         catch (Exception e)
         {
+            Debug.Log("3333333333333");
             Debug.Log(e.Message);
             SendErrorToFrontend(e.Message);
         }
+    }
+
+    public void enablekeyboard(){
+        GameObject.Find("Main Controller").GetComponent<KeyboardInteraction>().enabled=true;
+    }
+
+    public void enablekeyboardafter1s(){
+        Invoke("enablekeyboard", 1f);
     }
 
     #region sendDataToFrontend

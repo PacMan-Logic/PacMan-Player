@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using System.Numerics;
 using Models;
 using System.Linq;
+using System.Data;
 
 public class KeyboardInteraction : MonoBehaviour
 {
@@ -19,9 +20,12 @@ public class KeyboardInteraction : MonoBehaviour
     private int targetnum = 0;  //目标操作个数
     private int index = 0;  //当前操作对象,对象为幽灵
     private List<MovementType> action = new List<MovementType>();
+    private bool hasstarted = false;
 
     void Start(){
-        if(true){
+        if(hasstarted) return;
+        hasstarted = true;
+        if(InteractController.role == 0){
             obj.Add(GameObject.FindWithTag("Pacmen"));
             targetnum = 1;
         }else{
@@ -42,6 +46,7 @@ public class KeyboardInteraction : MonoBehaviour
             lineRenderer.startWidth = 0.1f; // 设置线段的起始宽度
             lineRenderer.endWidth = 0.1f;   // 设置线段的结束宽度
             lineRenderer.material = new Material(Shader.Find("Sprites/Default")); // 设置材质，这里使用默认的精灵材质
+            lineRenderer.enabled = false;
         }
     }
 
@@ -49,30 +54,34 @@ public class KeyboardInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(true){
+        if(InteractController.role == 0){
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)){
                 action[0] = MovementType.Up;
                 direction = new UnityEngine.Vector3(0, 1, 0);
                 clone[0].transform.position = obj[0].transform.position+direction*Models.Pacman.Speed;
                 clone[0].GetComponent<Renderer>().enabled = true;
+                clone[0].GetComponent<LineRenderer>().enabled = true;
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)){
                 action[0] = MovementType.Down;
                 direction = new UnityEngine.Vector3(0, -1, 0);
                 clone[0].transform.position = obj[0].transform.position+direction*Models.Pacman.Speed;
                 clone[0].GetComponent<Renderer>().enabled = true;
+                clone[0].GetComponent<LineRenderer>().enabled = true;
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)){
                 action[0] = MovementType.Left;
                 direction = new UnityEngine.Vector3(-1, 0, 0);
                 clone[0].transform.position = obj[0].transform.position+direction*Models.Pacman.Speed;
                 clone[0].GetComponent<Renderer>().enabled = true;
+                clone[0].GetComponent<LineRenderer>().enabled = true;
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)){
                 action[0] = MovementType.Right;
                 direction = new UnityEngine.Vector3(1, 0, 0);
                 clone[0].transform.position = obj[0].transform.position+direction*Models.Pacman.Speed;
                 clone[0].GetComponent<Renderer>().enabled = true;
+                clone[0].GetComponent<LineRenderer>().enabled = true;
             }
         }else{
             ChangeColorToGreen(obj[index]);
@@ -81,24 +90,28 @@ public class KeyboardInteraction : MonoBehaviour
                 direction = new UnityEngine.Vector3(0, 1, 0);
                 clone[index].transform.position = obj[index].transform.position+direction*Models.Ghost.AllGhosts[index].Speed;
                 clone[index].GetComponent<Renderer>().enabled = true;
+                clone[index].GetComponent<LineRenderer>().enabled = true;
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)){
                 action[index] = MovementType.Down;
                 direction = new UnityEngine.Vector3(0, -1, 0);
                 clone[index].transform.position = obj[index].transform.position+direction*Models.Ghost.AllGhosts[index].Speed;
                 clone[index].GetComponent<Renderer>().enabled = true;
+                clone[index].GetComponent<LineRenderer>().enabled = true;
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)){
                 action[index] = MovementType.Left;
                 direction = new UnityEngine.Vector3(-1, 0, 0);
                 clone[index].transform.position = obj[index].transform.position+direction*Models.Ghost.AllGhosts[index].Speed;
                 clone[index].GetComponent<Renderer>().enabled = true;
+                clone[index].GetComponent<LineRenderer>().enabled = true;
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)){
                 action[index] = MovementType.Right;
                 direction = new UnityEngine.Vector3(1, 0, 0);
                 clone[index].transform.position = obj[index].transform.position+direction*Models.Ghost.AllGhosts[index].Speed;
                 clone[index].GetComponent<Renderer>().enabled = true;
+                clone[index].GetComponent<LineRenderer>().enabled = true;
             }else if(Input.GetKeyDown(KeyCode.Alpha1)){
                 ChangeColorToOrange(obj[index]);
                 index = 0;
@@ -125,11 +138,15 @@ public class KeyboardInteraction : MonoBehaviour
         {
             for(int i = 0; i < targetnum; i++){
                 if(action[i] == MovementType.Zero){
-                    Debug.Log("Zero");
                     return;
                 }
             }
-            Debug.Log("Enter");
+            if(InteractController.role == 0 || InteractController.other_finish){
+                GameObject.Find("Main Controller").GetComponent<WebInteractionController>().SendAction(new Operation(ConvertEnumListToIntList(action)));
+                GameObject.Find("Main Controller").GetComponent<KeyboardInteraction>().enabled=false;
+            }else{
+                Debug.Log("等待对方完成");
+            }
         }
     }
 
@@ -137,11 +154,11 @@ public class KeyboardInteraction : MonoBehaviour
     {
         for(int i = 0; i < targetnum; i++){
             Destroy(clone[i]);
-            if(false) ChangeColorToOrange(obj[i]);
-            clone = new List<GameObject>();
-            obj = new List<GameObject>();
-            action = new List<MovementType>();
+            if(InteractController.role == 1) ChangeColorToOrange(obj[i]);
         }
+        clone = new List<GameObject>();
+        obj = new List<GameObject>();
+        action = new List<MovementType>();
     }
 
     private void OnEnable()
@@ -186,5 +203,15 @@ public class KeyboardInteraction : MonoBehaviour
             spriteRenderer.color = newColor;
         }
         return clone;
+    }
+
+    public static List<int> ConvertEnumListToIntList(List<MovementType> enumList)
+    {
+        List<int> intList = new List<int>();
+        foreach (MovementType movementType in enumList)
+        {
+            intList.Add((int)movementType);
+        }
+        return intList;
     }
 }

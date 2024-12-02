@@ -111,8 +111,8 @@ public class Operation
     public int chara;
     public List<int> operation;
 
-    public Operation( int _chara,List<int> _operation) {
-        chara = _chara;
+    public Operation(List<int> _operation) {
+        chara = InteractController.role;
         operation = _operation;
     }
 
