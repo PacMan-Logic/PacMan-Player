@@ -82,7 +82,7 @@ public class WebInteractionController : MonoBehaviour
 
     // 向后端发送 action
     // 游戏UI逻辑需要使用
-    public void SendAction(Operation??? action)
+    public void SendAction(Operation action)
     {
         string sendAction = action.ToString();
         sendAction += '\n';
@@ -106,7 +106,7 @@ public class WebInteractionController : MonoBehaviour
             if (judgerData.request == "action")
             {
                 var jsonData = JsonConvert.DeserializeObject<GameData>(judgerData.content);
-                // GetComponent<InteractController>().Interact(jsonData);
+                GetComponent<InteractController>().Interact(jsonData);
             }
             else
             {

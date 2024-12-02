@@ -56,30 +56,7 @@ public class Interaction : MonoBehaviour
                 OnKeyPressed(4);
             }
         }
-        // if (Input.GetMouseButtonDown(0))
-        // {
-        //     if (IsPointerOverUI())
-        //     {
-        //         return;
-        //     }
-        //     float screenHeight = Screen.height / 4;
-        //     float screenWidth = Screen.width / 2;
-        //     Vector3 MousePosition = Input.mousePosition;
-        //     if(MousePosition.y > 3 * screenHeight)
-        //     {
-        //         Debug.Log("up");
-        //     }else if(MousePosition.y < screenHeight)
-        //     {
-        //         Debug.Log("down");
-        //     }else if(MousePosition.x < screenWidth)
-        //     {
-        //         Debug.Log("left");
-        //     }else if(MousePosition.x >  screenWidth)
-        //     {
-        //         Debug.Log("right");
-        //     }
-        // }
-    }
+
 
     public void FixedUpdate()
     {
@@ -97,6 +74,6 @@ public class Interaction : MonoBehaviour
     }
     public void OnKeyPressed(int action_code)
     {
-        GetComponentInParent<WebInteractionController>.SendAction(???);
+        GetComponentInParent<WebInteractionController>.SendAction(???);//GetComponentInParent是什么意思
     }
 }

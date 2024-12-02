@@ -94,13 +94,32 @@ public class JudgerData
 
 public class Operation
 {
-    public Operation(List<List<int>> list)
-    {
-        
+    public enum action {
+        Static = 0,
+        Up = 1,
+        Left = 2,
+        Down = 3,
+        Right = 4
+    }
+
+    public int chara;
+    public List<int> operation;
+
+    public Operation( int _chara,List<int> _operation) {
+        chara = _chara;
+        operation = _operation;
     }
 
     public override string ToString()
     {
-        return $"{Block1.Row} {Block1.Col} {Block2.Row} {Block2.Col}";
+        string _string;
+        _string = String.Join(" ", operation);
+        var jsonAction = new{
+            role = chara,
+            action = _string
+        };
+        string jsonString = JsonConvert.SerializeObject(jsonAction);
+        return jsonString;
     }
 }
+
