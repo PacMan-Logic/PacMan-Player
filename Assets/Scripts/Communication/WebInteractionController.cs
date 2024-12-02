@@ -119,34 +119,34 @@ public class WebInteractionController : MonoBehaviour
             var judgerData = JsonConvert.DeserializeObject<JudgerData>(information);
             if (judgerData.request == "action")
             {
-                if (not_setRole == false)//读取第一条逻辑发来的0或1
+                if (InteractController.not_setRole == false)//读取第一条逻辑发来的0或1
                 {
                     if (judgerData.content == "0")
                     {
-                        setRole(0);
+                        InteractController.SetRole(0);
                     }
                     else if (judgerData.content == "1")
                     {
-                        setRole(1);
+                        InteractController.SetRole(1);
                     }
                     else
                     {
-                        Debug.Log(judgerData.content)
+                        Debug.Log(judgerData.content);
                         SendErrorToFrontend(judgerData.content);
                     }
                 }
                 else
                 {
-                    if (!get_finish_message)//根据和逻辑组的约定，这次的信息是"player {i} send info",并不需要实际处理
+                    if (!InteractController.get_finish_message)//根据和逻辑组的约定，这次的信息是"player {i} send info",并不需要实际处理
                     {
-                        get_finish_message = true;
-                        other_finish = true;
+                        InteractController.get_finish_message = true;
+                        InteractController.other_finish = true;
                     }
                     else
                     {
                         var jsonData = JsonConvert.DeserializeObject<GameData>(judgerData.content);
-                        GetComponent<InteractController>().Interact(jsonData);
-                        get_finish_message = false;
+                        InteractController.Interact(jsonData);
+                        InteractController.get_finish_message = false;
                     }
                 }
             }
@@ -207,8 +207,7 @@ public class WebInteractionController : MonoBehaviour
     #endregion
     // 提供给前端网页使用
     // 接收网页信息
-    public void HandleMessage(string buffer)
-    {
+    public void HandleMessage(string buffer){
         FrontendData msg;
         try
         {
@@ -236,9 +235,6 @@ public class WebInteractionController : MonoBehaviour
                     int frameCount = msg.payload;
                     Debug.Log(frameCount);
                     for(int i = 0;i < frameCount;i++){
-                    int frameCount = Convert.ToInt32(msg.payload);
-                    for (int i = 0; i < frameCount; i++)
-                    {
                         Getoperation(i);
                         Debug.Log(1111111);
                     }
@@ -270,6 +266,7 @@ public class WebInteractionController : MonoBehaviour
             Debug.Log(e.Message);
         }
     }
+
     /*
      * 这个函数是前端网页调用的，通过output.jslib与player.html协同实现通信
      * 逻辑为：unity调用Getoperation函数

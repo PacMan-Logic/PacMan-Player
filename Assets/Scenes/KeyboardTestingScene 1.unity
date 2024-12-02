@@ -1219,6 +1219,7 @@ MonoBehaviour:
   DataToMainControllerEnd: 0
   isInited: 0
   is_init: 0
+  map_width: 0
 --- !u!114 &2089201232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1248,6 +1249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ebf6d54df9555040ada648398cd7c3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  action: 3
 --- !u!114 &2089201234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1270,7 +1272,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2089201227}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c9ba2026b90f6c4cb47eecaf0fc5afa, type: 3}
+  m_Script: {fileID: 11500000, guid: e9301dcd8b6add145a81d601759fb701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807

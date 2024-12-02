@@ -215,23 +215,16 @@ public class ReplayController : MonoBehaviour
                             if(_replay.Data[i].board[x+1][y] > 1) _replay.Data[i].board[x+1][y] = 1;
                             if(_replay.Data[i].board[x][y-1] > 1) _replay.Data[i].board[x][y-1] = 1;
                             if(_replay.Data[i].board[x][y+1] > 1) _replay.Data[i].board[x][y+1] = 1;
+                            if(_replay.Data[i].board[x+1][y+1] > 1) _replay.Data[i].board[x+1][y+1] = 1;
+                            if(_replay.Data[i].board[x+1][y-1] > 1) _replay.Data[i].board[x+1][y-1] = 1;
+                            if(_replay.Data[i].board[x-1][y+1] > 1) _replay.Data[i].board[x-1][y+1] = 1;
+                            if(_replay.Data[i].board[x-1][y-1] > 1) _replay.Data[i].board[x-1][y-1] = 1;
                         }
                     }
                 }
                 _replay.Data[i].Map = Tilemap_Manage.convert(_replay.Data[i].board);
                 Debug.Log(_replay.Data[i].board);
             }
-        }
-    }
-    public void HandleMessage(string message)   //Handle init message from Web
-    {
-        Debug.Log("Received message: " + message);
-        var data = JsonConvert.DeserializeObject<FrontendData>(message);
-        Debug.Log($"Message type: {data.message}, content: {data.replay_data}");
-        if (data.replay_data != null)
-        {
-            var gamedata = JsonConvert.DeserializeObject<GameData>(data.replay_data);
-            AddDataToReplay(gamedata);
         }
     }
 
