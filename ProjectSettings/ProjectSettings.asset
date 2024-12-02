@@ -687,7 +687,13 @@ PlayerSettings:
   XboxOneOverrideIdentityName: 
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Build: 0
+    Game Performance: 0
+    Legacy Analytics: 0
+    Purchasing: 0
+    UDP: 0
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -707,11 +713,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 33a8af4a-af25-463e-aba6-36c611f4a342
+  cloudProjectId: 286dbcbe-b57a-4ebc-90f3-3641561c4861
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Pacmen 2024-10-12_22-12-14
-  organizationId: umaumaliu
+  projectName: build
+  organizationId: hlttxdy_unity
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
