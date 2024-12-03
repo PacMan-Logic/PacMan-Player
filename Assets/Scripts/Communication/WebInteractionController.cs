@@ -147,10 +147,9 @@ public class WebInteractionController : MonoBehaviour
                 }
                 else
                 {
-                    if (!InteractController.get_finish_message)//根据和逻辑组的约定，这次的信息是"player {i} send info",并不需要实际处理
+                    if (!InteractController.other_finish)//根据和逻辑组的约定，这次的信息是"player {i} send info",并不需要实际处理
                     {
                         Debug.Log("get_other_info");
-                        InteractController.get_finish_message = true;
                         InteractController.other_finish = true;
                     }
                     else
@@ -158,9 +157,8 @@ public class WebInteractionController : MonoBehaviour
                         Debug.Log("get_game_data");
                         var jsonData = JsonConvert.DeserializeObject<GameData>(judgerData.content);
                         jsonData.Map = Tilemap_Manage.convert(jsonData.board);
-                        InteractController.Interact(jsonData);
-                        InteractController.get_finish_message = false;
                         InteractController.other_finish = false;
+                        InteractController.Interact(jsonData);
                     }
                 }
             }
