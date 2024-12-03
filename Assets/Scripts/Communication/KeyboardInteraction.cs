@@ -25,6 +25,10 @@ public class KeyboardInteraction : MonoBehaviour
 
     void Start(){
         if(!InteractController.setRole) return;
+        if(InteractController.speedupstop){
+            Models.Pacman.Speed = 1;  //如果加速停止，则将速度设为1(提前设置，在后端发信息之前)
+            InteractController.speedupstop = false;
+        }
         if(InteractController.role == 0){
             obj.Add(GameObject.FindWithTag("Pacmen"));
             targetnum = 1;
@@ -154,7 +158,7 @@ public class KeyboardInteraction : MonoBehaviour
             if(InteractController.role == 0 || InteractController.other_finish){
                 Debug.Log("发送");
                 GameObject.Find("Main Controller").GetComponent<WebInteractionController>().SendAction(new Operation(ConvertEnumListToIntList(action)));
-                pausekeyboard(1.0f);
+                pausekeyboard(1.5f);
             }else{
                 Debug.Log("等待对方完成");
             }

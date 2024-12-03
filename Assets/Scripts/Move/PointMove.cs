@@ -49,6 +49,7 @@ public class PointMove : MonoBehaviour
                 Debug.Log("Eat a Point.");
                 if(this.CompareTag("Acceleration")){
                     Models.Pacman.Speed = 2; //加速，为了交互时显示
+                    InteractController.speedupstop = false;
                 }
                 gameObject.SetActive(false);
                 break;
