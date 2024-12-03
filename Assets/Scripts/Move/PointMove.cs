@@ -39,7 +39,7 @@ public class PointMove : MonoBehaviour
 
     void PerformCollisionCheck()
     {
-        float detectionRadius = 0.5f;
+        float detectionRadius = Constants.Constants.NormalRadius;
         Vector2 currentPosition = transform.position;
         Collider2D[] hits = Physics2D.OverlapCircleAll(currentPosition, detectionRadius);
         foreach (var hit in hits)
@@ -47,6 +47,9 @@ public class PointMove : MonoBehaviour
             if (hit.CompareTag("Pacmen"))
             {
                 Debug.Log("Eat a Point.");
+                if(this.CompareTag("Acceleration")){
+                    Models.Pacman.Speed = 2; //加速，为了交互时显示
+                }
                 gameObject.SetActive(false);
                 break;
             }

@@ -24,7 +24,6 @@ public class KeyboardInteraction : MonoBehaviour
     private bool isactive = false;
 
     void Start(){
-        Debug.Log("KeyboardInteraction Start");
         if(!InteractController.setRole) return;
         if(InteractController.role == 0){
             obj.Add(GameObject.FindWithTag("Pacmen"));
