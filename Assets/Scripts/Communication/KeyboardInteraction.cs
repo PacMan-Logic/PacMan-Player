@@ -41,9 +41,9 @@ public class KeyboardInteraction : MonoBehaviour
         }
         for(int i = 0; i < targetnum; i++){
             action.Add(MovementType.Zero);
-            GameObject cloneobj = ChangeColorToRed(Instantiate(GameObject.FindWithTag("Ghost0"), obj[i].transform.position, obj[i].transform.rotation));
+            GameObject prefab = Resources.Load<GameObject>("Prefabs/Circle");
+            GameObject cloneobj =  Instantiate(prefab, obj[i].transform.position, obj[i].transform.rotation);
             cloneobj.GetComponent<Renderer>().enabled = false;
-            cloneobj.GetComponent<GhostMove>().enabled = false;
             clone.Add(cloneobj);
             // 创建LineRenderer并添加到clone对象上
             LineRenderer lineRenderer = cloneobj.AddComponent<LineRenderer>();
@@ -62,6 +62,7 @@ public class KeyboardInteraction : MonoBehaviour
         if(!isactive) return;
         if(InteractController.role == 0){
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)){
+                obj[0].transform.rotation = UnityEngine.Quaternion.Euler(0, 0, 90);
                 action[0] = MovementType.Up;
                 direction = new UnityEngine.Vector3(0, 1, 0);
                 clone[0].transform.position = obj[0].transform.position+direction*Models.Pacman.Speed;
@@ -69,6 +70,7 @@ public class KeyboardInteraction : MonoBehaviour
                 clone[0].GetComponent<LineRenderer>().enabled = true;
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)){
+                obj[0].transform.rotation = UnityEngine.Quaternion.Euler(0, 0, 270);
                 action[0] = MovementType.Down;
                 direction = new UnityEngine.Vector3(0, -1, 0);
                 clone[0].transform.position = obj[0].transform.position+direction*Models.Pacman.Speed;
@@ -76,6 +78,7 @@ public class KeyboardInteraction : MonoBehaviour
                 clone[0].GetComponent<LineRenderer>().enabled = true;
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)){
+                obj[0].transform.rotation = UnityEngine.Quaternion.Euler(0, 180, 0);
                 action[0] = MovementType.Left;
                 direction = new UnityEngine.Vector3(-1, 0, 0);
                 clone[0].transform.position = obj[0].transform.position+direction*Models.Pacman.Speed;
@@ -83,6 +86,7 @@ public class KeyboardInteraction : MonoBehaviour
                 clone[0].GetComponent<LineRenderer>().enabled = true;
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)){
+                obj[0].transform.rotation = UnityEngine.Quaternion.Euler(0, 0, 0);
                 action[0] = MovementType.Right;
                 direction = new UnityEngine.Vector3(1, 0, 0);
                 clone[0].transform.position = obj[0].transform.position+direction*Models.Pacman.Speed;

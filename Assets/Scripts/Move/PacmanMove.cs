@@ -63,7 +63,7 @@ public class PacmanMove : MonoBehaviour
             if(moveDirection == Vector3.right){
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }else if(moveDirection == Vector3.left){
-                transform.rotation = Quaternion.Euler(0, 0, 180);
+                transform.rotation = Quaternion.Euler(0, 180, 0);
             }else if(moveDirection == Vector3.up){
                 transform.rotation = Quaternion.Euler(0, 0, 90);
             }else if(moveDirection == Vector3.down){
