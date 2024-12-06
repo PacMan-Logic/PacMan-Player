@@ -19,8 +19,6 @@ public class InteractController : MonoBehaviour
         {
             return;
         }
-        Models.Ghost.Update(data);
-        Models.Pacman.Update(data);
         if(initmap) {
             Models.TileMap.Update(data);
             Models.Point.Init(data);
@@ -34,7 +32,12 @@ public class InteractController : MonoBehaviour
                 initmap = true;
                 other_finish = true;
             }
+            else if(e == 0){
+                Models.Pacman.eaten = true;
+            }
         }
+        Models.Ghost.Update(data);
+        Models.Pacman.Update(data);
     }
     public static void SetRole(int _role) {
         role = _role;

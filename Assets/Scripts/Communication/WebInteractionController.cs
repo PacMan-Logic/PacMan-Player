@@ -145,6 +145,14 @@ public class WebInteractionController : MonoBehaviour
                 }
                 else
                 {
+                    try{
+                        var gamedata = JsonConvert.DeserializeObject<GameData>(judgerData.content);
+                        if(gamedata.StopReason != null){
+                            Debug.Log("StopReason: " + gamedata.StopReason);
+                        }
+                    }catch (Exception e){
+                        Debug.Log("Error: JudgerData.content is not a valid GameData");
+                    }
                     if (!InteractController.other_finish)//根据和逻辑组的约定，这次的信息是"player {i} send info",并不需要实际处理
                     {
                         Debug.Log("get_other_info");
