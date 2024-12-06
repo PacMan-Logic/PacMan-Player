@@ -17,6 +17,7 @@ namespace Models
         public static int Speed = 1;
         public static bool Magnet = false;
         public static event Action OnUpdated;
+        public static bool eaten = false;
 
         public static void Init (GameData jsonGameData)
         {

@@ -6,6 +6,7 @@ using Json;
 using Newtonsoft.Json;
 using UI.Debug_Overlay;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class ReplayController : MonoBehaviour
@@ -21,7 +22,8 @@ public class ReplayController : MonoBehaviour
     public bool DataToMainControllerEnd = false;
     public bool isInited = false;
     public bool is_init = false;
-
+    public bool eaten = false;
+    public static int replayspeed = 1;
     public int map_width = 38;
 
 
@@ -184,12 +186,13 @@ public class ReplayController : MonoBehaviour
     public void SetReplaySpeed(int level){
         GhostMove.level = level;
         PacmanMove.level = level;
+        replayspeed = level;
         Time.fixedDeltaTime = 1f / level;
     }
     #endregion
     public void ModelUpdate(int frame){
-        Models.Ghost.Update(_replay.Data[frame]);
-        Models.Pacman.Update(_replay.Data[frame]);
+        Time.fixedDeltaTime = 1f / replayspeed;
+        Models.Pacman.eaten = false;
         if (is_init)
         {
             Models.TileMap.Update(_replay.Data[frame]);
@@ -200,7 +203,13 @@ public class ReplayController : MonoBehaviour
         {
             if(e == 2 || e == 3)
                 is_init = true;
+            else if (e == 0){
+                Models.Pacman.eaten = true;
+                Time.fixedDeltaTime = 2f / replayspeed;
+            }
         }
+        Models.Ghost.Update(_replay.Data[frame]);
+        Models.Pacman.Update(_replay.Data[frame]);
     }
 
 
