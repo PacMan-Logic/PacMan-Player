@@ -62,7 +62,7 @@ public class Tilemap_Manage
                     case 0:
                         {
                             tile.Type = Enums.TileType.Wall;
-                            tile.TileName = "Wall_00";
+                            tile.TileName = "Wall_01";
                             tile.x = j; tile.y = i;
                             mapdata.TileList.Add(tile);
                             break;
