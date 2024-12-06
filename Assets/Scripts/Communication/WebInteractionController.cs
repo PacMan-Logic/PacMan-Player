@@ -114,10 +114,8 @@ public class WebInteractionController : MonoBehaviour
     #endregion
     public void ReceiveWebSocketMessage(string information)
     {
-        Debug.Log("5555555555555");
         try
         {
-            Debug.Log("666666666666");
             var judgerData = JsonConvert.DeserializeObject<JudgerData>(information);
             if (judgerData.request == "action")
             {
@@ -170,7 +168,6 @@ public class WebInteractionController : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log("3333333333333");
             Debug.Log(e.Message);
             SendErrorToFrontend(e.Message);
         }
@@ -242,7 +239,6 @@ public class WebInteractionController : MonoBehaviour
 
                     break;
                 case FrontendData.MsgType.init_replay_player:      //This message is to initialize replay mode instead of start replay.
-                    Debug.Log(22222222222);
                     GetComponent<ModeController>().SwitchReplayMode();
                     //GetComponent<ReplayController>().MsgToReplay(msg.replay_data);
                     int frameCount = msg.payload;
