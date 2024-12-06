@@ -191,8 +191,12 @@ public class ReplayController : MonoBehaviour
     }
     #endregion
     public void ModelUpdate(int frame){
-        Time.fixedDeltaTime = 1f / replayspeed;
-        Models.Pacman.eaten = false;
+        Debug.Log("Update Frame: " + frame);
+        Debug.Log("Round: "+ _replay.Data[frame].Round);
+        if(_replay.Data[frame].StopReason != null){
+            Debug.Log("Stop Reason: " + _replay.Data[frame].StopReason);
+            return;
+        }
         if (is_init)
         {
             Models.TileMap.Update(_replay.Data[frame]);
@@ -204,8 +208,8 @@ public class ReplayController : MonoBehaviour
             if(e == 2 || e == 3)
                 is_init = true;
             else if (e == 0){
+                Debug.Log("Pacman Eaten");
                 Models.Pacman.eaten = true;
-                Time.fixedDeltaTime = 2f / replayspeed;
             }
         }
         Models.Ghost.Update(_replay.Data[frame]);
@@ -216,7 +220,6 @@ public class ReplayController : MonoBehaviour
     public void initialmapdata(){
         for(int i = 2 ; i < _replay.Data.Count;i++){
             if(_replay.Data[i].board.Count == 0){
-                Debug.Log("initialmapdata");
                 _replay.Data[i].board = _replay.Data[i-1].board;
                 for(int j = 0;j<_replay.Data[i-1].pacman_step_block.Count;j++){
                     int x = _replay.Data[i-1].pacman_step_block[j][0];
@@ -236,7 +239,6 @@ public class ReplayController : MonoBehaviour
                     }
                 }
                 _replay.Data[i].Map = Tilemap_Manage.convert(_replay.Data[i].board);
-                Debug.Log(_replay.Data[i].board);
             }
         }
     }
@@ -252,6 +254,5 @@ public class ReplayController : MonoBehaviour
             AddDataToReplay(gamedata);
         }
     }
-
 
 }

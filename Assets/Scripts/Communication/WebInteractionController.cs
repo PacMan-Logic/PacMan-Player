@@ -201,7 +201,7 @@ public class WebInteractionController : MonoBehaviour
             new FrontendReplyData()
             {
                 message = FrontendReplyData.MsgType.init_successfully,
-                number_of_frames = count,
+                number_of_frames = count + 1,  //多一帧显示stopreason
                 init_result = true
             }
         );

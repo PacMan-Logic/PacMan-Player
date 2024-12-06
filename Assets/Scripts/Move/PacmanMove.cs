@@ -17,7 +17,7 @@ public class PacmanMove : MonoBehaviour
 
     private Vector3 prevposition;
 
-    Animator animator;
+    private Animator animator;
 
     private Vector3 GetRenderingPosition(Vector3 logicalPosition)
     {
@@ -26,7 +26,7 @@ public class PacmanMove : MonoBehaviour
 
     void Start()
     {
-        //animator = GetComponent<Animator>();
+        animator = GameObject.Find("animation_controller").GetComponent<Animator>();
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         if(Models.Pacman.Route != null && Models.Pacman.CurrentPosition != null){
             transform.position = new Vector3(Models.Pacman.CurrentPosition.y + 0.5f, Models.Pacman.CurrentPosition.x + 0.5f, transform.position.z);
@@ -48,10 +48,6 @@ public class PacmanMove : MonoBehaviour
         {
             currentInstructionIndex++;
             UpdateTargetPosition();
-        }
-        else if(route!= null && currentInstructionIndex == route.Count - 1 && Models.Pacman.eaten)
-        {
-            animator.enabled =  false;  //在被吃之后让动画消失，后续改为死亡动画
         }
     }
 
@@ -92,12 +88,16 @@ public class PacmanMove : MonoBehaviour
     }
 
     void UpdateRoute(){
-        //animator.enabled = true;
+        animator.enabled = true;
         Debug.Log("UpdateRoute Invoked");
         currentInstructionIndex = 1;
         transform.position = GetRenderingPosition(Models.Pacman.CurrentPosition);
         route = Models.Pacman.Route;
         speed = level * Models.Pacman.Speed;
+        if(Models.Pacman.eaten){
+            animator.enabled = false;  //让动画停止，之后应该改为播放死亡动画，到回合结束
+            Models.Pacman.eaten = false;
+        }
         UpdateTargetPosition();
     }
 }
