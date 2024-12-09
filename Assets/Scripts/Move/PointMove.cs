@@ -23,7 +23,7 @@ public class PointMove : MonoBehaviour
         {
             detectionTimer = 0f;
             PerformCollisionCheck();
-            if (Models.Pacman.Magnet)
+            if (Models.Pacman.Magnet > 0)
             {
                 if (Magnetcheck())
                 {

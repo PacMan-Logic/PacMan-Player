@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using Json;
 using Newtonsoft.Json;
-using UI.Debug_Overlay;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -14,7 +13,8 @@ public class ReplayController : MonoBehaviour
     public int nowRound;
     public JsonFile _replay = new JsonFile();
     public bool debugAutoUpdate = false;
-    public static event Action onNewFrameLoaded; 
+    public static event Action onNewFrameLoaded;
+    public static event Action UpdateUI;
 
     public List<string> PlayerName;
 
@@ -162,6 +162,7 @@ public class ReplayController : MonoBehaviour
         Models.Pacman.Update(tarRoundData);
         Models.Ghost.Update(tarRoundData);
         //GetComponent<ReplayDebuggingUI>().UpdateTexts();
+        UpdateUI.Invoke();
         Debug.Log("Load Ghosts Successfully");
     }
 
