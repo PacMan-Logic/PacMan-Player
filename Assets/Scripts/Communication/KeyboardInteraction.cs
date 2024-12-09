@@ -23,6 +23,8 @@ public class KeyboardInteraction : MonoBehaviour
 
     private bool isactive = false;
 
+    GameObject isselect;
+
     void Start(){
         if(!InteractController.setRole) return;
         if(InteractController.speedupstop){
@@ -53,6 +55,9 @@ public class KeyboardInteraction : MonoBehaviour
             lineRenderer.material = new Material(Shader.Find("Sprites/Default")); // 设置材质，这里使用默认的精灵材质
             lineRenderer.enabled = false;
         }
+        GameObject triangle = Resources.Load<GameObject>("Prefabs/Triangle");
+        isselect =  Instantiate(triangle, obj[index].transform.position+UnityEngine.Vector3.up*0.5f+UnityEngine.Vector3.back*0.5f, triangle.transform.rotation);
+        isselect.GetComponent<Renderer>().enabled = true;
     }
 
 
@@ -60,6 +65,7 @@ public class KeyboardInteraction : MonoBehaviour
     void Update()
     {
         if(!isactive) return;
+        isselect.transform.position = obj[index].transform.position+UnityEngine.Vector3.up*0.5f+UnityEngine.Vector3.back*0.5f;
         if(InteractController.role == 0){
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)){
                 obj[0].transform.rotation = UnityEngine.Quaternion.Euler(0, 0, 90);
@@ -94,7 +100,7 @@ public class KeyboardInteraction : MonoBehaviour
                 clone[0].GetComponent<LineRenderer>().enabled = true;
             }
         }else{
-            ChangeColorToGreen(obj[index]);
+            //ChangeColorToGreen(obj[index]);
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)){
                 Debug.Log("Up");
                 action[index] = MovementType.Up;
@@ -128,19 +134,19 @@ public class KeyboardInteraction : MonoBehaviour
                 clone[index].GetComponent<LineRenderer>().enabled = true;
             }else if(Input.GetKeyDown(KeyCode.Alpha1)){
                 Debug.Log("alpha1");
-                ChangeColorToOrange(obj[index]);
+                //ChangeColorToOrange(obj[index]);
                 index = 0;
-                ChangeColorToGreen(obj[index]);
+                //ChangeColorToGreen(obj[index]);
             }else if(Input.GetKeyDown(KeyCode.Alpha2)){
                 Debug.Log("alpha2");
-                ChangeColorToOrange(obj[index]);
+                //ChangeColorToOrange(obj[index]);
                 index = 1;
-                ChangeColorToGreen(obj[index]);
+                //ChangeColorToGreen(obj[index]);
             }else if(Input.GetKeyDown(KeyCode.Alpha3)){
                 Debug.Log("alpha3");
-                ChangeColorToOrange(obj[index]);
+                //ChangeColorToOrange(obj[index]);
                 index = 2;
-                ChangeColorToGreen(obj[index]);
+                //ChangeColorToGreen(obj[index]);
             }
         }
         for(int i = 0; i < targetnum; i++){
@@ -178,7 +184,8 @@ public class KeyboardInteraction : MonoBehaviour
         isactive = false;
         for(int i = 0; i < targetnum; i++){
             Destroy(clone[i]);
-            if(InteractController.role == 1) ChangeColorToOrange(obj[i]);
+            //if(InteractController.role == 1) ChangeColorToOrange(obj[i]);
+            isselect.GetComponent<Renderer>().enabled = false;
         }
         clone = new List<GameObject>();
         obj = new List<GameObject>();
