@@ -236,6 +236,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.8867924
       objectReference: {fileID: 0}
+    - target: {fileID: 7314187591020723427, guid: e5273c228fccbeb4cb470da2cef03ff3, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c1cc0d7a328324d4a9c384d0ee34c9a0, type: 2}
     - target: {fileID: 8385367077953618238, guid: e5273c228fccbeb4cb470da2cef03ff3, type: 3}
       propertyPath: m_Name
       value: animation_controller
@@ -302,6 +306,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &477036982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477036977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dfd2a8764a3ca646825333519545485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &730809882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -448,9 +464,13 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7314187591020723427, guid: e5273c228fccbeb4cb470da2cef03ff3, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9950c0c737561554b84ff1a67b07e075, type: 2}
     - target: {fileID: 8385367077953618238, guid: e5273c228fccbeb4cb470da2cef03ff3, type: 3}
       propertyPath: m_Name
-      value: animation_controller (1)
+      value: animation_controller
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -897,6 +917,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3453731022803950610, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 477036979}
+    - targetCorrespondingSourceObject: {fileID: 3453731022803950610, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 477036982}
   m_SourcePrefab: {fileID: 100100000, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
 --- !u!4 &1584400674 stripped
 Transform:
@@ -1560,6 +1583,7 @@ MonoBehaviour:
   DataToMainControllerEnd: 0
   isInited: 0
   is_init: 0
+  eaten: 0
   map_width: 0
 --- !u!114 &2089201232
 MonoBehaviour:
@@ -1712,6 +1736,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.66666657
       objectReference: {fileID: 0}
+    - target: {fileID: 7314187591020723427, guid: e5273c228fccbeb4cb470da2cef03ff3, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 6d0f5c5c8b8b1884b965ec3b26ca0b81, type: 2}
     - target: {fileID: 8385367077953618238, guid: e5273c228fccbeb4cb470da2cef03ff3, type: 3}
       propertyPath: m_Name
       value: animation_controller
