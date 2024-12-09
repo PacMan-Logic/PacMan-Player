@@ -115,6 +115,14 @@ public class Tilemap_Manage
                             mapdata.TileList.Add(tile);
                             break;
                         }
+                    case 8:
+                        {
+                            tile.Type = Enums.TileType.Teleport;
+                            tile.TileName = "Teleport";
+                            tile.x = i;tile.y = i;
+                            mapdata.TileList.Add(tile);
+                            break;
+                        }
                 }
             }
         }

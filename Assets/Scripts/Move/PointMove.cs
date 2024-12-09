@@ -189,6 +189,25 @@ public class PointMove : MonoBehaviour
                     }
                     break;
                 }
+            case Enums.TileType.Teleport:
+                {
+                    GameObject prefab = Resources.Load<GameObject>("Perfabs/Teleport");
+                    GameObject prop = Instantiate(prefab, new Vector3(Models.Point.InitPosition.x, Models.Point.InitPosition.y, 0), Quaternion.identity);
+
+                    prop.tag = "Teleport";
+                    prop.name = "Teleport";
+
+                    GameObject propsParent = GameObject.Find("Props");
+                    if (propsParent != null)
+                    {
+                        prop.transform.SetParent(propsParent.transform);
+                    }
+                    else
+                    {
+                        Debug.LogError("未找到名为 'Props' 的 GameObject，请确保它存在于场景中。");
+                    }
+                    break;
+                }
         }
     }
 

@@ -14,6 +14,7 @@ TagManager:
   - Ghost0
   - Ghost1
   - Ghost2
+  - Teleport
   layers:
   - Default
   - TransparentFX
