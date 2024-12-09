@@ -60,6 +60,9 @@ public class PointMove : MonoBehaviour
     bool Magnetcheck()
     {
         float detectionRadius = Constants.Constants.MagnetRadius;
+        if(Models.Pacman.current_level == 1) {
+            detectionRadius = Constants.Constants.MagnetRadius_in_f;
+        }
         Vector2 currentPosition = transform.position;
         Collider2D[] hits = Physics2D.OverlapCircleAll(currentPosition, detectionRadius);
         foreach (var hit in hits)

@@ -7,5 +7,6 @@
         public const string Record_Path = "Assets/Scripts/Tests/Data/replay1.json";
         public const float NormalRadius = 0.6f;
         public const float MagnetRadius = 1.6f;
+        public const float MagnetRadius_in_f = 2.6f;
     }
 }

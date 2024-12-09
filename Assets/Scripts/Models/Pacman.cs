@@ -18,6 +18,7 @@ namespace Models
         public static bool Magnet = false;
         public static event Action OnUpdated;
         public static bool eaten = false;
+        public static int current_level = 1;
 
         public static void Init (GameData jsonGameData)
         {
@@ -29,6 +30,7 @@ namespace Models
         {
             PlayerID = jsonGameData.Player_id;
             Route = jsonGameData.pacman_step_block;
+            current_level = jsonGameData.level;
             if (jsonGameData.pacman_skills != null && jsonGameData.pacman_skills.Count != 0)
             {
                 Magnet = jsonGameData.pacman_skills[2] > 0;
