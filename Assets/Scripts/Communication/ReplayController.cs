@@ -154,13 +154,15 @@ public class ReplayController : MonoBehaviour
 
         var tarRoundData = _replay.Data[frameIndex];
         nowRound = frameIndex;
-        Debug.Log("Load Frame Successfully");
-        Models.TileMap.Update(tarRoundData);
-        map_width = _replay.Data[frameIndex].board.Count;
-        Debug.Log(_replay.Data[frameIndex].board.Count);
-        Models.Point.Init(tarRoundData);
-        Models.Pacman.Update(tarRoundData);
-        Models.Ghost.Update(tarRoundData);
+        // Debug.Log("Load Frame Successfully");
+        // Models.TileMap.Update(tarRoundData);
+        // map_width = _replay.Data[frameIndex].board.Count;
+        // Debug.Log(_replay.Data[frameIndex].board.Count);
+        // Models.Point.Init(tarRoundData);
+        // Models.Pacman.Update(tarRoundData);
+        // Models.Ghost.Update(tarRoundData);
+        is_init = true;
+        ModelUpdate(frameIndex);
         //GetComponent<ReplayDebuggingUI>().UpdateTexts();
         UpdateUI.Invoke();
         Debug.Log("Load Ghosts Successfully");
@@ -201,6 +203,7 @@ public class ReplayController : MonoBehaviour
         if (is_init)
         {
             Models.TileMap.Update(_replay.Data[frame]);
+            map_width = _replay.Data[frame].board.Count;
             Models.Point.Init(_replay.Data[frame]);
             is_init = false;
         }

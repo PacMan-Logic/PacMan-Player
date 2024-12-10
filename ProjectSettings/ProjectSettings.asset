@@ -713,11 +713,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 33a8af4a-af25-463e-aba6-36c611f4a342
+  cloudProjectId: 086695ce-766e-4c78-a7dc-1bafdab38afc
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Pacmen 2024-10-12_22-12-14
-  organizationId: umaumaliu
+  projectName: build (1)
+  organizationId: hlttxdy_unity
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
