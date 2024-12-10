@@ -149,6 +149,9 @@ public class WebInteractionController : MonoBehaviour
                         var gamedata = JsonConvert.DeserializeObject<GameData>(judgerData.content);
                         if(gamedata.StopReason != null){
                             Debug.Log("StopReason: " + gamedata.StopReason);
+                            GameObject.Find("Main Controller").GetComponent<KeyboardInteraction>().enabled=false;
+                            StopreasonUI.nowtext = gamedata.StopReason;
+                            Invoke("showstopreason",1.2f);
                         }
                     }catch (Exception e){
                         Debug.Log("Error: JudgerData.content is not a valid GameData");
@@ -179,6 +182,11 @@ public class WebInteractionController : MonoBehaviour
             Debug.Log(e.Message);
             SendErrorToFrontend(e.Message);
         }
+    }
+
+    // 显示stopreason
+    void showstopreason(){
+        StopreasonUI.UpdateText(StopreasonUI.nowtext);
     }
 
     #region sendDataToFrontend

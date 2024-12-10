@@ -196,8 +196,12 @@ public class ReplayController : MonoBehaviour
     public void ModelUpdate(int frame){
         Debug.Log("Update Frame: " + frame);
         Debug.Log("Round: "+ _replay.Data[frame].Round);
+        if(StopreasonUI.nowtext != ""){
+            StopreasonUI.UpdateText("");
+        }
         if(_replay.Data[frame].StopReason != null){
             Debug.Log("Stop Reason: " + _replay.Data[frame].StopReason);
+            StopreasonUI.UpdateText(_replay.Data[frame].StopReason);
             return;
         }
         if (is_init)
