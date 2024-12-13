@@ -41,5 +41,6 @@ public class UIManager : MonoBehaviour
         SpawnTexts();
         ReplayController.onNewFrameLoaded += UpdateTexts;
         ReplayController.UpdateUI += UpdateTexts;
+        InteractController.UpdateUI += UpdateTexts;
     }
 }

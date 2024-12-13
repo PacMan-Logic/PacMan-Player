@@ -1,4 +1,5 @@
 using Json;
+using System;
 using UnityEngine;
 
 public class InteractController : MonoBehaviour
@@ -10,6 +11,8 @@ public class InteractController : MonoBehaviour
     //bool I_can_input=false;//用于记录自己是否可以输入，false = 不能输入
     //public static bool get_finish_message=true;//用来判断后端发来的消息是gamedata还是另一位玩家完成的通知
     public static bool speedupstop = false;  //如果是true则从下一回合开始停止加速
+
+    public static event Action UpdateUI;
 
     static bool initmap = true;
     public static void Interact(GameData data)
@@ -38,6 +41,7 @@ public class InteractController : MonoBehaviour
         }
         Models.Ghost.Update(data);
         Models.Pacman.Update(data);
+        UpdateUI.Invoke();
     }
     public static void SetRole(int _role) {
         role = _role;

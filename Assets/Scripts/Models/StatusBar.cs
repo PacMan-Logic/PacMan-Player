@@ -21,6 +21,7 @@ public class StatusBar : MonoBehaviour
         replayController = gameObject.GetComponent<ReplayController>();
         ReplayController.onNewFrameLoaded += ChangeStatus;
         ReplayController.UpdateUI += ChangeStatus;
+        InteractController.UpdateUI += ChangeStatus;
     }
 
     // 更新状态条的方法，接受一个状态类型数组作为输入
