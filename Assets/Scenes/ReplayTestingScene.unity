@@ -1069,12 +1069,20 @@ PrefabInstance:
       value: Pacman
       objectReference: {fileID: 0}
     - target: {fileID: 877360170317364068, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 877360170317364068, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
       propertyPath: m_TagString
       value: Pacmen
       objectReference: {fileID: 0}
     - target: {fileID: 3215910051744412659, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
       propertyPath: moveDistance
       value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 3453731022803950610, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4634783581488327135, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
       propertyPath: m_LocalScale.x

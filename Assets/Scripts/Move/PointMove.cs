@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PointMove : MonoBehaviour
 {
-    public float detectionInterval = 0.001f; // 自定义检测间隔
+    public float detectionInterval = 0.00001f; // 自定义检测间隔
     private float detectionTimer = 0f;
     private GameObject pacmen = null;
     private bool is_magneted;
@@ -47,7 +47,8 @@ public class PointMove : MonoBehaviour
             if (hit.CompareTag("Pacmen"))
             {
                 Debug.Log("Eat a Point.");
-                if(this.CompareTag("Acceleration")){
+                if (this.CompareTag("Acceleration"))
+                {
                     Models.Pacman.Speed = 2; //加速，为了交互时显示
                     InteractController.speedupstop = false;
                 }
@@ -60,9 +61,10 @@ public class PointMove : MonoBehaviour
     bool Magnetcheck()
     {
         float detectionRadius = Constants.Constants.MagnetRadius;
-        // if(Models.Pacman.current_level == 1) {
-        //     detectionRadius = Constants.Constants.MagnetRadius_in_f;
-        // }
+        if (Models.Pacman.current_level == 1)
+        {
+            detectionRadius = Constants.Constants.MagnetRadius_in_f;
+        }
         Vector2 currentPosition = transform.position;
         Collider2D[] hits = Physics2D.OverlapCircleAll(currentPosition, detectionRadius);
         foreach (var hit in hits)
@@ -74,6 +76,8 @@ public class PointMove : MonoBehaviour
         }
         return false;
     }
+
+
 
     public static void generate_point(Vector2 position)
     {
@@ -194,7 +198,7 @@ public class PointMove : MonoBehaviour
                 }
             case Enums.TileType.Teleport:
                 {
-                    GameObject prefab = Resources.Load<GameObject>("Perfabs/Teleport");
+                    GameObject prefab = Resources.Load<GameObject>("Prefabs/Teleport");
                     GameObject prop = Instantiate(prefab, new Vector3(Models.Point.InitPosition.x, Models.Point.InitPosition.y, 0), Quaternion.identity);
 
                     prop.tag = "Teleport";
@@ -217,6 +221,6 @@ public class PointMove : MonoBehaviour
     void MagnetMove()
     {
         Vector3 target = pacmen.transform.position;
-        transform.position = Vector3.MoveTowards(transform.position, target, 7f * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target, 14f * Time.deltaTime);
     }
 }
