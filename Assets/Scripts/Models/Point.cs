@@ -41,6 +41,7 @@ namespace Models
             Points.AddRange(GameObject.FindGameObjectsWithTag("Bonus"));
             Points.AddRange(GameObject.FindGameObjectsWithTag("Acceleration"));
             Points.AddRange(GameObject.FindGameObjectsWithTag("Magnet"));
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Teleport"));
 
             if (Points != null && Points.Count > 0)
             {
