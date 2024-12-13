@@ -22,6 +22,9 @@ public class PointMove : MonoBehaviour
         if (detectionTimer >= detectionInterval)
         {
             detectionTimer = 0f;
+            if(this.CompareTag("Teleport")){
+                return;
+            }
             PerformCollisionCheck();
             if (Models.Pacman.Magnet > 0)
             {
@@ -39,23 +42,32 @@ public class PointMove : MonoBehaviour
 
     void PerformCollisionCheck()
     {
-        float detectionRadius = Constants.Constants.NormalRadius;
-        Vector2 currentPosition = transform.position;
-        Collider2D[] hits = Physics2D.OverlapCircleAll(currentPosition, detectionRadius);
-        foreach (var hit in hits)
-        {
-            if (hit.CompareTag("Pacmen"))
-            {
-                Debug.Log("Eat a Point.");
+        if(Vector3.Distance(transform.position, Models.Pacman.NowPosition) <= Constants.Constants.NormalRadius){
+            Debug.Log("Eat a Point.");
                 if (this.CompareTag("Acceleration"))
                 {
                     Models.Pacman.Speed = 2; //加速，为了交互时显示
                     InteractController.speedupstop = false;
                 }
                 gameObject.SetActive(false);
-                break;
-            }
         }
+        // float detectionRadius = Constants.Constants.NormalRadius;
+        // Vector2 currentPosition = transform.position;
+        // Collider2D[] hits = Physics2D.OverlapCircleAll(currentPosition, detectionRadius);
+        // foreach (var hit in hits)
+        // {
+        //     if (hit.CompareTag("Pacmen"))
+        //     {
+        //         Debug.Log("Eat a Point.");
+        //         if (this.CompareTag("Acceleration"))
+        //         {
+        //             Models.Pacman.Speed = 2; //加速，为了交互时显示
+        //             InteractController.speedupstop = false;
+        //         }
+        //         gameObject.SetActive(false);
+        //         break;
+        //     }
+        // }
     }
 
     bool Magnetcheck()
@@ -65,15 +77,18 @@ public class PointMove : MonoBehaviour
         {
             detectionRadius = Constants.Constants.MagnetRadius_in_f;
         }
-        Vector2 currentPosition = transform.position;
-        Collider2D[] hits = Physics2D.OverlapCircleAll(currentPosition, detectionRadius);
-        foreach (var hit in hits)
-        {
-            if (hit.CompareTag("Pacmen"))
-            {
-                return true;
-            }
+        if(Vector3.Distance(transform.position, Models.Pacman.NowPosition) <= detectionRadius){
+            return true;
         }
+        // Vector2 currentPosition = transform.position;
+        // Collider2D[] hits = Physics2D.OverlapCircleAll(currentPosition, detectionRadius);
+        // foreach (var hit in hits)
+        // {
+        //     if (hit.CompareTag("Pacmen"))
+        //     {
+        //         return true;
+        //     }
+        // }
         return false;
     }
 

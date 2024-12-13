@@ -12,6 +12,8 @@ namespace Models
     public static class Pacman
     {
         public static Vector2 CurrentPosition;
+        public static Vector2 NextPosition;
+        public static Vector3 NowPosition;
         public static int PlayerID;
         public static List<List<int>> Route;
         public static int Speed = 1;
@@ -31,6 +33,13 @@ namespace Models
 
         public static void Update(GameData jsonGameData)
         {
+            eaten = false;
+            foreach (var e in jsonGameData.events){
+                if (e == 0){
+                    Debug.Log("Pacman Eaten");
+                    eaten = true;
+                }
+            }
             PlayerID = jsonGameData.Player_id;
             Route = jsonGameData.pacman_step_block;
             current_level = jsonGameData.level;
@@ -49,6 +58,7 @@ namespace Models
                 Speed = jsonGameData.pacman_step_block.Count - 1;
                 CurrentPosition = new Vector2(jsonGameData.pacman_step_block[0][1], jsonGameData.pacman_step_block[0][0]);
             }
+            NextPosition = new Vector2(jsonGameData.pacman_coord[1], jsonGameData.pacman_coord[0]);
             OnUpdated?.Invoke();
         }
         public static void ClearRoute()

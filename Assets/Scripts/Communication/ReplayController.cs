@@ -215,10 +215,6 @@ public class ReplayController : MonoBehaviour
         {
             if(e == 2 || e == 3)
                 is_init = true;
-            else if (e == 0){
-                Debug.Log("Pacman Eaten");
-                Models.Pacman.eaten = true;
-            }
         }
         Models.Ghost.Update(_replay.Data[frame]);
         Models.Pacman.Update(_replay.Data[frame]);

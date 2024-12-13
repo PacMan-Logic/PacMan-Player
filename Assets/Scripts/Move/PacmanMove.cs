@@ -48,7 +48,17 @@ public class PacmanMove : MonoBehaviour
         {
             currentInstructionIndex++;
             UpdateTargetPosition();
+        }else{
+            if(Models.Pacman.eaten){
+                Models.Pacman.eaten = false;
+                Models.Pacman.Speed = 1;
+                Models.Pacman.Magnet = 0;
+                Models.Pacman.Acc = 0;
+                Models.Pacman.Shield = 0;
+            }
+            transform.position = GetRenderingPosition(Models.Pacman.NextPosition);
         }
+        Models.Pacman.NowPosition = transform.position;
     }
 
     void UpdateTargetPosition()
@@ -96,7 +106,6 @@ public class PacmanMove : MonoBehaviour
         speed = level * Models.Pacman.Speed;
         if(Models.Pacman.eaten){
             animator.enabled = false;  //让动画停止，之后应该改为播放死亡动画，到回合结束
-            Models.Pacman.eaten = false;
         }
         UpdateTargetPosition();
     }
