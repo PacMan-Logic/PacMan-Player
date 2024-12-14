@@ -5,9 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEditor;
 using JetBrains.Annotations;
-using static UnityEditor.Progress;
 using Unity.VisualScripting;
 
 public class Tilemap_Manage
@@ -40,45 +38,9 @@ public class Tilemap_Manage
         }
     }
 
-    public void load_props(MapData mapdata)
-    {
-        GameObject tilemapObject = GameObject.Find("props");
-
-        if (tilemapObject == null)
-        {
-            Debug.LogError("tilemapobject is no exist");
-            return;
-        }
-
-        tilemap = tilemapObject.GetComponent<Tilemap>();
-
-        if (mapdata.TileList == null)
-        {
-            Debug.Log("Tilemap is Empty.");
-            return;
-        }
-
-        foreach (Json.Tile tile in mapdata.TileList)
-        {
-            if (tile.Type != Enums.TileType.Wall)
-            {
-                TileBase input_tile = Resources.Load<TileBase>("Sprits/" + tile.TileName);
-                tilemap.SetTile(new Vector3Int(tile.x, tile.y, 0), input_tile);
-            }
-        }
-    }
-
-    public void update_props()
-    {
-
-    }
-
     public void clear_map()
     {
         GameObject gameobject = GameObject.Find("wall");
-        tilemap = gameobject.GetComponent<Tilemap>();
-        tilemap.ClearAllTiles();
-        gameobject = GameObject.Find("props");
         tilemap = gameobject.GetComponent<Tilemap>();
         tilemap.ClearAllTiles();
     }
@@ -88,7 +50,7 @@ public class Tilemap_Manage
         MapData mapdata = new MapData();
         mapdata.Length = mapdata.Width = board.Count;
         int tile_num = 0;
-        for (int i = 0; i < board.Count; i++)
+        for (int i = 0; i < board.Count ; i++)
         {
             for(int j = 0; j < board.Count; j++)
             {
@@ -100,7 +62,7 @@ public class Tilemap_Manage
                     case 0:
                         {
                             tile.Type = Enums.TileType.Wall;
-                            tile.TileName = "Wall_00";
+                            tile.TileName = "Wall_01";
                             tile.x = j; tile.y = i;
                             mapdata.TileList.Add(tile);
                             break;
@@ -149,6 +111,14 @@ public class Tilemap_Manage
                         {
                             tile.Type = Enums.TileType.Double;
                             tile.TileName = "Double";
+                            tile.x = j;tile.y = i;
+                            mapdata.TileList.Add(tile);
+                            break;
+                        }
+                    case 8:
+                        {
+                            tile.Type = Enums.TileType.Teleport;
+                            tile.TileName = "Teleport";
                             tile.x = j;tile.y = i;
                             mapdata.TileList.Add(tile);
                             break;

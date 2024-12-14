@@ -2,7 +2,6 @@ using Json;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Android;
 using UnityEngine;
 
 namespace Models
@@ -13,7 +12,9 @@ namespace Models
 
         public static void Init(GameData gameData)
         {
+            clear_props();
             var map = gameData.Map;
+            Debug.Log(map);
             foreach (var tile in map.TileList)
             {
                 if (tile.Type == Enums.TileType.PacDot)
@@ -22,13 +23,27 @@ namespace Models
                     IsRendered = true;
                     PointMove.generate_point(InitPosition);
                 }
+                else
+                {
+                    InitPosition = new Vector2(tile.x + 0.5f, tile.y + 0.5f);
+                    IsRendered = true;
+                    PointMove.generate_props(InitPosition, tile.Type);
+                }
                 
             }
         }
-        public static void Clear()
+        public static void clear_props()
         {
-            GameObject[] Points = GameObject.FindGameObjectsWithTag("Point");
-            if (Points != null && Points.Length > 0)
+            List<GameObject> Points = new List<GameObject>();
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Point"));
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Shield"));
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Double"));
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Bonus"));
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Acceleration"));
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Magnet"));
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Teleport"));
+
+            if (Points != null && Points.Count > 0)
             {
                 foreach (var point in Points)
                 {

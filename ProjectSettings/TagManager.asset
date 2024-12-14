@@ -6,6 +6,15 @@ TagManager:
   tags:
   - Pacmen
   - Point
+  - Shield
+  - Acceleration
+  - Bonus
+  - Double
+  - Magnet
+  - Ghost0
+  - Ghost1
+  - Ghost2
+  - Teleport
   layers:
   - Default
   - TransparentFX
@@ -13,7 +22,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - PacmenLayer
   - 
   - 
   - 
