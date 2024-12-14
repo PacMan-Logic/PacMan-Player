@@ -73,10 +73,10 @@ public class PointMove : MonoBehaviour
     bool Magnetcheck()
     {
         float detectionRadius = Constants.Constants.MagnetRadius;
-        if (Models.Pacman.current_level == 1)
-        {
-            detectionRadius = Constants.Constants.MagnetRadius_in_f;
-        }
+        // if (Models.Pacman.current_level == 1)
+        // {
+        //     detectionRadius = Constants.Constants.MagnetRadius_in_f;
+        // }
         if(Vector3.Distance(transform.position, Models.Pacman.NowPosition) <= detectionRadius){
             return true;
         }
