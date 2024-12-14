@@ -81,3 +81,10 @@ crashlytics-build.properties
 .fake
 /[Aa]ssets/Data/
 json/
+
+# Resouces
+Assets/Resources/Tiles/*.Asset
+Assets/Resources/Tiles/*.Asset.meta
+ProjectSettings/ProjectSettings.asset
+Pacman/
+.gitignore
