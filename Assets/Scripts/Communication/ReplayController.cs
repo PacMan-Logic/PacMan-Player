@@ -206,6 +206,7 @@ public class ReplayController : MonoBehaviour
         }
         if (is_init)
         {
+            GameObject.FindWithTag("Pacmen").transform.position = new Vector3(-1000, -1000, 0);
             Models.TileMap.Update(_replay.Data[frame]);
             map_width = _replay.Data[frame].board.Count;
             Models.Point.Init(_replay.Data[frame]);
