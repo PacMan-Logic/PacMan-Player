@@ -47,6 +47,8 @@ public class GhostMove : MonoBehaviour
         {
             currentInstructionIndex++;
             UpdateTargetPosition();
+        }else{
+            transform.position = GetRenderingPosition(Models.Ghost.AllGhosts[Id].NextPosition);
         }
     }
 
