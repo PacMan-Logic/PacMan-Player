@@ -83,4 +83,8 @@ crashlytics-build.properties
 json/
 
 # Resouces
-/[Aa]ssets/Resources/Sprites
+Assets/Resources/Tiles/*.Asset
+Assets/Resources/Tiles/*.Asset.meta
+ProjectSettings/ProjectSettings.asset
+Pacman/
+.gitignore

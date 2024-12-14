@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Enums;
 using Json;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 
 namespace Models
 {
-    public class TileMap
+    public class TileMap : MonoBehaviour
     {
         public static int Length;
         public static int Width;
@@ -17,7 +18,7 @@ namespace Models
         public static void Init(GameData jsonGameData)
         {
             var tileMapData = jsonGameData.Map;
-            Debug.Assert(tileMapData != null, nameof(tileMapData) + " != null");
+            UnityEngine.Debug.Assert(tileMapData != null, nameof(tileMapData) + " != null");
             
             Length = tileMapData.Length;
             Width = tileMapData.Width;
@@ -30,7 +31,7 @@ namespace Models
         public static void Update(GameData jsonGameData)
         {
             var tileMapData = jsonGameData.Map;
-            Debug.Assert(tileMapData != null, nameof(tileMapData) + " is null");
+            UnityEngine.Debug.Assert(tileMapData != null, nameof(tileMapData) + " is null");
 
             Tilemap_Manage tilemap_Manage = new Tilemap_Manage();
             tilemap_Manage.clear_map();

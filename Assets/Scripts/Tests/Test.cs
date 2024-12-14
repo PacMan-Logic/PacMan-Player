@@ -50,7 +50,6 @@ public class Test01 : MonoBehaviour
         if (timer >= gamedatas.Count() - 1)
         {
             Debug.Log("End");
-            Time.timeScale = 0; //暂停
         }
         Debug.Log("Move");
         Pacman.Update(gamedatas[timer]);

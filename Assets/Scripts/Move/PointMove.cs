@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Unity.VisualScripting;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class PointMove : MonoBehaviour
 {
-    public float detectionInterval = 0.01f; // 自定义检测间隔
+    public float detectionInterval = 0.00001f; // 自定义检测间隔
     private float detectionTimer = 0f;
     private GameObject pacmen = null;
+    private bool is_magneted;
 
     void Start()
     {
@@ -22,47 +22,77 @@ public class PointMove : MonoBehaviour
         if (detectionTimer >= detectionInterval)
         {
             detectionTimer = 0f;
+            if(this.CompareTag("Teleport")){
+                return;
+            }
             PerformCollisionCheck();
-            if (Models.Pacman.Magnet)
+            if (Models.Pacman.Magnet > 0)
             {
                 if (Magnetcheck())
                 {
-                    MagnetMove();
+                    is_magneted = true;
                 }
+            }
+            if (is_magneted)
+            {
+                MagnetMove();
             }
         }
     }
 
     void PerformCollisionCheck()
     {
-        float detectionRadius = 0.5f;
-        Vector2 currentPosition = transform.position;
-        Collider2D[] hits = Physics2D.OverlapCircleAll(currentPosition, detectionRadius);
-        foreach (var hit in hits)
-        {
-            if (hit.CompareTag("Pacmen"))
-            {
-                Debug.Log("Eat a Point.");
+        if(Vector3.Distance(transform.position, Models.Pacman.NowPosition) <= Constants.Constants.NormalRadius){
+            Debug.Log("Eat a Point.");
+                if (this.CompareTag("Acceleration"))
+                {
+                    Models.Pacman.Speed = 2; //加速，为了交互时显示
+                    InteractController.speedupstop = false;
+                }
                 gameObject.SetActive(false);
-                break;
-            }
         }
+        // float detectionRadius = Constants.Constants.NormalRadius;
+        // Vector2 currentPosition = transform.position;
+        // Collider2D[] hits = Physics2D.OverlapCircleAll(currentPosition, detectionRadius);
+        // foreach (var hit in hits)
+        // {
+        //     if (hit.CompareTag("Pacmen"))
+        //     {
+        //         Debug.Log("Eat a Point.");
+        //         if (this.CompareTag("Acceleration"))
+        //         {
+        //             Models.Pacman.Speed = 2; //加速，为了交互时显示
+        //             InteractController.speedupstop = false;
+        //         }
+        //         gameObject.SetActive(false);
+        //         break;
+        //     }
+        // }
     }
 
     bool Magnetcheck()
     {
         float detectionRadius = Constants.Constants.MagnetRadius;
-        Vector2 currentPosition = transform.position;
-        Collider2D[] hits = Physics2D.OverlapCircleAll(currentPosition, detectionRadius);
-        foreach (var hit in hits)
-        {
-            if (hit.CompareTag("Pacmen"))
-            {
-                return true;
-            }
+        // if (Models.Pacman.current_level == 1)
+        // {
+        //     detectionRadius = Constants.Constants.MagnetRadius_in_f;
+        // }
+        if(Vector3.Distance(transform.position, Models.Pacman.NowPosition) <= detectionRadius){
+            return true;
         }
+        // Vector2 currentPosition = transform.position;
+        // Collider2D[] hits = Physics2D.OverlapCircleAll(currentPosition, detectionRadius);
+        // foreach (var hit in hits)
+        // {
+        //     if (hit.CompareTag("Pacmen"))
+        //     {
+        //         return true;
+        //     }
+        // }
         return false;
     }
+
+
 
     public static void generate_point(Vector2 position)
     {
@@ -181,12 +211,31 @@ public class PointMove : MonoBehaviour
                     }
                     break;
                 }
+            case Enums.TileType.Teleport:
+                {
+                    GameObject prefab = Resources.Load<GameObject>("Prefabs/Teleport");
+                    GameObject prop = Instantiate(prefab, new Vector3(Models.Point.InitPosition.x, Models.Point.InitPosition.y, 0), Quaternion.identity);
+
+                    prop.tag = "Teleport";
+                    prop.name = "Teleport";
+
+                    GameObject propsParent = GameObject.Find("Props");
+                    if (propsParent != null)
+                    {
+                        prop.transform.SetParent(propsParent.transform);
+                    }
+                    else
+                    {
+                        Debug.LogError("未找到名为 'Props' 的 GameObject，请确保它存在于场景中。");
+                    }
+                    break;
+                }
         }
     }
 
     void MagnetMove()
     {
         Vector3 target = pacmen.transform.position;
-        transform.position = Vector3.MoveTowards(transform.position, target, 7f * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target, 14f * Time.deltaTime);
     }
 }

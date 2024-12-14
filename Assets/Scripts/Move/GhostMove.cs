@@ -8,7 +8,9 @@ using UnityEngine;
 public class GhostMove : MonoBehaviour
 {
     public int Id;
-    public static float speed = 1f; // 幽灵移动的速度
+    public float speed = 1f; // 幽灵移动的速度
+
+    public static int level = 1; // 当前所在的关卡
     private List<List<int>> route;
 
     private int currentInstructionIndex = 1; // 当前执行的指令索引
@@ -28,6 +30,7 @@ public class GhostMove : MonoBehaviour
         {
             transform.position = GetRenderingPosition(Models.Ghost.AllGhosts[Id].CurrentPosition);
             route = Models.Ghost.AllGhosts[Id].Route;
+            speed = level * Models.Ghost.AllGhosts[Id].Speed;
         }
         UpdateTargetPosition();
         Models.Ghost.OnUpdated += UpdateRoute; // 订阅 Ghost 的 OnUpdated 事件
@@ -44,6 +47,8 @@ public class GhostMove : MonoBehaviour
         {
             currentInstructionIndex++;
             UpdateTargetPosition();
+        }else{
+            transform.position = GetRenderingPosition(Models.Ghost.AllGhosts[Id].NextPosition);
         }
     }
 
@@ -79,6 +84,7 @@ public class GhostMove : MonoBehaviour
     {
         transform.position = GetRenderingPosition(Models.Ghost.AllGhosts[Id].CurrentPosition);
         route = Models.Ghost.AllGhosts[Id].Route;
+        speed = level * Models.Ghost.AllGhosts[Id].Speed;
         UpdateTargetPosition();
     }
 }

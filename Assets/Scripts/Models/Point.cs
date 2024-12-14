@@ -2,7 +2,6 @@ using Json;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Android;
 using UnityEngine;
 
 namespace Models
@@ -15,6 +14,7 @@ namespace Models
         {
             clear_props();
             var map = gameData.Map;
+            Debug.Log(map);
             foreach (var tile in map.TileList)
             {
                 if (tile.Type == Enums.TileType.PacDot)
@@ -41,6 +41,7 @@ namespace Models
             Points.AddRange(GameObject.FindGameObjectsWithTag("Bonus"));
             Points.AddRange(GameObject.FindGameObjectsWithTag("Acceleration"));
             Points.AddRange(GameObject.FindGameObjectsWithTag("Magnet"));
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Teleport"));
 
             if (Points != null && Points.Count > 0)
             {

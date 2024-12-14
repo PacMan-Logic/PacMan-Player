@@ -5,6 +5,8 @@ using Json;
 using UnityEngine;
 using Constants;
 using System.Linq;
+using System.Reflection;
+
 namespace Models
 {
     public class Ghost
@@ -12,8 +14,10 @@ namespace Models
         public static List<Ghost> AllGhosts = new List<Ghost>();
 
         public Vector2 CurrentPosition;
+        public Vector2 NextPosition;
         public int GhostID;
         public List<List<int>> Route;
+        public int Speed = 1;
         public static event Action OnUpdated; 
 
         public Ghost(int ghostID, Vector2 initialPosition)
@@ -42,39 +46,21 @@ namespace Models
                 AllGhosts.Sort((g1, g2) => g1.GhostID.CompareTo(g2.GhostID));
             }
 
-            int index = 0;
-            foreach (var route in jsonGameData.ghosts_step_block)
-            {
-                try
-                {
-                    AllGhosts[index].CurrentPosition = new Vector2(route[0][1], route[0][0]);
-                    AllGhosts[index].Route = route;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Make sure ghost id starts with 0.");
-                    throw;
-                }
-                index++;
-            }
-            OnUpdated?.Invoke();
-        }
-
-        public static void ClearRoute()
-        {
             
-            foreach (Ghost ghost in AllGhosts)
+            for(int i = 0; i < AllGhosts.Count; i++)
             {
-                try
+                if (jsonGameData.ghosts_step_block.Count == 0)
                 {
-                    ghost.Route.Clear();
+                    AllGhosts[i].CurrentPosition = new Vector2(jsonGameData.ghosts_coord[i][1], jsonGameData.ghosts_coord[i][0]);
+                    AllGhosts[i].Route = null;
                 }
-                catch (Exception e)
+                else
                 {
-                    Console.WriteLine("Make sure ghost id starts with 0.");
-                    throw;
+                    AllGhosts[i].Route = jsonGameData.ghosts_step_block[i];
+                    AllGhosts[i].Speed = jsonGameData.ghosts_step_block[i].Count - 1;
+                    AllGhosts[i].CurrentPosition = new Vector2(jsonGameData.ghosts_step_block[i][0][1], jsonGameData.ghosts_step_block[i][0][0]);
                 }
-                
+                AllGhosts[i].NextPosition = new Vector2(jsonGameData.ghosts_coord[i][1], jsonGameData.ghosts_coord[i][0]);
             }
             OnUpdated?.Invoke();
         }

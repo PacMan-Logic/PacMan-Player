@@ -13,6 +13,7 @@ namespace Enums
         Acceleration = 3,
         Magnet = 4,
         Shield = 5,
-        Double = 6
+        Double = 6,
+        Teleport = 7,
     }
 }
