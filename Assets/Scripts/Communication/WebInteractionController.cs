@@ -168,8 +168,9 @@ public class WebInteractionController : MonoBehaviour
                         jsonData.Map = Tilemap_Manage.convert(jsonData.board);
                         InteractController.other_finish = false;
                         if(InteractController.initmap && InteractController.data != null) {
+                            Debug.Log("Updateagain");
                             InteractController.data = jsonData;
-                            Invoke("UpdateInteractMap",1.5f);
+                            Invoke("UpdateInteractMap",2f);
                         }else{
                             InteractController.data = jsonData;
                             InteractController.Interact();
@@ -192,6 +193,7 @@ public class WebInteractionController : MonoBehaviour
 
     //隔一段时间再更新地图（在进入下一关时）
     void UpdateInteractMap(){
+        Debug.Log("UpdateMapagain");
         InteractController.Interact();
     }
 

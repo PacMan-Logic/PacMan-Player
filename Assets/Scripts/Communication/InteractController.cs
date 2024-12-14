@@ -28,6 +28,8 @@ public class InteractController : MonoBehaviour
             Models.Point.Init(data);
             initmap = false;
         }
+        Models.Ghost.Update(data);
+        Models.Pacman.Update(data);
         if(data.pacman_skills.Count > 1 && data.pacman_skills[1] == 1){
             speedupstop = true; //持续时间只剩一回合，下一回合要停止加速（除非这一回合吃了加速豆）
         }
@@ -37,8 +39,6 @@ public class InteractController : MonoBehaviour
                 other_finish = true;
             }
         }
-        Models.Ghost.Update(data);
-        Models.Pacman.Update(data);
         UpdateUI.Invoke();
     }
     public static void SetRole(int _role) {

@@ -14,6 +14,7 @@ namespace Models
         public static List<Ghost> AllGhosts = new List<Ghost>();
 
         public Vector2 CurrentPosition;
+        public Vector2 NextPosition;
         public int GhostID;
         public List<List<int>> Route;
         public int Speed = 1;
@@ -59,6 +60,7 @@ namespace Models
                     AllGhosts[i].Speed = jsonGameData.ghosts_step_block[i].Count - 1;
                     AllGhosts[i].CurrentPosition = new Vector2(jsonGameData.ghosts_step_block[i][0][1], jsonGameData.ghosts_step_block[i][0][0]);
                 }
+                AllGhosts[i].NextPosition = new Vector2(jsonGameData.ghosts_coord[i][1], jsonGameData.ghosts_coord[i][0]);
             }
             OnUpdated?.Invoke();
         }

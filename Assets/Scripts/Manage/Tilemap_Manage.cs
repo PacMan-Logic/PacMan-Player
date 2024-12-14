@@ -119,7 +119,7 @@ public class Tilemap_Manage
                         {
                             tile.Type = Enums.TileType.Teleport;
                             tile.TileName = "Teleport";
-                            tile.x = i;tile.y = i;
+                            tile.x = j;tile.y = i;
                             mapdata.TileList.Add(tile);
                             break;
                         }
