@@ -14,8 +14,9 @@ public class InteractController : MonoBehaviour
 
     public static event Action UpdateUI;
 
-    static bool initmap = true;
-    public static void Interact(GameData data)
+    public static bool initmap = true;
+    public static GameData data = null;
+    public static void Interact()
     {
         //Debug.Log($"Round: {data.Round}, Player: {data.Player}, Operation: {data.Operation}");
         if (!ModeController.IsInteractMode())

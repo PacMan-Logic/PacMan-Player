@@ -167,7 +167,13 @@ public class WebInteractionController : MonoBehaviour
                         var jsonData = JsonConvert.DeserializeObject<GameData>(judgerData.content);
                         jsonData.Map = Tilemap_Manage.convert(jsonData.board);
                         InteractController.other_finish = false;
-                        InteractController.Interact(jsonData);
+                        if(InteractController.initmap && InteractController.data != null) {
+                            InteractController.data = jsonData;
+                            Invoke("UpdateInteractMap",1.5f);
+                        }else{
+                            InteractController.data = jsonData;
+                            InteractController.Interact();
+                        }
                     }
                 }
             }
@@ -182,6 +188,11 @@ public class WebInteractionController : MonoBehaviour
             Debug.Log(e.Message);
             SendErrorToFrontend(e.Message);
         }
+    }
+
+    //隔一段时间再更新地图（在进入下一关时）
+    void UpdateInteractMap(){
+        InteractController.Interact();
     }
 
     // 显示stopreason
