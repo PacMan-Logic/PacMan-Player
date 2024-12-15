@@ -220,7 +220,7 @@ public class ReplayController : MonoBehaviour
         }
         Models.Ghost.Update(_replay.Data[frame]);
         Models.Pacman.Update(_replay.Data[frame]);
-        trueround = _replay.Data[frame].Round;
+        Models.Data.Update(_replay.Data[frame]);
     }
 
 
