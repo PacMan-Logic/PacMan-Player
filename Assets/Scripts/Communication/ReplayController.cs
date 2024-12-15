@@ -25,6 +25,7 @@ public class ReplayController : MonoBehaviour
     public bool eaten = false;
     public static int replayspeed = 1;
     public int map_width = 38;
+    public int trueround;
 
 
     #region test function
@@ -218,6 +219,7 @@ public class ReplayController : MonoBehaviour
         }
         Models.Ghost.Update(_replay.Data[frame]);
         Models.Pacman.Update(_replay.Data[frame]);
+        trueround = _replay.Data[frame].Round;
     }
 
 
