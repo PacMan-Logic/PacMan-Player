@@ -24,7 +24,11 @@ public class InteractController : MonoBehaviour
             return;
         }
         if(initmap) {
-            GameObject.FindWithTag("Pacmen").transform.position = new Vector3(-1000, -1000, 0);
+            Models.Pacman.Speed = 1;
+            Models.Pacman.Magnet = 0;
+            Models.Pacman.Acc = 0;
+            Models.Pacman.Shield = 0;
+            Models.Pacman.NowPosition = new Vector3(-1000,-1000,0);
             Models.TileMap.Update(data);
             Models.Point.Init(data);
             initmap = false;

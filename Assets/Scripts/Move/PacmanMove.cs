@@ -102,6 +102,7 @@ public class PacmanMove : MonoBehaviour
         Debug.Log("UpdateRoute Invoked");
         currentInstructionIndex = 1;
         transform.position = GetRenderingPosition(Models.Pacman.CurrentPosition);
+        Models.Pacman.NowPosition = transform.position;
         route = Models.Pacman.Route;
         speed = level * Models.Pacman.Speed;
         if(Models.Pacman.eaten){
