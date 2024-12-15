@@ -11,6 +11,8 @@ public class PointMove : MonoBehaviour
     private GameObject pacmen = null;
     private bool is_magneted;
 
+    public List<Sprite> sprites = new List<Sprite>();
+
     void Start()
     {
         pacmen = GameObject.FindWithTag("Pacmen");
@@ -23,6 +25,15 @@ public class PointMove : MonoBehaviour
         {
             detectionTimer = 0f;
             if(this.CompareTag("Teleport")){
+                if (Models.Data.portal)
+                {
+                    GetComponent<SpriteRenderer>().sprite = sprites[1];
+
+                }
+                else
+                {
+                    GetComponent<SpriteRenderer>().sprite = sprites[0];
+                }
                 return;
             }
             PerformCollisionCheck();

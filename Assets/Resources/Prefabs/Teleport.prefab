@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3368856994131094553}
   - component: {fileID: 2379964006915833912}
+  - component: {fileID: 1805682285312259208}
   m_Layer: 0
   m_Name: Teleport
   m_TagString: Teleport
@@ -84,3 +85,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1805682285312259208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7508468382208783276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dea2798c6361d1148bed2fcabc96b72f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionInterval: 0.00001
+  sprites:
+  - {fileID: 21300000, guid: 7c294d7d5afeead4a89b522c6789be28, type: 3}
+  - {fileID: 21300000, guid: b0d211e0fc71ef34abd5bd72729af549, type: 3}
