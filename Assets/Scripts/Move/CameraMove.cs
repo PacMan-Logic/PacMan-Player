@@ -19,7 +19,7 @@ public class WebGLMouseControl : MonoBehaviour
         dragSpeed = 25f;
         last_map_width = 0;
         replayController = GetComponent<ReplayController>();
-        targetCamera.transform.position = new Vector3(20, 20, -10);
+        targetCamera.transform.position = new Vector3(20, 19, -10);
         targetCamera.orthographicSize = 21; //≥ı ºªØ
     }
 
