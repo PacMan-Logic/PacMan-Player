@@ -86,7 +86,7 @@ public class WebGLMouseControl : MonoBehaviour
     {
         if (replayController.map_width != last_map_width && replayController.map_width == 38)
         {
-            targetCamera.transform.position = new Vector3(20, 20, -10);
+            targetCamera.transform.position = new Vector3(20, 19, -10);
             last_map_width = replayController.map_width;
             targetCamera.orthographicSize = 21;
         }else if (replayController.map_width != last_map_width && replayController.map_width == 29)
