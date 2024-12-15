@@ -34,4 +34,9 @@ public class ModeController : MonoBehaviour
     public static bool IsInteractMode(){
         return _mode == Mode.Interact;
     }
+
+    public static bool IsInit()
+    {
+        return _mode == Mode.Error;
+    }
 }

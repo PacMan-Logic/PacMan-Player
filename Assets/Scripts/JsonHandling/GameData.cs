@@ -42,5 +42,6 @@ namespace Json
         public int level = 0;
         public List<int> events = new List<int>();
         [CanBeNull] public List<int> portal_coord = new List<int>();
+        [CanBeNull] public bool portal_available = false;
     }
 }

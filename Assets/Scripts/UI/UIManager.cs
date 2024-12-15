@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Models;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,11 +14,17 @@ public class UIManager : MonoBehaviour
     private GameObject text;
     public float spacing = 20f; // Spacing between texts
     public Canvas canvas; // Reference to the Canvas
+    public ModeController modeController;
+    string mode;
 
     void SpawnTexts()
     {
+        mode = ModeController.IsReplayMode() ? "ReplayMode" : "InteractMode";
         text = Instantiate(textPrefab, canvas.transform);
-        text.GetComponent<Text>().text = $"Play Mode: Replay\nRound: {replayController.nowRound}\n \n";
+        if (ModeController.IsInit()) text.GetComponent<Text>().text = "Initing ，，，\n";
+        else text.GetComponent<Text>().text = "Play Mode: " + mode + "\n";
+        text.GetComponent<Text>().text += $"Level: {Models.Data.level}\n";
+        text.GetComponent<Text>().text += $"Round: {Models.Data.nowround}\n";
         text.GetComponent<Text>().text += Pacman.GetInfo();
         text.GetComponent<Text>().text += Ghost.GetInfo();
         RectTransform rectTransform = text.GetComponent<RectTransform>();
@@ -29,8 +36,12 @@ public class UIManager : MonoBehaviour
 
     void UpdateTexts()
     {
+        mode = ModeController.IsReplayMode() ? "ReplayMode" : "InteractMode";
         var textComponent = text.GetComponent<Text>();
-        textComponent.text = $"Play Mode: Replay\nRound: {replayController.nowRound}\n";
+        if (ModeController.IsInit()) text.GetComponent<Text>().text = "Initing ，，，\n";
+        else text.GetComponent<Text>().text = "Play Mode: " + mode + "\n";
+        text.GetComponent<Text>().text += $"Level: {Models.Data.level}\n";
+        text.GetComponent<Text>().text += $"Round: {Models.Data.nowround}\n";
         textComponent.text += Pacman.GetInfo();
         textComponent.text += Ghost.GetInfo();
     }
