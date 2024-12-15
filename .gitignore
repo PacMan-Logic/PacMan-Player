@@ -86,5 +86,5 @@ json/
 Assets/Resources/Tiles/*.Asset
 Assets/Resources/Tiles/*.Asset.meta
 ProjectSettings/ProjectSettings.asset
-Pacman/
+Pacman/Build/
 .gitignore
