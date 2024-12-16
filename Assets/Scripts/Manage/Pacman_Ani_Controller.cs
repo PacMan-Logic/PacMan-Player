@@ -15,6 +15,7 @@ public class Pacman_Ani_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        animator.speed = ReplayController.replayspeed;
         if (Models.Pacman.eaten)
         {
             animator.SetBool("isDeath", true);

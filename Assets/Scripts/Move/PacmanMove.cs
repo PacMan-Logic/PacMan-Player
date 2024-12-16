@@ -98,16 +98,17 @@ public class PacmanMove : MonoBehaviour
     }
 
     void UpdateRoute(){
-        animator.enabled = true;
+        //animator.Play("pacman_eat");
+        //animator.speed = ReplayController.replayspeed;
         Debug.Log("UpdateRoute Invoked");
         currentInstructionIndex = 1;
         transform.position = GetRenderingPosition(Models.Pacman.CurrentPosition);
         Models.Pacman.NowPosition = transform.position;
         route = Models.Pacman.Route;
         speed = level * Models.Pacman.Speed;
-        if(Models.Pacman.eaten){
-            animator.enabled = false;  //让动画停止，之后应该改为播放死亡动画，到回合结束
-        }
+        // if(Models.Pacman.eaten){
+        //     animator.Play("pacman_death");
+        // }
         UpdateTargetPosition();
     }
 }

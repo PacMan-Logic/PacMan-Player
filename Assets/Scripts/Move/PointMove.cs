@@ -247,6 +247,6 @@ public class PointMove : MonoBehaviour
     void MagnetMove()
     {
         Vector3 target = pacmen.transform.position;
-        transform.position = Vector3.MoveTowards(transform.position, target, 21f * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target, 7f*ReplayController.replayspeed*Time.deltaTime);
     }
 }
