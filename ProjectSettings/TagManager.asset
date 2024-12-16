@@ -23,7 +23,7 @@ TagManager:
   - Water
   - UI
   - PacmenLayer
-  - 
+  - Background
   - 
   - 
   - 
@@ -49,6 +49,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 4264614773
+    locked: 0
+  - name: TilemapLayer
+    uniqueID: 2060125059
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: FrontLayer
+    uniqueID: 2063039301
     locked: 0
