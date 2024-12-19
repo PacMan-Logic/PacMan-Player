@@ -54,7 +54,6 @@ public class PointMove : MonoBehaviour
     void PerformCollisionCheck()
     {
         if(Vector3.Distance(transform.position, Models.Pacman.NowPosition) <= Constants.Constants.NormalRadius){
-            Debug.Log("Eat a Point.");
                 if (this.CompareTag("Acceleration"))
                 {
                     Models.Pacman.Speed = 2; //加速，为了交互时显示

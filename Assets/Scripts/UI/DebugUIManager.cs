@@ -13,13 +13,11 @@ public class CanvasController : MonoBehaviour
         // 为按钮添加点击事件
         toggleButton.onClick.AddListener(ToggleCanvasVisibility);
         canvas.gameObject.SetActive(isCanvasVisible); // 显示或隐藏 Canvas
-        Debug.Log("Init Success");
     }
     
     void ToggleCanvasVisibility()
     {
         isCanvasVisible = !isCanvasVisible;
         canvas.gameObject.SetActive(isCanvasVisible); // 显示或隐藏 Canvas
-        Debug.Log("Changed");
     }
 }

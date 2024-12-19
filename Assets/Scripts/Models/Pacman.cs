@@ -36,7 +36,6 @@ namespace Models
             eaten = false;
             foreach (var e in jsonGameData.events){
                 if (e == 0){
-                    Debug.Log("Pacman Eaten");
                     eaten = true;
                 }
             }

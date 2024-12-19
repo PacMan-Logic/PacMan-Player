@@ -32,9 +32,6 @@ public class ReplayController : MonoBehaviour
     void Start(){
         //This is used to test locally.
         onNewFrameLoaded += LoadOrderly;
-        //OfflineFileInit();
-        //Debug.Log($"Replay Controller init success. Replay consists {_replay.Data.Count} frames.");
-        //Models.Point.Init(_replay.Data[0]);
         if (onNewFrameLoaded != null)
             onNewFrameLoaded.Invoke();
         map_width = 38;
@@ -110,7 +107,6 @@ public class ReplayController : MonoBehaviour
         {
             Models.TileMap.Update(gameData);
             Models.Point.Init(gameData);
-            Debug.Log("Map Updated");
         }
         else
         {
@@ -134,10 +130,6 @@ public class ReplayController : MonoBehaviour
         initialmapdata(); //初始化地图数据
 
         nowRound = 1;
-        Debug.Log("Model Updated");
-        Debug.Log(_replay.Data.Count);
-        Debug.Log(_replay.Data[1].board[0][0]);
-        Debug.Log(_replay.Data[1].Map.Length);
         ModelUpdate(nowRound);
         Models.TileMap.Update(_replay.Data[1]);
         Models.Point.Init(_replay.Data[1]);
@@ -166,7 +158,6 @@ public class ReplayController : MonoBehaviour
         ModelUpdate(frameIndex);
         //GetComponent<ReplayDebuggingUI>().UpdateTexts();
         UpdateUI.Invoke();
-        Debug.Log("Load Ghosts Successfully");
     }
 
     public void Load_next_frame() {
@@ -179,7 +170,6 @@ public class ReplayController : MonoBehaviour
 
         var gameData = _replay.Data[nowRound];
         map_width = gameData.board.Count;
-        Debug.Log("next   " + map_width);
         ModelUpdate(nowRound);
     }
 
@@ -195,13 +185,10 @@ public class ReplayController : MonoBehaviour
     }
     #endregion
     public void ModelUpdate(int frame){
-        Debug.Log("Update Frame: " + frame);
-        Debug.Log("Round: "+ _replay.Data[frame].Round);
         if(StopreasonUI.nowtext != ""){
             StopreasonUI.UpdateText("");
         }
         if(_replay.Data[frame].StopReason != null){
-            Debug.Log("Stop Reason: " + _replay.Data[frame].StopReason);
             StopreasonUI.UpdateText(_replay.Data[frame].StopReason);
             return;
         }
@@ -256,9 +243,7 @@ public class ReplayController : MonoBehaviour
 
     public void HandleMessage(string message)   //Handle init message from Web
     {
-        Debug.Log("Received message: " + message);
         var data = JsonConvert.DeserializeObject<FrontendData>(message);
-        Debug.Log($"Message type: {data.message}, content: {data.replay_data}");
         if (data.replay_data != null)
         {
             var gamedata = JsonConvert.DeserializeObject<GameData>(data.replay_data);

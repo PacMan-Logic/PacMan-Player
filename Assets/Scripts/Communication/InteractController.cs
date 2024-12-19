@@ -18,7 +18,6 @@ public class InteractController : MonoBehaviour
     public static GameData data = null;
     public static void Interact()
     {
-        //Debug.Log($"Round: {data.Round}, Player: {data.Player}, Operation: {data.Operation}");
         if (!ModeController.IsInteractMode())
         {
             return;
