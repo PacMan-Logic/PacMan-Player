@@ -846,6 +846,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost0
       objectReference: {fileID: 0}
+    - target: {fileID: 6823493449220913065, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
+      propertyPath: m_TagString
+      value: Ghost0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5825374339669016758, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
@@ -2156,6 +2160,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6823493449220913065, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
       propertyPath: m_Name
+      value: Ghost2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6823493449220913065, guid: 94bb67b8d6ae5fe4fac7e2e2a1609bb0, type: 3}
+      propertyPath: m_TagString
       value: Ghost2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
