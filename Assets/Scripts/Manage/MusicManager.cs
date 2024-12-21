@@ -9,8 +9,10 @@ public class RandomMusicController : MonoBehaviour
     public Button toggleButton; // 控制音乐的按钮
     public TMP_Text buttonText; // 使用TextMeshPro的按钮文本
 
+    public Button next;
+
     private int currentTrackIndex = -1; // 当前播放的音乐索引
-    private bool isPlaying = true; // 音乐是否正在播放
+    private bool isPlaying = false; // 音乐是否正在播放
 
     void Start()
     {
@@ -19,12 +21,12 @@ public class RandomMusicController : MonoBehaviour
 
         // 为按钮添加点击事件监听器
         toggleButton.onClick.AddListener(ToggleMusic);
+        next.onClick.AddListener(Play_next_music);
 
         // 初始化按钮文本
         UpdateButtonText();
 
         // 开始播放第一首随机音乐
-        PlayRandomMusic();
     }
 
     void Update()
@@ -70,6 +72,11 @@ public class RandomMusicController : MonoBehaviour
 
         // 更新按钮文本
         UpdateButtonText();
+    }
+
+    public void Play_next_music()
+    {
+        PlayRandomMusic();
     }
 
     private void UpdateButtonText()
