@@ -100,7 +100,6 @@ public class PacmanMove : MonoBehaviour
     void UpdateRoute(){
         //animator.Play("pacman_eat");
         //animator.speed = ReplayController.replayspeed;
-        Debug.Log("UpdateRoute Invoked");
         currentInstructionIndex = 1;
         transform.position = GetRenderingPosition(Models.Pacman.CurrentPosition);
         Models.Pacman.NowPosition = transform.position;
