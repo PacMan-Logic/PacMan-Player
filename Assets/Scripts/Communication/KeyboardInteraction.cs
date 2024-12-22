@@ -64,7 +64,7 @@ public class KeyboardInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!isactive) return;
+        if(!isactive || InteractController.initmap) return; //防止刷新地图时产生冲突
         isselect.transform.position = obj[index].transform.position+UnityEngine.Vector3.up*0.5f+UnityEngine.Vector3.back*0.5f;
         if(InteractController.role == 0){
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)){
