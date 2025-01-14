@@ -157,7 +157,6 @@ public class ReplayController : MonoBehaviour
         is_init = true;
         ModelUpdate(frameIndex);
         //GetComponent<ReplayDebuggingUI>().UpdateTexts();
-        UpdateUI.Invoke();
     }
 
     public void Load_next_frame() {
@@ -212,6 +211,7 @@ public class ReplayController : MonoBehaviour
         Models.Ghost.Update(_replay.Data[frame]);
         Models.Pacman.Update(_replay.Data[frame]);
         Models.Data.Update(_replay.Data[frame]);
+        UpdateUI.Invoke();
     }
 
 
