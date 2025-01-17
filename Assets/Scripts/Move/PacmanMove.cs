@@ -4,6 +4,7 @@ using Enums;
 using UnityEngine;
 using Models;
 using System;
+using Unity.VisualScripting;
 
 public class PacmanMove : MonoBehaviour
 {
@@ -19,8 +20,10 @@ public class PacmanMove : MonoBehaviour
     private Vector3 prevposition;
 
     private Animator animator;
+    private Animator trail_animator;
 
     public GameObject ani_controller;
+    public GameObject trail_controller;
 
     [Header("Animation Parameters")]
     [SerializeField] private float minSpeedThreshold = 0.1f; // 最小速度阈值，低于此值视为静止
@@ -37,6 +40,7 @@ public class PacmanMove : MonoBehaviour
     void Start()
     {
         animator = ani_controller.GetComponent<Animator>();
+        trail_animator = trail_controller.GetComponent<Animator>();
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         previousPosition = transform.position; // 初始化上一帧的位置
 
@@ -48,6 +52,7 @@ public class PacmanMove : MonoBehaviour
         UpdateTargetPosition();
         Models.Pacman.OnUpdated += UpdateRoute; // 订阅 Pacman 的 OnUpdated 事件
         prevposition = transform.position;
+        trail_animator.SetBool("boost", false);
     }
 
     void Update()
@@ -73,6 +78,7 @@ public class PacmanMove : MonoBehaviour
         Models.Pacman.NowPosition = transform.position;
 
         UpdateAnimationParameters();
+        UpdateTrail();
     }
 
     void UpdateTargetPosition()
@@ -141,6 +147,47 @@ public class PacmanMove : MonoBehaviour
                 transform.localScale.y,
                 transform.localScale.z
             );
+        }
+    }
+
+    private void UpdateTrail()
+    {
+        if (Models.Pacman.Acc > 0)
+        {
+            trail_animator.SetBool("boost", true);
+        }
+        else
+        {
+            trail_animator.SetBool("boost", false);
+        }
+
+        if (Mathf.Abs(currentVelocity.y) > 0)
+        {
+            trail_controller.transform.localPosition = new Vector3(
+                    0,
+                    currentVelocity.y > 0 ? -1f : 1f,
+                    0
+                );
+            trail_controller.transform.eulerAngles = new Vector3(
+                    0,
+                    0,
+                    currentVelocity.y >0 ? 180 : 0
+                );
+            trail_controller.transform.localScale = new Vector3(5, 5, 0);
+        }
+        if (Mathf.Abs(currentVelocity.x) > 0)
+        {
+            trail_controller.transform.localPosition = new Vector3(
+                    -1f,
+                    0,
+                    0
+                );
+            trail_controller.transform.eulerAngles = new Vector3(
+                    0,
+                    0,
+                    90
+                );
+            trail_controller.transform.localScale = new Vector3(5 , currentVelocity.x > 0 ? 5 : -5, 0);
         }
     }
 }

@@ -25,6 +25,9 @@ namespace Models
         public static bool eaten = false;
         public static int current_level = 1;
 
+        public static int last_shield = 0;
+        public static bool shield_destroy = false;
+
         public static void Init (GameData jsonGameData)
         {
             CurrentPosition = new Vector2(jsonGameData.pacman_coord[0], jsonGameData.pacman_coord[1]);
@@ -48,6 +51,15 @@ namespace Models
                 Acc = jsonGameData.pacman_skills[1];
                 Magnet = jsonGameData.pacman_skills[2];
                 Shield = jsonGameData.pacman_skills[3];
+                if(Shield < last_shield)
+                {
+                    shield_destroy = true;
+                }
+                else
+                {
+                    shield_destroy = false;
+                }
+                last_shield = jsonGameData.pacman_skills[3];
             }
             if(jsonGameData.pacman_step_block.Count == 0) {
                 CurrentPosition = new Vector2(jsonGameData.pacman_coord[1], jsonGameData.pacman_coord[0]);
