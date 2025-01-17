@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Enums;
 using UnityEngine;
 using Models;
+using System;
 
 public class PacmanMove : MonoBehaviour
 {
@@ -19,6 +20,15 @@ public class PacmanMove : MonoBehaviour
 
     private Animator animator;
 
+    public GameObject ani_controller;
+
+    [Header("Animation Parameters")]
+    [SerializeField] private float minSpeedThreshold = 0.1f; // 最小速度阈值，低于此值视为静止
+    [SerializeField] private float smoothingSpeed = 10f; // 动画参数平滑过渡速度
+
+    private Vector3 previousPosition; // 上一帧的位置
+    private Vector3 currentVelocity;  // 当前速度
+
     private Vector3 GetRenderingPosition(Vector3 logicalPosition)
     {
         return (new Vector3(0.5f, 0.5f, 0) + logicalPosition);
@@ -26,9 +36,11 @@ public class PacmanMove : MonoBehaviour
 
     void Start()
     {
-        animator = GameObject.Find("animation_controller").GetComponent<Animator>();
+        animator = ani_controller.GetComponent<Animator>();
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        if(Models.Pacman.Route != null && Models.Pacman.CurrentPosition != null){
+        previousPosition = transform.position; // 初始化上一帧的位置
+
+        if (Models.Pacman.Route != null && Models.Pacman.CurrentPosition != null){
             transform.position = new Vector3(Models.Pacman.CurrentPosition.y + 0.5f, Models.Pacman.CurrentPosition.x + 0.5f, transform.position.z);
             route = Models.Pacman.Route;
             speed = level * Models.Pacman.Speed;
@@ -59,6 +71,8 @@ public class PacmanMove : MonoBehaviour
             transform.position = GetRenderingPosition(Models.Pacman.NextPosition);
         }
         Models.Pacman.NowPosition = transform.position;
+
+        UpdateAnimationParameters();
     }
 
     void UpdateTargetPosition()
@@ -72,16 +86,16 @@ public class PacmanMove : MonoBehaviour
                 return;
             }
             targetPosition = new Vector3(route[currentInstructionIndex][1] + 0.5f, route[currentInstructionIndex][0] + 0.5f, 0);
-            moveDirection = targetPosition - transform.position;
-            if(moveDirection == Vector3.right){
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-            }else if(moveDirection == Vector3.left){
-                transform.rotation = Quaternion.Euler(0, 180, 0);
-            }else if(moveDirection == Vector3.up){
-                transform.rotation = Quaternion.Euler(0, 0, 90);
-            }else if(moveDirection == Vector3.down){
-                transform.rotation = Quaternion.Euler(0, 0, 270);
-            }
+            //moveDirection = targetPosition - transform.position;
+            //if(moveDirection == Vector3.right){
+            //    transform.rotation = Quaternion.Euler(0, 0, 0);
+            //}else if(moveDirection == Vector3.left){
+            //    transform.rotation = Quaternion.Euler(0, 180, 0);
+            //}else if(moveDirection == Vector3.up){
+            //    transform.rotation = Quaternion.Euler(0, 0, 90);
+            //}else if(moveDirection == Vector3.down){
+            //    transform.rotation = Quaternion.Euler(0, 0, 270);
+            //}
             prevposition = transform.position;
             isMoving = true;
         }
@@ -109,5 +123,24 @@ public class PacmanMove : MonoBehaviour
         //     animator.Play("pacman_death");
         // }
         UpdateTargetPosition();
+    }
+
+    private void UpdateAnimationParameters()
+    {
+        currentVelocity = (transform.position - previousPosition) / Time.deltaTime;
+        previousPosition = transform.position; // 更新上一帧的位置
+
+        // 更新动画器参数
+        animator.SetFloat("Horizontal", currentVelocity.x);
+        animator.SetFloat("Vertical", currentVelocity.y);
+
+        if (Mathf.Abs(currentVelocity.x) > minSpeedThreshold)
+        {
+            transform.localScale = new Vector3(
+                Mathf.Sign(currentVelocity.x),
+                transform.localScale.y,
+                transform.localScale.z
+            );
+        }
     }
 }
