@@ -68,7 +68,7 @@ public class KeyboardInteraction : MonoBehaviour
         isselect.transform.position = obj[index].transform.position+UnityEngine.Vector3.up*0.5f+UnityEngine.Vector3.back*0.5f;
         if(InteractController.role == 0){
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)){
-                obj[0].transform.rotation = UnityEngine.Quaternion.Euler(0, 0, 90);
+                //obj[0].transform.rotation = UnityEngine.Quaternion.Euler(0, 0, 90);
                 action[0] = MovementType.Up;
                 direction = new UnityEngine.Vector3(0, 1, 0);
                 clone[0].transform.position = obj[0].transform.position+direction*Models.Pacman.Speed;
@@ -76,7 +76,7 @@ public class KeyboardInteraction : MonoBehaviour
                 clone[0].GetComponent<LineRenderer>().enabled = true;
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)){
-                obj[0].transform.rotation = UnityEngine.Quaternion.Euler(0, 0, 270);
+                //obj[0].transform.rotation = UnityEngine.Quaternion.Euler(0, 0, 270);
                 action[0] = MovementType.Down;
                 direction = new UnityEngine.Vector3(0, -1, 0);
                 clone[0].transform.position = obj[0].transform.position+direction*Models.Pacman.Speed;
@@ -84,7 +84,7 @@ public class KeyboardInteraction : MonoBehaviour
                 clone[0].GetComponent<LineRenderer>().enabled = true;
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)){
-                obj[0].transform.rotation = UnityEngine.Quaternion.Euler(0, 180, 0);
+                //obj[0].transform.rotation = UnityEngine.Quaternion.Euler(0, 180, 0);
                 action[0] = MovementType.Left;
                 direction = new UnityEngine.Vector3(-1, 0, 0);
                 clone[0].transform.position = obj[0].transform.position+direction*Models.Pacman.Speed;
@@ -92,7 +92,7 @@ public class KeyboardInteraction : MonoBehaviour
                 clone[0].GetComponent<LineRenderer>().enabled = true;
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)){
-                obj[0].transform.rotation = UnityEngine.Quaternion.Euler(0, 0, 0);
+                //obj[0].transform.rotation = UnityEngine.Quaternion.Euler(0, 0, 0);
                 action[0] = MovementType.Right;
                 direction = new UnityEngine.Vector3(1, 0, 0);
                 clone[0].transform.position = obj[0].transform.position+direction*Models.Pacman.Speed;

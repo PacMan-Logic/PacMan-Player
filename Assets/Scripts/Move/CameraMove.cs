@@ -30,7 +30,13 @@ public class WebGLMouseControl : MonoBehaviour
         last_map_width = 0;
         replayController = GetComponent<ReplayController>();
         targetCamera.transform.position = new Vector3(20, 19, -10);
-        targetCamera.orthographicSize = 21; //初始化
+        targetCamera.orthographicSize = 21; //初始
+        if (ModeController.IsInteractMode())
+        {
+            index = 0;
+            is_first = true;
+            target = null;
+        }
     }
 
     void Update()
@@ -42,7 +48,9 @@ public class WebGLMouseControl : MonoBehaviour
             targetCamera.Render(); // 强制渲染
         }
         camera_follow();
-        Get_Keybroad_inout();
+        if (ModeController.IsReplayMode()) {
+            Get_Keybroad_inout();
+        }
     }
 
     private void LateUpdate()
