@@ -15,5 +15,6 @@ namespace Enums
         Shield = 5,
         Double = 6,
         Teleport = 7,
+        Stop = 8,
     }
 }

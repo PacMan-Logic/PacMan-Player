@@ -197,6 +197,7 @@ public class ReplayController : MonoBehaviour
             Models.Pacman.Magnet = 0;
             Models.Pacman.Acc = 0;
             Models.Pacman.Shield = 0;
+            Models.Pacman.Stop = 0;
             Models.Pacman.NowPosition = new Vector3(-1000,-1000,0);
             Models.TileMap.Update(_replay.Data[frame]);
             map_width = _replay.Data[frame].board.Count;

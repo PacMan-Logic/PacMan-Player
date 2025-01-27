@@ -72,6 +72,7 @@ public class PacmanMove : MonoBehaviour
                 Models.Pacman.Magnet = 0;
                 Models.Pacman.Acc = 0;
                 Models.Pacman.Shield = 0;
+                Models.Pacman.Stop = 0;
             }
             transform.position = GetRenderingPosition(Models.Pacman.NextPosition);
         }

@@ -240,6 +240,25 @@ public class PointMove : MonoBehaviour
                     }
                     break;
                 }
+            case Enums.TileType.Stop:
+                {
+                    GameObject prefab = Resources.Load<GameObject>("Prefabs/Stop");
+                    GameObject prop = Instantiate(prefab, new Vector3(Models.Point.InitPosition.x, Models.Point.InitPosition.y, 0), Quaternion.identity);
+
+                    prop.tag = "Stop";
+                    prop.name = "Stop";
+
+                    GameObject propsParent = GameObject.Find("Props");
+                    if (propsParent != null)
+                    {
+                        prop.transform.SetParent(propsParent.transform);
+                    }
+                    else
+                    {
+                        Debug.LogError("未找到名为 'Props' 的 GameObject，请确保它存在于场景中。");
+                    }
+                    break;
+                }
         }
     }
 

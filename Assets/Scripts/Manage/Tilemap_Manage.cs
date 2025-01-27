@@ -136,6 +136,14 @@ public class Tilemap_Manage
                             mapdata.TileList.Add(tile);
                             break;
                         }
+                    case 9:
+                        {
+                            tile.Type = Enums.TileType.Stop;
+                            tile.TileName = "Stop";
+                            tile.x = j;tile.y= i;
+                            mapdata.TileList.Add(tile);
+                            break;
+                        }
                 }
             }
         }
