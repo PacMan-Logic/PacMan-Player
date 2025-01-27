@@ -59,19 +59,19 @@ public class WebGLMouseControl : MonoBehaviour
         {
             Console.WriteLine("Overall Mode Working");
             is_following = false;
-            if (replayController.map_width == 38)
+            if (replayController.map_width == 41)
             {
                 targetCamera.transform.position = new Vector3(20, 19, -10);
                 last_map_width = replayController.map_width;
                 targetCamera.orthographicSize = 21;
             }
-            else if (replayController.map_width == 29)
+            else if (replayController.map_width == 32)
             {
                 targetCamera.transform.position = new Vector3(15, 15, -10);
                 last_map_width = replayController.map_width;
                 targetCamera.orthographicSize = 16;
             }
-            else if (replayController.map_width == 20)
+            else if (replayController.map_width == 22)
             {
                 targetCamera.transform.position = new Vector3(10, 10, -10);
                 last_map_width = replayController.map_width;
@@ -157,19 +157,19 @@ public class WebGLMouseControl : MonoBehaviour
     {
         if (index == 0)
         {
-            if (replayController.map_width != last_map_width && replayController.map_width == 38)
+            if (replayController.map_width != last_map_width && replayController.map_width == 41)
             {
                 targetCamera.transform.position = new Vector3(20, 19, -10);
                 last_map_width = replayController.map_width;
                 targetCamera.orthographicSize = 21;
             }
-            else if (replayController.map_width != last_map_width && replayController.map_width == 29)
+            else if (replayController.map_width != last_map_width && replayController.map_width == 32)
             {
                 targetCamera.transform.position = new Vector3(15, 15, -10);
                 last_map_width = replayController.map_width;
                 targetCamera.orthographicSize = 16;
             }
-            else if (replayController.map_width != last_map_width && replayController.map_width == 20)
+            else if (replayController.map_width != last_map_width && replayController.map_width == 22)
             {
                 targetCamera.transform.position = new Vector3(10, 10, -10);
                 last_map_width = replayController.map_width;

@@ -24,7 +24,7 @@ public class ReplayController : MonoBehaviour
     public bool is_init = false;
     public bool eaten = false;
     public static int replayspeed = 1;
-    public int map_width = 38;
+    public int map_width = 41;
     public int trueround;
 
 
@@ -34,7 +34,7 @@ public class ReplayController : MonoBehaviour
         onNewFrameLoaded += LoadOrderly;
         if (onNewFrameLoaded != null)
             onNewFrameLoaded.Invoke();
-        map_width = 38;
+        map_width = 41;
     }
 
     void FixedUpdate(){
