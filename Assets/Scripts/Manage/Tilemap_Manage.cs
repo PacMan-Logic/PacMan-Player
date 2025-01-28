@@ -35,6 +35,11 @@ public class Tilemap_Manage
                 TileBase input_tile = Resources.Load<TileBase>("Tiles/" + tile.TileName);
                 tilemap.SetTile(new Vector3Int(tile.x, tile.y, 0), input_tile);
             }
+            else
+            {
+                TileBase input_tile = Resources.Load<TileBase>("Tiles/Wall_00");
+                tilemap.SetTile(new Vector3Int(tile.x, tile.y, 0), input_tile);
+            }
         }
     }
 
@@ -67,12 +72,20 @@ public class Tilemap_Manage
                             mapdata.TileList.Add(tile);
                             break;
                         }
+                    case 1:
+                        {
+                            tile.Type = Enums.TileType.Empty;
+                            tile.TileName = "Wall_00";
+                            tile.x = j; tile.y = i;
+                            mapdata.TileList.Add(tile);
+                            break;
+                        }
                     case 2:
                         {
                             tile.Type = Enums.TileType.PacDot;
                             tile.TileName = "PacDot";
                             tile.x = j;tile.y = i;
-                            mapdata.TileList.Add(tile); 
+                            mapdata.TileList.Add(tile);
                             break;
                         }
                     case 3:
@@ -115,11 +128,19 @@ public class Tilemap_Manage
                             mapdata.TileList.Add(tile);
                             break;
                         }
-                    case 8:
+                    case 9:
                         {
                             tile.Type = Enums.TileType.Teleport;
                             tile.TileName = "Teleport";
                             tile.x = j;tile.y = i;
+                            mapdata.TileList.Add(tile);
+                            break;
+                        }
+                    case 8:
+                        {
+                            tile.Type = Enums.TileType.Stop;
+                            tile.TileName = "Stop";
+                            tile.x = j;tile.y= i;
                             mapdata.TileList.Add(tile);
                             break;
                         }

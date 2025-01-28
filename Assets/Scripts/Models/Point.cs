@@ -14,7 +14,6 @@ namespace Models
         {
             clear_props();
             var map = gameData.Map;
-            Debug.Log(map);
             foreach (var tile in map.TileList)
             {
                 if (tile.Type == Enums.TileType.PacDot)
@@ -42,6 +41,7 @@ namespace Models
             Points.AddRange(GameObject.FindGameObjectsWithTag("Acceleration"));
             Points.AddRange(GameObject.FindGameObjectsWithTag("Magnet"));
             Points.AddRange(GameObject.FindGameObjectsWithTag("Teleport"));
+            Points.AddRange(GameObject.FindGameObjectsWithTag("Stop"));
 
             if (Points != null && Points.Count > 0)
             {

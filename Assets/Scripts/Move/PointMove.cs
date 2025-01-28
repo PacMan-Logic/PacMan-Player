@@ -54,7 +54,6 @@ public class PointMove : MonoBehaviour
     void PerformCollisionCheck()
     {
         if(Vector3.Distance(transform.position, Models.Pacman.NowPosition) <= Constants.Constants.NormalRadius){
-            Debug.Log("Eat a Point.");
                 if (this.CompareTag("Acceleration"))
                 {
                     Models.Pacman.Speed = 2; //加速，为了交互时显示
@@ -241,12 +240,31 @@ public class PointMove : MonoBehaviour
                     }
                     break;
                 }
+            case Enums.TileType.Stop:
+                {
+                    GameObject prefab = Resources.Load<GameObject>("Prefabs/Stop");
+                    GameObject prop = Instantiate(prefab, new Vector3(Models.Point.InitPosition.x, Models.Point.InitPosition.y, 0), Quaternion.identity);
+
+                    prop.tag = "Stop";
+                    prop.name = "Stop";
+
+                    GameObject propsParent = GameObject.Find("Props");
+                    if (propsParent != null)
+                    {
+                        prop.transform.SetParent(propsParent.transform);
+                    }
+                    else
+                    {
+                        Debug.LogError("未找到名为 'Props' 的 GameObject，请确保它存在于场景中。");
+                    }
+                    break;
+                }
         }
     }
 
     void MagnetMove()
     {
         Vector3 target = pacmen.transform.position;
-        transform.position = Vector3.MoveTowards(transform.position, target, 21f * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target, 7f*ReplayController.replayspeed*Time.deltaTime);
     }
 }

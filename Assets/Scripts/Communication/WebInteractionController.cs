@@ -119,27 +119,22 @@ public class WebInteractionController : MonoBehaviour
             var judgerData = JsonConvert.DeserializeObject<JudgerData>(information);
             if (judgerData.request == "action")
             {
-                Debug.Log("content:"+judgerData.content + "length:"+judgerData.content.Length);
                 if (InteractController.setRole == false)//读取第一条逻辑发来的0或1
                 {
                     if (judgerData.content == "0\n")
                     {
-                        Debug.Log("is0");
                         InteractController.SetRole(0);
                         GameObject.Find("Main Controller").GetComponent<KeyboardInteraction>().enabled=true;
                         GameObject.Find("Main Controller").GetComponent<KeyboardInteraction>().pausekeyboard(0f); //刷新
                     }
                     else if (judgerData.content == "1\n")
                     {
-                        Debug.Log("is1");
                         InteractController.SetRole(1);
                         GameObject.Find("Main Controller").GetComponent<KeyboardInteraction>().enabled=true;
                         GameObject.Find("Main Controller").GetComponent<KeyboardInteraction>().pausekeyboard(0f);
                     }
                     else
                     {
-                        Debug.Log("Error: JudgerData.content is not 0 or 1");
-                        Debug.Log(judgerData.content);
                         SendErrorToFrontend(judgerData.content);
                     }
                 }
@@ -148,27 +143,23 @@ public class WebInteractionController : MonoBehaviour
                     try{
                         var gamedata = JsonConvert.DeserializeObject<GameData>(judgerData.content);
                         if(gamedata.StopReason != null){
-                            Debug.Log("StopReason: " + gamedata.StopReason);
                             GameObject.Find("Main Controller").GetComponent<KeyboardInteraction>().enabled=false;
                             StopreasonUI.nowtext = gamedata.StopReason;
                             Invoke("showstopreason",1.2f);
                         }
                     }catch (Exception e){
-                        Debug.Log("Error: JudgerData.content is not a valid GameData");
+                        //Debug.Log("Error: JudgerData.content is not a valid GameData");
                     }
                     if (!InteractController.other_finish)//根据和逻辑组的约定，这次的信息是"player {i} send info",并不需要实际处理
                     {
-                        Debug.Log("get_other_info");
                         InteractController.other_finish = true;
                     }
                     else
                     {
-                        Debug.Log("get_game_data");
                         var jsonData = JsonConvert.DeserializeObject<GameData>(judgerData.content);
                         jsonData.Map = Tilemap_Manage.convert(jsonData.board);
                         InteractController.other_finish = false;
                         if(InteractController.initmap && InteractController.data != null) {
-                            Debug.Log("Updateagain");
                             InteractController.data = jsonData;
                             Invoke("UpdateInteractMap",2f);
                         }else{
@@ -193,7 +184,6 @@ public class WebInteractionController : MonoBehaviour
 
     //隔一段时间再更新地图（在进入下一关时）
     void UpdateInteractMap(){
-        Debug.Log("UpdateMapagain");
         InteractController.Interact();
     }
 
@@ -271,25 +261,23 @@ public class WebInteractionController : MonoBehaviour
                     GetComponent<ModeController>().SwitchReplayMode();
                     //GetComponent<ReplayController>().MsgToReplay(msg.replay_data);
                     int frameCount = msg.payload;
-                    Debug.Log(frameCount);
                     for(int i = 0;i < frameCount;i++){
                         Getoperation(i);
-                        Debug.Log(1111111);
                     }
                     //GetComponent<ReplayController>().MsgToReplay(msg.replay_data);
                     GetComponent<ReplayController>().ReplayFileInitialized();
                     SendFrameCountToFrontend(frameCount - 1);
                     break;
                 case FrontendData.MsgType.load_frame:
-                    Debug.Log("Load frame " + msg.index);
+                    //Debug.Log("Load frame " + msg.index);
                     GetComponent<ReplayController>().LoadFrame(msg.index);
                     break;
                 case FrontendData.MsgType.load_next_frame:
-                    Debug.Log("Load the next frame.");
+                    //Debug.Log("Load the next frame.");
                     ReplayController.stepFrame();
                     break;
                 case FrontendData.MsgType.load_players:
-                    Debug.Log("Load Player name.");
+                    //Debug.Log("Load Player name.");
                     GetComponent<ReplayController>().SetPlayerName(msg.players);
                     break;
                 case FrontendData.MsgType.play_speed:
@@ -317,7 +305,7 @@ public class WebInteractionController : MonoBehaviour
         var gameData = JsonConvert.DeserializeObject<GameData>(Operation);
         gameData.Map = Tilemap_Manage.convert(gameData.board);
         GetComponent<ReplayController>().AddDataToReplay(gameData);
-        Debug.Log(Operation);
+        //Debug.Log(Operation);
     }
 
 

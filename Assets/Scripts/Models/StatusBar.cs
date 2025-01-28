@@ -1,4 +1,5 @@
 using Models;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +20,6 @@ public class StatusBar : MonoBehaviour
         UpdateStatusBar(currentStatusTypes);
         GameObject gameObject = GameObject.Find("Main Controller");
         replayController = gameObject.GetComponent<ReplayController>();
-        ReplayController.onNewFrameLoaded += ChangeStatus;
         ReplayController.UpdateUI += ChangeStatus;
         InteractController.UpdateUI += ChangeStatus;
     }

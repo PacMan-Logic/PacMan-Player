@@ -19,6 +19,17 @@ public class GhostMove : MonoBehaviour
 
     private Vector3 prevposition;
 
+    private Animator animator;
+
+    public GameObject ani_controller;
+
+    [Header("Animation Parameters")]
+    [SerializeField] private float minSpeedThreshold = 0.1f; // 最小速度阈值，低于此值视为静止
+    [SerializeField] private float smoothingSpeed = 10f; // 动画参数平滑过渡速度
+
+    private Vector3 previousPosition; // 上一帧的位置
+    private Vector3 currentVelocity;  // 当前速度
+
     private Vector3 GetRenderingPosition(Vector3 logicalPosition)
     {
         return (new Vector3(0.5f, 0.5f, 0) + logicalPosition);
@@ -26,6 +37,7 @@ public class GhostMove : MonoBehaviour
 
     void Start()
     {
+        animator = ani_controller.GetComponent<Animator>();
         if(Models.Ghost.AllGhosts != null && Models.Ghost.AllGhosts.Count > Id)
         {
             transform.position = GetRenderingPosition(Models.Ghost.AllGhosts[Id].CurrentPosition);
@@ -50,6 +62,7 @@ public class GhostMove : MonoBehaviour
         }else{
             transform.position = GetRenderingPosition(Models.Ghost.AllGhosts[Id].NextPosition);
         }
+        UpdateAnimationParameters();
     }
 
     void UpdateTargetPosition()
@@ -86,5 +99,24 @@ public class GhostMove : MonoBehaviour
         route = Models.Ghost.AllGhosts[Id].Route;
         speed = level * Models.Ghost.AllGhosts[Id].Speed;
         UpdateTargetPosition();
+    }
+
+    private void UpdateAnimationParameters()
+    {
+        currentVelocity = (transform.position - previousPosition) / Time.deltaTime;
+        previousPosition = transform.position; // 更新上一帧的位置
+
+        // 更新动画器参数
+        animator.SetFloat("Horizontal", currentVelocity.x);
+        animator.SetFloat("Vertical", currentVelocity.y);
+
+        if (Mathf.Abs(currentVelocity.x) > minSpeedThreshold)
+        {
+            transform.localScale = new Vector3(
+                Mathf.Sign(currentVelocity.x),
+                transform.localScale.y,
+                transform.localScale.z
+            );
+        }
     }
 }

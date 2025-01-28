@@ -18,7 +18,6 @@ public class InteractController : MonoBehaviour
     public static GameData data = null;
     public static void Interact()
     {
-        //Debug.Log($"Round: {data.Round}, Player: {data.Player}, Operation: {data.Operation}");
         if (!ModeController.IsInteractMode())
         {
             return;
@@ -28,6 +27,7 @@ public class InteractController : MonoBehaviour
             Models.Pacman.Magnet = 0;
             Models.Pacman.Acc = 0;
             Models.Pacman.Shield = 0;
+            Models.Pacman.Stop = 0;
             Models.Pacman.NowPosition = new Vector3(-1000,-1000,0);
             Models.TileMap.Update(data);
             Models.Point.Init(data);
