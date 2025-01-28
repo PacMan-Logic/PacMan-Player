@@ -128,7 +128,7 @@ public class Tilemap_Manage
                             mapdata.TileList.Add(tile);
                             break;
                         }
-                    case 8:
+                    case 9:
                         {
                             tile.Type = Enums.TileType.Teleport;
                             tile.TileName = "Teleport";
@@ -136,7 +136,7 @@ public class Tilemap_Manage
                             mapdata.TileList.Add(tile);
                             break;
                         }
-                    case 9:
+                    case 8:
                         {
                             tile.Type = Enums.TileType.Stop;
                             tile.TileName = "Stop";

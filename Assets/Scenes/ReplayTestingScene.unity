@@ -1760,6 +1760,18 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2230093278075654589, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
+      propertyPath: new_controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0395520f0f28f26448faafe11f017b18, type: 2}
+    - target: {fileID: 2230093278075654589, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
+      propertyPath: new_controller_0
+      value: 
+      objectReference: {fileID: 9100000, guid: 0395520f0f28f26448faafe11f017b18, type: 2}
+    - target: {fileID: 2230093278075654589, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
+      propertyPath: new_controller_1
+      value: 
+      objectReference: {fileID: 9100000, guid: b5a37e24ecbe0788589b2792f480469a, type: 2}
     - target: {fileID: 3215910051744412659, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
       propertyPath: moveDistance
       value: 1.28
@@ -1863,6 +1875,10 @@ PrefabInstance:
     - target: {fileID: 5032109454443392140, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7571133808622290424, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
+      propertyPath: m_Controller
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2123590788116352689, guid: 3b72497c42342194194fad501de9e0a1, type: 3}
