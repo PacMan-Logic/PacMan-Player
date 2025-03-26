@@ -224,16 +224,16 @@ public class ReplayController : MonoBehaviour
                     int x = _replay.Data[i-1].pacman_step_block[j][0];
                     int y = _replay.Data[i-1].pacman_step_block[j][1];
                     if(x >= 0){
-                        if(_replay.Data[i].board[x][y]!=8)_replay.Data[i].board[x][y] = 1;
+                        if(_replay.Data[i].board[x][y]!=9)_replay.Data[i].board[x][y] = 1;
                         if(_replay.Data[i-1].pacman_skills[2] > 0){ //magnet
-                            if(_replay.Data[i].board[x-1][y] > 1 && _replay.Data[i].board[x-1][y] != 8) _replay.Data[i].board[x-1][y] = 1;
-                            if(_replay.Data[i].board[x+1][y] > 1 && _replay.Data[i].board[x+1][y] != 8) _replay.Data[i].board[x+1][y] = 1;
-                            if(_replay.Data[i].board[x][y-1] > 1 && _replay.Data[i].board[x][y-1] != 8) _replay.Data[i].board[x][y-1] = 1;
-                            if(_replay.Data[i].board[x][y+1] > 1 && _replay.Data[i].board[x][y+1] != 8) _replay.Data[i].board[x][y+1] = 1;
-                            if(_replay.Data[i].board[x+1][y+1] > 1 && _replay.Data[i].board[x+1][y+1] != 8) _replay.Data[i].board[x+1][y+1] = 1;
-                            if(_replay.Data[i].board[x+1][y-1] > 1 && _replay.Data[i].board[x+1][y-1] != 8) _replay.Data[i].board[x+1][y-1] = 1;
-                            if(_replay.Data[i].board[x-1][y+1] > 1 && _replay.Data[i].board[x-1][y+1] != 8) _replay.Data[i].board[x-1][y+1] = 1;
-                            if(_replay.Data[i].board[x-1][y-1] > 1 && _replay.Data[i].board[x-1][y-1] != 8) _replay.Data[i].board[x-1][y-1] = 1;
+                            if(_replay.Data[i].board[x-1][y] > 1 && _replay.Data[i].board[x-1][y] != 9) _replay.Data[i].board[x-1][y] = 1;
+                            if(_replay.Data[i].board[x+1][y] > 1 && _replay.Data[i].board[x+1][y] != 9) _replay.Data[i].board[x+1][y] = 1;
+                            if(_replay.Data[i].board[x][y-1] > 1 && _replay.Data[i].board[x][y-1] != 9) _replay.Data[i].board[x][y-1] = 1;
+                            if(_replay.Data[i].board[x][y+1] > 1 && _replay.Data[i].board[x][y+1] != 9) _replay.Data[i].board[x][y+1] = 1;
+                            if(_replay.Data[i].board[x+1][y+1] > 1 && _replay.Data[i].board[x+1][y+1] != 9) _replay.Data[i].board[x+1][y+1] = 1;
+                            if(_replay.Data[i].board[x+1][y-1] > 1 && _replay.Data[i].board[x+1][y-1] != 9) _replay.Data[i].board[x+1][y-1] = 1;
+                            if(_replay.Data[i].board[x-1][y+1] > 1 && _replay.Data[i].board[x-1][y+1] != 9) _replay.Data[i].board[x-1][y+1] = 1;
+                            if(_replay.Data[i].board[x-1][y-1] > 1 && _replay.Data[i].board[x-1][y-1] != 9) _replay.Data[i].board[x-1][y-1] = 1;
                         }
                     }
                 }
